@@ -1,0 +1,230 @@
+/*! normalize-opentype.css v0.2.3 | MIT License | kennethormandy.com/journal/normalize-opentype-css */
+
+/**
+ * 1. Inherit style issues with custom selections, per robsterlini.co.uk/journal/opentype-and-selection-dont-mix
+ * 2. Turn on kerning, standard ligatures, and proportional, oldstyle numerals
+ *    Turn off all other ligatures, tabular, lining numerals, and alternates
+ * 3. Hard-codes fallback text selection for issue #18, color is Chrome’s per via http://stackoverflow.com/a/16094931/864799
+ */
+
+::selection {
+  color: inherit; /* 1. */
+  text-shadow: inherit; /* 2. */
+  background-color: #ACCEF7; /* 3. */
+}
+
+html,
+body {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0, "dlig" 0; /* 2. */
+}
+
+/* Headings
+========================================================================== */
+
+/**
+ * 1. Turn on discretionary ligatures for larger headings
+ */
+
+h1,
+h2,
+h3 {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0, "dlig" 1; /* 1. */
+}
+
+/* Text-level semantics
+========================================================================== */
+
+/**
+ * 1. Change all letters to uppercase
+ * 2. Turn on small caps for upper and lowercase letters
+ */
+
+abbr {
+  text-transform: uppercase; /* 1 */
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0, "smcp" 1, "c2sc" 1; /* 2 */
+}
+
+/*
+ * TODO: Turn on diagonal fractions where appropriate
+ */
+
+time {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0;
+}
+
+/*
+ * 1. Turn off kerning and ligatures,
+ *    Turn on lining, tabular numerals, slashed zero
+ */
+
+pre,
+kbd,
+samp,
+code {
+  font-feature-settings: "kern" 0, "liga" 0, "calt" 1, "dlig" 0, "pnum" 0, "tnum" 1, "onum" 0, "lnum" 1, "zero" 1; /* 1. */
+}
+
+mark {
+}
+
+small {
+}
+
+cite {
+}
+
+/**
+ * 1. Turn on proper supercript numerals
+ */
+
+sup {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0, "dlig" 0, "sups" 1; /* 1. */
+}
+
+/**
+ * 1. Turn on proper subscript numerals
+ */
+
+sub {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0, "dlig" 0, "subs" 1; /* 1. */
+}
+
+
+/* Grouping content
+========================================================================== */
+
+figcaption {
+}
+
+blockquote,
+q {
+}
+
+/**
+ * TODO: Adds proper bullets
+ */
+
+ul {
+}
+
+/*
+ * TODO:
+ * 1. Adds counters for lists
+ * 2. Use proper numerals for lists
+ */
+
+ol {
+}
+
+/**
+ * Adds proper small caps
+ */
+
+dl,
+dd,
+dl,
+dt,
+dfn {
+}
+
+/**
+ * TODO: scmp, sc2c, pnum, case sensitive forms for postal codes
+ */
+
+address {
+}
+
+
+/* Forms
+========================================================================== */
+
+/**
+ * 1. Turns on lining, proportional numerals without clarified zeroes
+ * TODO: Additional input modes https://developer.mozilla.org/en/docs/Web/HTML/Element/Input#attr-inputmode
+ */
+
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="number"],
+input[type="range"],
+input[type="tel"],
+input[type="week"] {
+  font-feature-settings: "kern" 0, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 0, "lnum" 1, "zero" 0; /* 1. */
+}
+
+/* Localisation
+========================================================================== */
+
+// /**
+//  * According to Wikipedia: http://en.wikipedia.org/wiki/Non-English_usage_of_quotation_marks
+//  * This is built on prior knowledge, which I would like to find and cite
+//  */
+//
+// :lang(cy) q {
+//   quotes: '\2018' '\2019' '\201C' '\201D' '\2018' '\2019' '\201C' '\201D';
+//   /*         ‘       ’       “       ”       ‘       ’       “       ”  */
+// }
+//
+// :lang(af) q,
+// :lang(zh) q,
+// :lang(en) q,
+// :lang(en-us) q,
+// :lang(eo) q,
+// :lang(id) q,
+// :lang(ga) q,
+// :lang(ko) q,
+// :lang(pt-br) q,
+// :lang(th) q,
+// :lang(tr) q {
+//   quotes: '\201C' '\201D' '\2018' '\2019' '\201C' '\201D' '\2018' '\2019';
+//   /*         “       ”       ‘       ’       “       ”       ‘       ’  */
+// }
+//
+// :lang(sq) q,
+// :lang(bs) q {
+//   quotes: '\201E' '\201C' '\2018' '\2019' '\201E' '\201C' '\2018' '\2019';
+//   /*         „       “       ‘       ’       „       “       ‘       ’  */
+// }
+//
+// :lang(ar) q {
+//   quotes: '\201D' '\201C';
+//   /*         ”       “  */
+// }
+//
+// :lang(cs) q,
+// :lang(de) q,
+// :lang(sk) q,
+// :lang(sl) q,
+// :lang(sb) q,
+// :lang(is) q {
+//   quotes: '\201E' '\201C' '\201A' '\2018' '\201E' '\201C' '\201A' '\2018';
+//   /*         „       “       ‚       ‘       „       “       ‚       ‘  */
+// }
+//
+// q:before {
+//   content: open-quote;
+// }
+//
+// q:after {
+//   content: close-quote;
+// }
+
+
+/* Tables
+========================================================================== */
+
+/**
+ * 1. Resets tables to the same settings as the body.
+ * 2. Turns on tabular, lining numerals and slashed zero
+ */
+
+table {
+  @extend body; /* 1.*/
+}
+
+tbody,
+caption {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 0, "tnum" 1, "onum" 0, "lnum" 1, "zero" 1; /* 2. */
+}

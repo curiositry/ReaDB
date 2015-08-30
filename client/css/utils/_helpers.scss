@@ -1,0 +1,88 @@
+.inline{
+  display:inline;
+}
+
+.center-text{
+  text-align: center;  
+}
+
+.sc {
+  -moz-font-feature-settings: "smcp=1";
+  -moz-font-feature-settings: "smcp";
+  -ms-font-feature-settings: "smcp";
+  -webkit-font-feature-settings: "smcp";
+  -o-font-feature-settings: "smcp";
+  font-feature-settings: "smcp";
+}
+
+.cf:before,
+.cf:after {
+  content: " ";
+  display: table;
+}
+
+.cf:after {
+  clear: both;
+}
+
+.cf {
+  *zoom: 1;
+}
+
+.m0a {
+  margin: 0 auto;
+}
+
+.mt0 {
+  margin-top: 0 !important;
+}
+
+.mb0 {
+  margin-bottom: 0 !important;
+}
+
+.p1rem {
+  padding: 1rem;
+}
+
+.m1rem {
+  margin: 1rem;
+}
+
+.full, .full-width {
+  width: 100%;
+}
+
+.unstyled-anchor, .unstyled-anchor:hover, .unstyled-anchor:active{
+  text-decoration: inherit;
+  border:inherit;
+  color:inherit;
+}
+
+.hcenter {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.sans-serif {
+  font-family: $interface-font-stack;
+}
+
+.serif {
+  font-family: $text-font-stack;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.amp {
+  font-family: 'Libre Baskerville', Baskerville, 'Goudy Old Style', Palatino, 'Book Antiqua', serif;
+  font-style: italic;
+  font-weight: normal;
+  opacity:0.8;
+}

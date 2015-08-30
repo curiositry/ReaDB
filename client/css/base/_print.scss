@@ -1,0 +1,57 @@
+@media print{
+  
+  html {
+    // font-size:85%;
+  }
+  
+  body {
+    background: #fff;
+    color: #000;
+    padding-top: 2cm !important;
+    padding: 0 24pt;
+    // font-size: 12pt;
+  }
+  
+  p {
+    // font-size: 12pt;
+  }
+  
+  p a {
+    font-size: calc(85% * 12pt) !important;
+    font-size: 8pt !important;
+    color:#222;
+  }
+  
+  hr + p {
+    margin-left: 0.5rem;
+  }
+  
+  h1 {
+    font-size: 36pt !important;
+  }
+  
+  h4 {
+    font-size: 14pt !important;
+  }
+
+  p a:after {
+    content: " (" attr(href) ")";
+    font-size: 80%;
+  }
+
+  .main-header__navigation, 
+  footer,
+  header {
+    display: none;
+  }
+  
+  .main-header {
+    position: absolute;
+    top:0;
+    display: none;
+  }
+
+  @page {
+    margin: 48pt;
+  }
+}

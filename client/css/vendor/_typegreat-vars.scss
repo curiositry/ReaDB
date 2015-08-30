@@ -1,0 +1,174 @@
+// $Base
+// -------------------------------------//
+// General base styles for type
+//
+// $typgr8-custom-font               [<"Custom-Font-Name">[, <fallback>]]
+// $typgr8-font-size                 112.5% converts to an 18px base
+// $typgr8-font-base                 converts % base value to a px value (16 * (112.5/100) = 18)
+// $typgr8-font-family               non-font-face stack
+
+$typgr8-serif-boolean: true !default;
+$typgr8-custom-font: false !default;
+$typgr8-font-family: if($typgr8-serif-boolean, serif, sans-serif) !default;
+$typgr8-font-weight: normal !default;
+$typgr8-line-height: 1.5 !default;
+$typgr8-font-size: 112.5 !default;
+$typgr8-font-base: 16 * ($typgr8-font-size/100) !default;
+$typgr8-measure: $typgr8-font-base * $typgr8-line-height !default;
+$typgr8-prefixes: -webkit-, -moz-, -ms-, '' !default;
+
+
+// $Paragraphs
+// -------------------------------------//
+// Controls paragraphs vertical whitespace
+// for subsequent paragraphs.
+//
+// $typgr8-paragraph-spacing             [<'false'> | <'true'>]
+
+$typgr8-paragraph-spacing: true;
+$typgr8-indent-val: 2rem;
+
+
+// $Small-Print
+// -------------------------------------//
+
+$typgr8-small-print-size: 80% !default;
+
+
+// $Base-Colors
+// -------------------------------------//
+
+$typgr8-heading-color: #222 !default;
+$typgr8-copy-color: #444 !default;
+
+
+// $Ampersands
+// -------------------------------------//
+
+$typgr8-amp-fontface: Ampersand !default;
+$typgr8-amp-fontfamily: Verdana, sans-serif !default;
+$typgr8-amp-src: local('Georgia'), local('Garamond'), local('Palatino'), local('Book Antiqua') !default;
+$typgr8-amp-fallback: local('Georgia') !default;
+
+
+// $Icon-Font-Helper
+// -------------------------------------//
+// Link single or multiple icon font sets. Requires Compass
+//
+// single icon font             $typgr8-icon-fonts: (icon-name);
+// multiple icon fonts          $typgr8-icon-fonts: (icon-name1, icon-name2, icon-name3);
+
+$typgr8-icon-fonts: null !default;
+
+
+// $Typescale
+// -------------------------------------//
+// Greek heading names and scale using base font-size
+// Created using https://gist.github.com/omphalosskeptic/6640ac2b6e99102d8a61
+//
+// Scale is Major Third: 18 * 1.250
+//
+// Pixel Values:
+// 7.373
+// 9.216
+// 11.52
+// 14.4
+// 18
+// 22.5
+// 28.125
+// 35.156
+// 43.945
+// 54.931
+// 68.664
+// 85.83
+// 107.288
+// 134.11
+// 167.638
+//
+// REM values
+// 0.41
+// 0.512
+// 0.64
+// 0.8
+// 1
+// 1.25
+// 1.563
+// 1.954
+// 2.443
+// 3.054
+// 3.818
+// 4.773
+// 5.966
+// 7.458
+// 9.323
+
+
+$typgr8-scale: (
+  typgr8-tera:    (85.83),
+  typgr8-giga:    (68.664),
+  typgr8-mega:    (54.931),
+  typgr8-alpha:   (43.945),
+  typgr8-beta:    (35.156),
+  typgr8-gamma:   (28.125),
+  typgr8-delta:   (22.5),
+  typgr8-epsilon: (18),
+  typgr8-zeta:    (14.4),
+) !default;
+
+$typgr8-headings: (
+  h1: typgr8-alpha,
+  h2: typgr8-beta,
+  h3: typgr8-gamma,
+  h4: typgr8-delta,
+  h5: typgr8-epsilon,
+  h6: typgr8-zeta
+) !default;
+
+
+// $Typescale Unit
+// -------------------------------------//
+
+$typgr8-typescale-unit: rem !default;
+
+
+// $Pull-Quotes
+// -------------------------------------//
+
+$typgr8-pull-quote-fontsize: 4em !default;
+$typgr8-pull-quote-opacity: 0.5 !default;
+$typgr8-pull-quote-color: #dc976e !default;
+
+
+// $Citations
+// -------------------------------------//
+
+$typgr8-cite-display: block !default;
+$typgr8-cite-align: right !default;
+$typgr8-cite-font-size: inherit !default;
+
+
+// $Small-Caps
+// -------------------------------------//
+
+$typgr8-smcps-color: gray !default;
+$typgr8-smcps-weight: 600 !default;
+
+
+// $DropCap
+// -------------------------------------//
+
+$typgr8-dropcap-float-position: left !default;
+$typgr8-dropcap-font-size: 6rem !default;
+$typgr8-dropcap-small-font-size: 3.5rem !default;
+$typgr8-dropcap-small-margin: -0.05rem 0rem -0.35rem -1rem !default;
+$typgr8-dropcap-small-padding: 0 0.4rem !default;
+
+
+
+$typgr8-dropcap-font-family: inherit !default;
+$typgr8-dropcap-txt-indent: 0 !default;
+$typgr8-dropcap-margin: -0.5rem 0rem -0.35rem -1rem !default;
+$typgr8-dropcap-padding: 0 0.8rem !default;
+$typgr8-dropcap-color: inherit !default;
+$typgr8-dropcap-line-height: 1 !default;
+$typgr8-dropcap-bg: transparent !default;

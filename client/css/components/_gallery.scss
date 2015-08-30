@@ -1,0 +1,21 @@
+.gallery {
+  @include flexbox();
+  @include flex-wrap(wrap);
+}
+
+.gallery div:first-child {
+
+}
+
+.gallery div {
+  margin: 0;
+  margin: 0.5rem auto;
+}
+
+.gallery img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 130px;
+  cursor:-webkit-zoom-in;
+}

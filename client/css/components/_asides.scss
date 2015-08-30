@@ -1,0 +1,53 @@
+aside{
+  font-family: $interface-font-stack;
+  font-size: 1rem;
+  background-color: #fff;
+  padding: 1rem;
+  border: 1px solid $butler-color;
+  
+  @include breakpoint(md){
+    width: 40%;
+    float:right;
+    margin-right: 0;
+    margin:1rem;
+    position: relative;
+    left: 0.5rem;
+  }
+}
+
+aside > h1,
+aside > h2,
+aside > h3,
+aside > h4,
+aside > h5,
+aside > h6 {
+  margin-top: 1rem;
+}
+
+aside p {
+  font-family: $interface-font-stack;
+}
+
+aside p:last-of-type {
+  margin-bottom: 0;
+}
+
+aside.full,
+aside.full-width {
+  @include breakpoint(md){
+    margin: 1rem 0 2rem 0;
+  }
+}
+
+aside.note:before{
+  position: relative;
+  font-family: $interface-font-stack;
+  font-weight: 700;
+  color: $tertiary-color;
+  bottom: 0.5rem;
+  right: 1.5rem;
+  content: "*";
+  font-size: 3.054rem;
+  line-height: 0;
+  float: left;
+}

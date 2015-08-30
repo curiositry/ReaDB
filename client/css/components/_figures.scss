@@ -1,0 +1,36 @@
+.content > img,
+p > img  {
+  margin: 1.5rem 0;  
+}
+
+figure:not(.plain-figure) {
+  margin: 1.5rem auto;
+  border: 4px solid tint($butler-color, 50);
+}
+
+figure:not(.plain-figure) figcaption {
+  background-color: $tertiary-color;
+  font-family: $interface-font-stack;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  padding: 0.5rem;
+  margin-top: 0;
+}
+
+figure img, 
+.thumb img {
+  margin-top: 0;
+}
+
+.thumb{
+  width: 100%;
+  max-width: 225px;
+  margin: 0.5rem;
+  float:right;
+  line-height: 1;
+}
+
+.thumb img.full-img{
+  margin: 0 auto;
+  width: 100%;
+}

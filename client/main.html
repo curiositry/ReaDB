@@ -1,0 +1,162 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="ReaDB — your private digital bookshelf"/>
+  <meta name="author" content="http://curiositry.github.io">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="MobileOptimized" content="320">
+  <meta name="HandheldFriendly" content="True">
+
+  <title>ReaDB — your private digital bookshelf</title>
+  
+  <link rel="icon" sizes="16x16 32x32" href="/favicon.png?v=2">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+</head>
+
+<template name="home">
+  <div class="container">
+    {{> header}}
+  <hr>
+  </div>
+  
+  {{> bookList}}
+</template>
+
+<template name="header">
+  <header>
+    <br>
+    <a href="/"><h1 class="mb0">ReaDB</h1></a>
+    <h3 class="serif italic mt0" style="font-weight:400;">your private digital bookshelf</h3>
+    {{> navigation}}
+    {{#if notification}}
+      <span class="notification">{{notification}}</span>
+    {{/if}}
+  </header>
+</template>
+
+<template name="navigation">
+  <nav role="navigation" >
+    <ul>
+      <li class="sans-serif">
+        <a href="/">Home</a>
+      </li><span class="meta-spacer"></span>
+      <li class="sans-serif">
+        <a href="/add">Add Book</a>
+      </li><span class="meta-spacer"></span>
+      <li class="sans-serif">
+        Export library as: 
+        <a href="/export/json">JSON</a> /  <a href="/export/csv">CSV</a>
+        </li><span class="meta-spacer"></span>
+      <li class="sans-serif">
+        Import books from: <a href="/import/csv">CSV</a>
+      </li>
+      <span class="meta-spacer"></span>
+      {{> loginButtons}}
+    </ul>
+  </nav>
+</template>
+
+<template name="viewBook">
+<div class="container">
+
+  {{> header}}
+  <h2 class="mb0">{{book.title}}</h2>
+  
+  By <em class="mt0">{{book.author}}</em><br>
+
+  <div class="serif">{{book.review}}</div>
+  
+  <span class="meta">
+    <i class="fa fa-barcode"></i> {{book.isbn}} 
+    <span class="meta-spacer"></span> 
+    <i class="fa fa-calendar"></i> {{book.date}}
+    <span class="meta-spacer"></span> 
+    <i class="fa fa-tags"></i> {{book.tags}}
+  </span>
+  
+  {{#if book.children}}
+  <table style="font-size:0.9rem">
+    <thead>
+      <td>Title </td>
+      <td>Author</td>
+      <td>Rating</td>
+      <td>Review</td>
+    </thead>
+    <tbody>
+    {{#each book.children}}
+      <tr>
+        <td>{{title}} </td>
+        <td>{{author}}</td>
+        <td>{{rating}}</td>
+        <td>{{review}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+  </table>
+  {{/if}}
+  
+</div>
+</template>
+
+<template name="addBook">
+<div class="container" >
+  {{> header}}
+  <form style="text-align:left;">
+    <input type="number" placeholder="ISBN #" name="isbn"/>
+    <input type="text" placeholder="Title" name="title">
+    <input type="text" placeholder="Author" name="author"/>
+    <input type="date" placeholder="Date Read" name="date"/>
+    <textarea type="text"  placeholder="What you thought…" name="review"></textarea>
+    <input type="text" placeholder="Notes" name="notes"/>
+    <input type="text" placeholder="Tag1, Tag2, Tag3" name="tags"/>
+    <input type="number" placeholder="rating" name="rating">
+    <br>
+    <button class="btn btn--cta" type="submit">Add Book</button>
+  </form>
+</div>
+</template>
+
+<template name="bookList">
+<div class="container">
+  <ol>
+    {{#each books}}
+      <li class="pt0">
+        <a class="mt0 mb0" style="position:relative;bottom:1.5rem;" href="/book/{{_id}}">
+          <h4 class="mt0 mb0"><strong class="mt0">{{title}}</strong> by <em class="mt0">{{author}}</em></h4>
+        </a>
+        <span class="meta"  style="position:relative;bottom:1.5rem;">
+        <i class="fa fa-barcode"></i> {{isbn}}
+        <span class="meta-spacer"></span> 
+        <i class="fa fa-calendar"></i> {{date}}
+        <span class="meta-spacer"></span> 
+        <span id="stars{{_id}}">{{rating}}</span>
+      </span>
+      </li>
+    {{/each}}
+</ol>
+</div>
+</template>
+
+<template name="exportJSON">
+<div class="container">
+  {{> header}}
+  <textarea id="json">{{JSON}}</textarea>
+</div>
+</template>
+
+<template name="exportCSV">
+<div class="container">
+  {{> header}}
+  <textarea id="json">{{CSV}}</textarea>
+  <a href="data:text/csv;charset=utf-8, {{encodedCSV}}" download="readb-books.csv">Download books.csv</a>
+</div>
+</template>
+
+<template name="importCSV">
+<div class="container">
+    {{> header}}
+  <form >
+    <input class="input-file" id="fileInput" type="file" name="files[]">
+    <button type="submit" id="importCSV">Import .csv</button>
+  </form>
+</div>
+</template>

@@ -1,0 +1,102 @@
+// $Global
+// -------------------------------------//
+
+html {
+  @if $typgr8-custom-font {
+    font: $typgr8-font-weight #{$typgr8-font-size + "%"}/#{$typgr8-line-height} $typgr8-custom-font, $typgr8-font-family;
+  } @else {
+    font: $typgr8-font-weight #{$typgr8-font-size + "%"}/#{$typgr8-line-height} $typgr8-font-family;
+  }
+}
+
+body {
+  @extend %typgr8-breakword;
+  @include typgr8-hyphens(auto);
+  color: $typgr8-copy-color;
+}
+
+
+// $Headings
+// http://codepen.io/grayghostvisuals/pen/IKsbw
+// -------------------------------------//
+
+@include typgr8-headings;
+@include typgr8-headings-style;
+
+
+// $Parargraphs
+// -------------------------------------//
+
+p {
+  margin: auto auto $typgr8-indent-val;
+  @if $typgr8-paragraph-spacing == false {
+    & + p {
+      text-indent: $typgr8-indent-val;
+      margin-top: -$typgr8-indent-val;
+    }
+  }
+}
+
+// $Blockquotes
+// -------------------------------------//
+
+blockquote {
+  + figcaption cite {
+    @extend %typgr8-cite;
+  }
+}
+
+
+// $Legal Text
+// -------------------------------------//
+
+small {
+  font-size: $typgr8-small-print-size;
+}
+
+
+// $Hyphenation
+// -------------------------------------//
+// @notes
+// http://meyerweb.com/eric/thoughts/2012/12/17/where-to-avoid-css-hyphenation
+
+input,
+abbr,
+acronym,
+blockquote,
+code,
+kbd,
+q,
+samp,
+var {
+  @include typgr8-hyphens(none);
+}
+
+
+// $Codeblocks
+// -------------------------------------//
+
+pre {
+  @include typgr8-white-space(pre);
+
+  code {
+    @extend %typgr8-normal-wrap;
+    @include typgr8-white-space(pre-wrap);
+  }
+}
+
+code {
+  @include typgr8-white-space(pre);
+  font-family: monospace;
+}
+
+
+// $Smallcaps
+// -------------------------------------//
+
+abbr {
+  @include typgr8-smallcaps($typgr8-smcps-color, $typgr8-smcps-weight);
+  &[title]:hover {
+    cursor: help;
+  }
+}

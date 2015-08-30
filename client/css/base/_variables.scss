@@ -1,0 +1,23 @@
+
+$interactive-color: #d34f1e;
+
+$active-color: darken(#d34f1e, 10);
+
+$primary-color: #5f1b00;
+$secondary-color: #91300a;
+$tertiary-color:  lighten(#eca106, 35);
+
+$butler-color: lighten($interactive-color, 50);
+$bg-color: #fdfdfd;
+
+
+$text-font-stack:  'Linux Libertine', 'Georgia', 'PT Serif', 'Source Serif Pro', 'Charter', 'Georgia', serif;
+$interface-font-stack:  'Source Sans Pro', 'Source Sans Pro', 'Roboto', 'PT Sans', 'Helvetica', sans-serif;
+$header-font-stack:  'Source Sans Pro', $interface-font-stack;
+$mono-font-stack: 'Source Code Pro', monospace;
+
+$font-adjust-sm: 0.5;
+$font-adjust-md: 0.8;
+$font-adjust-lg: 1;
+
+$x-height-offset: 0.25rem;

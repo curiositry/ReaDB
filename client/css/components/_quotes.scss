@@ -1,0 +1,52 @@
+%quote {
+  font-size: 1rem;
+  z-index:1;
+  font-family: $text-font-stack;
+}
+
+%quote:before {
+  content: "\201C"; 
+  float: left;
+  position: relative;
+  line-height: 0;
+  top: 1.5rem;
+  right: 2.5rem;
+  color: darken($tertiary-color, 5);
+  font-size: 5.966rem;
+}
+
+%pull {
+  @include breakpoint(lg) {
+    float: right;
+    width: 40%;
+  }
+}
+
+blockquote {
+  @extend %quote;
+  margin: 1rem;
+  margin-top: 4rem !important;
+  margin-right: 0;
+  padding: 0 1.5rem;
+  display: block;
+}
+
+blockquote.pull {
+  @extend %pull;
+}
+
+.semantic-pull-quote--pulled {
+  @extend %quote;
+  @extend %pull;
+  padding: 0.5rem;
+  margin-left: 2rem;
+}
+
+.semantic-pull-quote--pulled:after {
+  content: attr(data-content);
+}
+
+// Shorthand
+.spq {
+  @extend .semantic-pull-quote--pulled;
+}

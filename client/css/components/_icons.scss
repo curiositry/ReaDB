@@ -1,0 +1,8 @@
+.end-mark:after {
+  content: "❦";
+  position: relative;
+  bottom: 0.02rem;
+  color: #F8DDA4;
+  // @extend .fa;
+  // @extend .fa-rocket;
+}

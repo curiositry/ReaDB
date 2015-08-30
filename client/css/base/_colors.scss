@@ -1,0 +1,84 @@
+/**
+* ◊Colors
+* 
+* A place to set color and background color. Grouped by color; 
+* color then bg-color.
+*/
+
+// Primary
+
+.post__title, 
+.post-teaser__title a {
+  color: $primary-color;
+}
+
+// Secondary
+
+
+h1, h2, h3, h4, h5, h6,
+abbr {
+  color: $secondary-color;
+}
+
+
+::-moz-selection, ::selection {
+  background: $secondary-color;
+}
+
+// Tertiary
+
+
+
+// Interactive colors
+
+.post-teaser__title a:hover {
+    color: $interactive-color;
+}
+
+a {
+  color: $interactive-color;
+  border-bottom: 1px solid $butler-color;
+  -webkit-transition: color, .2s;
+  -o-transition: color, .2s;
+  transition: color, .2s;
+  padding-bottom: 2px;
+  
+  &:hover {
+    color: $active-color;
+    border-bottom: 2px solid $butler-color;
+  }
+}
+
+[disabled] {
+  color: $butler-color;
+}
+
+// Butler color
+
+.read-more, 
+hr:after,
+.post-teaser__meta,
+.site-footer__attribution,
+.post__meta,
+.butler-color {
+  color: darken($butler-color, 10);
+}
+
+// Background color
+
+hr:after {
+  background-color: $bg-color;
+}
+
+// Other
+
+::-moz-selection, ::selection {
+  color: white;
+}
+
+
+
+
+
+
+

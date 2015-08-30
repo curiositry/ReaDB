@@ -1,0 +1,48 @@
+.btn {
+  cursor: pointer;
+  @include gradient($tertiary-color, darken($tertiary-color, 5));
+  color: $primary-color;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.05rem;
+  padding: 0.7rem 1.25rem;
+  text-transform: uppercase;
+  border: 2px solid  lighten($active-color, 40);
+  -webkit-transtition: all 0.3s ease-in-out;
+  -moz-transtition: all 0.3s ease-in-out;
+  -ms-transtition: all 0.3s ease-in-out;
+  -o-transtition: all 0.3s ease-in-out;
+  transtition: all 0.3s ease-in-out;
+  
+  &:hover {
+    @include gradient($interactive-color, $interactive-color);
+    color: $bg-color !important;
+    border: 2px solid  darken($tertiary-color, 20);
+    box-shadow: 0 0 0.25rem 0.25rem $active-color inset;
+    
+    -webkit-transtition: all 0.3s ease-in-out;
+    -moz-transtition: all 0.3s ease-in-out;
+    -ms-transtition: all 0.3s ease-in-out;
+    -o-transtition: all 0.3s ease-in-out;
+    transtition: all 0.3s ease-in-out;
+  }
+}
+
+
+.btn--cta {
+  @include gradient(darken(adjust-hue($active-color, -3%), 3%),
+                    darken(adjust-hue($active-color, -10%), 10%)
+                   );
+  color:white;
+  border: 2px solid  lighten($active-color, 20);
+
+
+  box-shadow: none;
+  
+  &:hover {
+    @include gradient(adjust-hue($active-color, 10%), 
+                      adjust-hue($active-color, 10%)
+                     );
+    box-shadow: 0 0 1rem -0.3rem $primary-color inset;
+  }
+}

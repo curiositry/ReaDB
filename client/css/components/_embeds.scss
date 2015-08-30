@@ -1,0 +1,66 @@
+/* Github */
+.gist table {
+  margin: 0;
+}
+
+.gist .line,
+.gist .line-number{
+  margin-top:auto;  
+}
+.gist .line-number{
+  line-height:1.5 !important;  
+  min-width: 25px;
+}
+
+.gist .line-numbers {
+  background-color: $bg-color !important;
+}
+
+
+
+table {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 1.5em 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+table th,
+table td {
+  padding: 8px;
+  line-height: 1.5em;
+  text-align: left;
+  vertical-align: top;
+  border-top: white 1px solid;
+}
+
+table th { color: #000; }
+
+table caption + thead tr:first-child th,
+table caption + thead tr:first-child td,
+table colgroup + thead tr:first-child th,
+table colgroup + thead tr:first-child td,
+table thead:first-child tr:first-child th,
+table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+
+table tbody + tbody { border-top: white 2px solid; }
+
+table table table { background-color: #FFF; }
+
+table tbody > tr:nth-child(odd) > td,
+table tbody > tr:nth-child(odd) > th {
+  background-color: white;
+}
+
+table.plain tbody > tr:nth-child(odd) > td,
+table.plain tbody > tr:nth-child(odd) > th {
+  background: transparent;
+}
+
+iframe, .fluid-width-video-wrapper {
+  display: block;
+  margin: 1.6em 0;
+}
