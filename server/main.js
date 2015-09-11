@@ -1,11 +1,28 @@
 // Books.remove({})
 
-Date.prototype.yyyymmdd = function() {
-  var yyyy = this.getFullYear().toString();
-  var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-  var dd  = this.getDate().toString();
-  return yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]); // padding
-};
+
+
+function fetchFromAPI(url) {
+  console.log("fetchFromAPI function called");
+  console.log(url);
+  // synchronous GET
+  try {
+    var result = Meteor.http.get(url, {timeout:30000});
+    console.log(result);
+    return result;
+  } catch (e) {
+    return e;
+  }
+  // if(result.statusCode==200) {
+  //   var respJson = JSON.parse(result.content);
+  //   console.log("response received.");
+  //   return respJson;
+  // } else {
+  //   console.log("Response error: ", result.statusCode);
+  //   var errorJson = JSON.parse(result.content);
+  //   throw new Meteor.Error(result.statusCode, errorJson.error);
+  // }
+}
 
 
 importCSV = function(file) {
@@ -34,11 +51,10 @@ importCSV = function(file) {
       currentBook.children.push({
               "title": title,
               "author": author,
-              "img": "",
               "review": review,
               "notes": notes,
               "rating": rating,
-              "date": date,
+              "dateRead": date,
               "tags": tags,
               "format": format
             });     
@@ -50,11 +66,10 @@ importCSV = function(file) {
         "isbn": isbn,
         "title": title,
         "author": author,
-        "img": "",
         "review": review,
         "notes": notes,
         "rating": rating,
-        "date": date,
+        "dateRead": date,
         "tags": tags,
         "format": format,
         "meta": {
@@ -72,8 +87,21 @@ importCSV = function(file) {
 
 Meteor.methods({
     upload : function(fileContent) {
-        console.log("start insert");
-        importCSV(fileContent);
-        console.log("completed");
+      console.log("start insert");
+      importCSV(fileContent);
+      console.log("completed");
+    },
+    fetchBookMetadata: function(isbn, title, author){
+      console.log("fetchBookMetadata method called");
+      if(isbn){
+        var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn;
+      }if (title && author) {
+        var url = "https://www.googleapis.com/books/v1/volumes?q=title:"+title+"+inauthor:"+author;
+      }else {
+        var url = "https://www.googleapis.com/books/v1/volumes?q=title:"+title;
+      }
+      this.unblock();
+      var result = fetchFromAPI(url);
+      return result;
     }
 });
