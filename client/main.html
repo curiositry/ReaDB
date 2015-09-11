@@ -28,7 +28,7 @@
     <h3 class="serif italic mt0" style="font-weight:400;">your private digital bookshelf</h3>
     {{> navigation}}
     {{#if notification}}
-      <span class="notification">{{notification}}</span>
+      <span class="notification"><small>{{notification}}</small></span>
     {{/if}}
   </header>
 </template>
@@ -65,13 +65,28 @@
 
   <div class="serif">{{book.review}}</div>
   
+  <hr>
+  
   <span class="meta">
-    <i class="fa fa-barcode"></i> {{book.isbn}} 
+    <i class="fa fa-star"></i> {{book.rating}} 
     <span class="meta-spacer"></span> 
-    <i class="fa fa-calendar"></i> {{book.date}}
+    {{#if book.isbn}}
+      <i class="fa fa-barcode"></i> {{book.isbn}} 
+      <span class="meta-spacer"></span> 
+    {{/if}}
+    <i class="fa fa-calendar"></i> {{book.dateRead}}
     <span class="meta-spacer"></span> 
     <i class="fa fa-tags"></i> {{book.tags}}
+    <span class="meta-spacer"></span> 
+    <i class="fa fa-file-text"></i> {{book.meta.pageCount}}
   </span>
+  
+  <hr>
+  
+  {{#if book.meta.imgUrl}}
+    <img src="{{book.meta.imgUrl}}" alt="{{book.title}} cover image" style="float:left;padding-right:1rem;"/>
+  {{/if}}
+  <span class="serif">{{book.meta.publisherDescription}}</span>
   
   {{#if book.children}}
   <table style="font-size:0.9rem">
@@ -93,6 +108,10 @@
   </tbody>
   </table>
   {{/if}}
+  <hr>
+  <span class="book-actions-toolbar">
+    <i class="fa fa-trash-o" style="color:red;cursor:pointer;" id="deleteBook"></i>
+  </span>
   
 </div>
 </template>
@@ -100,15 +119,22 @@
 <template name="addBook">
 <div class="container" >
   {{> header}}
-  <form style="text-align:left;">
-    <input type="number" placeholder="ISBN #" name="isbn"/>
-    <input type="text" placeholder="Title" name="title">
-    <input type="text" placeholder="Author" name="author"/>
-    <input type="date" placeholder="Date Read" name="date"/>
-    <textarea type="text"  placeholder="What you thought…" name="review"></textarea>
-    <input type="text" placeholder="Notes" name="notes"/>
-    <input type="text" placeholder="Tag1, Tag2, Tag3" name="tags"/>
-    <input type="number" placeholder="rating" name="rating">
+  <form name="addBooks" style="text-align:left;">
+    <input type="number" id="isbnInput" placeholder="ISBN #" name="isbn"/>
+    <button id="fetchFromISBN">Fetch metadata from ISBN</button>
+    <input id="titleInput" type="text" placeholder="Title" name="title" />
+    <input id="authorInput" type="text" placeholder="Author" name="author"/>
+    <input id="publicationDateInput" type="date" placeholder="Publication date" name="pubdate" />
+    <input id="dateReadInput" type="date" placeholder="Date Read" name="dateRead"/>
+    <input hidden id="publisherDescriptionInput" type="text"  name="publisherDescription" />
+    <textarea id="reviewInput" type="text"  placeholder="What you thought…" name="review"></textarea>
+    <input id="notesInput" type="text" placeholder="Notes" name="notes"/>
+    <input id="tagsInput" type="text" placeholder="Tag1, Tag2, Tag3" name="tags"/>
+    <input id="formatInput" type="text" placeholder="Format (e, p, or pl)" name="format"/>
+    
+    <input id="ratingInput" type="number" placeholder="rating" name="rating">
+    <input id="imgUrlInput" type="hidden" name="imgUrl">
+    <input id="pageCountInput" type="number" hidden name="pageCount" />
     <br>
     <button class="btn btn--cta" type="submit">Add Book</button>
   </form>
@@ -124,11 +150,15 @@
           <h4 class="mt0 mb0"><strong class="mt0">{{title}}</strong> by <em class="mt0">{{author}}</em></h4>
         </a>
         <span class="meta"  style="position:relative;bottom:1.5rem;">
-        <i class="fa fa-barcode"></i> {{isbn}}
+        <span id="stars{{_id}}"><i class="fa fa-star"></i> {{rating}}</span>
         <span class="meta-spacer"></span> 
-        <i class="fa fa-calendar"></i> {{date}}
+        {{#if isbn}}
+          <i class="fa fa-barcode"></i> {{isbn}} 
+          <span class="meta-spacer"></span> 
+        {{/if}}
+        <i class="fa fa-calendar"></i> {{dateRead}}
         <span class="meta-spacer"></span> 
-        <span id="stars{{_id}}">{{rating}}</span>
+        {{#if meta.pageCount}}<i class="fa fa-file-text"></i> {{meta.pageCount}} {{/if}}
       </span>
       </li>
     {{/each}}
