@@ -108,8 +108,9 @@ Template.bookList.helpers({
 
 Template.header.helpers({
   notification: function(){
-    return Session.get("notification");
+    var notification = Session.get("notification");
     Session.set("notification", "");
+    return notification;
   }
 })
 
