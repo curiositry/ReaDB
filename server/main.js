@@ -36,6 +36,37 @@ function fetchBookMetadata(isbn, title, author){
   return result;
 }
 
+function toJSONString(data){
+  var str = JSON.stringify(data);
+  return str.substring(0, str.length - 0);
+}
+
+function convertToCSV(objArray) {
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            if (line != '') line += ';'
+            line += array[i][index];
+        }
+        str += line + '\r\n';
+    }
+    return str;
+}
+
+function processCSV (){  
+  console.log("process function called");
+  var data = Books.find(
+      {"meta.userId": Meteor.userId()},
+      {fields: {_id:0,bookid:0}}
+    ).fetch();
+  var JSON = toJSONString(data);
+  var CSV = convertToCSV(JSON);
+  return CSV;
+}
+
+
 importCSV = function(file) {
   console.log("enter function import_file_orders")
   var lines = file.split(/\r\n|\n/);
@@ -77,18 +108,18 @@ importCSV = function(file) {
         "isbn": isbn,
         "title": title,
         "author": author,
-        "review": review,
-        "notes": notes,
         "rating": rating,
         "dateRead": date,
-        "tags": tags,
         "format": format,
+        "tags": tags,      
+        "review": review,
+        "notes": notes,
         "meta": {
           "userId": Meteor.userId(),
           "dateAdded": dateAdded
         },
         "children": []
-      };   
+      };
       var currentBookId = result;
     }
     console.log(result + " — Imported " + title);
@@ -106,6 +137,10 @@ Meteor.methods({
       console.log("e");
       this.unblock();
       return fetchBookMetadata(isbn, title, author);
+    },
+    processCSV: function(){
+      console.log("process method called");
+      return processCSV();
     },
     updateLibraryMetadata: function(){
       // this.unblock();
