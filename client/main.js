@@ -28,8 +28,17 @@ Router.route('add', function () {
   // Session.set("bookId", id)
 });
 
+function fetchBooks () {
+  return Books.find({"meta.userId": Meteor.userId()}).fetch()
+}
+
 function importCSV(file){
   var lines = file.split(/\r\n|\n/);
+}
+
+function toJSONString(data){
+  var str = JSON.stringify(data);
+  return str.substring(0, str.length - 0);
 }
 
 function convertToCSV(objArray) {
@@ -61,19 +70,8 @@ readFile = function(f,onLoadCallback) {
 //   window.open("data:text/"+format+";charset="+charset+"," + escape(data));
 // }
 
-function fetchBooks () {
-  return Books.find({"meta.userId": Meteor.userId()}).fetch()
-}
-
 function deleteBook (bookId) {
   Books.remove({_id:bookId});
-}
-
-function toJSONString(data){
-  var str = JSON.stringify(data);
-  console.log(str);
-  console.log(JSON.parse(str));
-  return str.substring(0, str.length - 0);
 }
 
 
@@ -109,7 +107,7 @@ Template.bookList.helpers({
 Template.header.helpers({
   notification: function(){
     var notification = Session.get("notification");
-    Session.set("notification", "");
+    // Session.set("notification", "");
     return notification;
   }
 })
@@ -137,11 +135,18 @@ Template.exportJSON.helpers({
 });
 
 Template.exportCSV.helpers({
-  "CSV": function(){
-    return convertToCSV(toJSONString(fetchBooks()));
+  CSV: function(){
+    return Meteor.call('processCSV');
   },
-  "encodedCSV": function(){
-    return encodeURIComponent(convertToCSV(toJSONString(fetchBooks())));
+  encodedCSV: function(){
+    Meteor.call('processCSV', function(err,res){
+      if(err){
+        return err;
+      } else {
+        Session.set("CSV", res);
+      }
+    });
+    return encodeURIComponent(Session.get("CSV"));
   }
 });
 
@@ -150,7 +155,7 @@ Template.exportCSV.events({
     console.log("click!!!");
     console.log(toJSONString(fetchBooks()));
     var JSON = toJSONString(fetchBooks());
-    downloadFile(convertToCSV(JSON),"csv");
+    downloadFile(encodeURIComponent(Meteor.call("processCSV")),"csv");
   }
 });
 
@@ -169,7 +174,6 @@ Template.addBook.events({
     Meteor.call("fetchBookMetadata", isbn, title, author, function(error, result){
       if(result){
         var metadata = JSON.parse(result.content).items[0];
-        
         var isbnInput = document.getElementById('isbnInput');
         var titleInput = document.getElementById('titleInput');
         var authorInput = document.getElementById('authorInput');
@@ -208,17 +212,15 @@ Template.addBook.events({
     d = new Date();
     var dateAdded = d.yyyymmdd();
     Books.insert({
-      "bookid": null,
       "isbn": event.target.isbn.value, 
       "title": event.target.title.value,
       "author": event.target.author.value,
+      "rating": event.target.rating.value,
       "dateRead": event.target.dateRead.value,
-      
+      "format": event.target.format.value,
+      "tags": event.target.tags.value, 
       "review": event.target.review.value, 
       "notes": event.target.notes.value, 
-      "rating": event.target.rating.value,
-      "tags": event.target.tags.value, 
-      "format": event.target.format.value,
       "meta": {
         "userId": Meteor.userId(),
         "dateAdded": dateAdded,
