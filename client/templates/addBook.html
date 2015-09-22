@@ -1,0 +1,24 @@
+<template name="addBook">
+<div class="container" >
+  {{> header}}
+  <form name="addBooks" style="text-align:left;">
+    <input type="text" id="isbnInput" placeholder="ISBN #" name="isbn"/>
+    <button id="fetchFromISBN">Fetch metadata from ISBN</button>
+    <input id="titleInput" type="text" placeholder="Title" name="title" />
+    <input id="authorInput" type="text" placeholder="Author" name="author"/>
+    <input hidden id="publicationDateInput" type="date" placeholder="Publication date" name="pubdate" />
+    <input id="dateReadInput" type="date" placeholder="Date Read" name="dateRead"/>
+    <input hidden id="publisherDescriptionInput" type="text"  name="publisherDescription" />
+    <textarea id="reviewInput" type="text"  placeholder="What you thought…" name="review"></textarea>
+    <input id="notesInput" type="text" placeholder="Notes" name="notes"/>
+    <input id="tagsInput" type="text" placeholder="Tag1, Tag2, Tag3" name="tags"/>
+    <input id="formatInput" type="text" placeholder="Format (e, p, or pl)" name="format"/>
+    
+    <input id="ratingInput" type="number" placeholder="rating" name="rating">
+    <input id="imgUrlInput" type="hidden" name="imgUrl">
+    <input id="pageCountInput" type="number" hidden name="pageCount" />
+    <br>
+    <button class="btn btn--cta" type="submit">Add Book</button>
+  </form>
+</div>
+</template>
