@@ -1,0 +1,27 @@
+<template name="bookList">
+<div class="container">
+  <ol class="book-list" style="list-style-type:none;">
+    {{#each books}}
+      <li class="pt0">
+        {{#if meta.imgUrl}}
+          <img src="{{meta.imgUrl}}" alt="" />
+        {{/if}}
+        <a class="mt0 mb0" style="" href="/book/{{_id}}">
+          <h4 class="mt0 mb0" style="font-weight:normal"><strong class="mt0">{{title}}</strong> by <em class="mt0">{{author}}</em></h4>
+        </a>
+        <span class="meta"  style="">
+        <span id="stars{{_id}}"><i class="fa fa-star"></i> {{rating}}</span>
+        <span class="meta-spacer"></span> 
+        {{#if isbn}}
+          <i class="fa fa-barcode"></i> {{isbn}} 
+          <span class="meta-spacer"></span> 
+        {{/if}}
+        <i class="fa fa-calendar"></i> {{dateRead}}
+        <span class="meta-spacer"></span> 
+        {{#if meta.pageCount}}<i class="fa fa-file-text"></i> {{meta.pageCount}} {{/if}}
+      </span>
+      </li>
+    {{/each}}
+</ol>
+</div>
+</template>
