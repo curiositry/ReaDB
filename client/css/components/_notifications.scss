@@ -2,6 +2,7 @@
   margin:1rem;
   padding:0.5rem;
   background:$tertiary-color;
-  min-width:100%;
+  min-width:100% !important;
+  display:block;
   text-align:center;
 }
