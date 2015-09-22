@@ -31,7 +31,6 @@ function fetchBookMetadata(isbn, title, author){
   }else {
     url = "https://www.googleapis.com/books/v1/volumes?q=title:"+title;
   }
-  url = "http://localhost:3000/response.json";
   var result = fetchFromAPI(url);
   return result;
 }
@@ -154,50 +153,40 @@ Meteor.methods({
         if (!book.meta.pubdate){   
           this.unblock();    
           var result = fetchBookMetadata(book.isbn, book.title, book.author);
-          var metadata = JSON.parse(result.content).items[0];
-          var isbn = book.isbn;   
-          console.log(book.title);
+          if(JSON.parse(result.content).totalItems > 0){
+            var metadata = JSON.parse(result.content).items[0];
+            var isbn = book.isbn;   
+            console.log(book.title);
+            d = new Date();
+            var dateModified = d.yyyymmdd();
+              
 
-          if(!book.isbn){
-            if (metadata.volumeInfo.industryIdentifiers[1]){
-              isbn = metadata.volumeInfo.industryIdentifiers[1].identifier;
-            }else {
-              isbn = metadata.volumeInfo.industryIdentifiers[0].identifier;
+            if(!book.isbn){
+              if (metadata.volumeInfo.industryIdentifiers[1]){
+                isbn = metadata.volumeInfo.industryIdentifiers[1].identifier;
+              }else {
+                isbn = metadata.volumeInfo.industryIdentifiers[0].identifier;
+              }
             }
+               
+            Books.update({_id: book._id},{$set: {             
+              "isbn": isbn, 
+              "title": book.title,
+              "author": book.author,        
+              "meta": {
+                "userId": Meteor.userId(),
+                "dateAdded": book.meta.dateAdded,
+                "dateModified": dateModified,
+                "imgUrl":  metadata.volumeInfo.imageLinks.thumbnail,
+                "pubdate": metadata.volumeInfo.publishedDate,
+                "publisherDescription": metadata.volumeInfo.description,
+                "pageCount": metadata.volumeInfo.pageCount,
+                "publisherTitle": metadata.volumeInfo.title,
+                "publisherAuthors": metadata.volumeInfo.author,
+              }
+            }}); 
           }
              
-          Books.update({_id: book._id},{$set: {             
-            "isbn": isbn, 
-            "title": metadata.volumeInfo.title,
-            "author": metadata.volumeInfo.authors,        
-            "meta": {
-              "userId": Meteor.userId(),
-              "dateAdded": book.meta.dateAdded,
-              "dateModified": dateModified,
-              "imgUrl":  metadata.volumeInfo.imageLinks.thumbnail,
-              "pubdate": metadata.volumeInfo.publishedDate,
-              "publisherDescription": metadata.volumeInfo.description,
-              "pageCount": metadata.volumeInfo.pageCount
-            }
-          }}); 
-          
-          d = new Date();
-          var dateModified = d.yyyymmdd();
-                 
-          // Books.update({_id: "ioq2YHB3gdy2vzxue"},{$set: {             
-          //   "isbn": "123123123", 
-          //   "title": "Title",
-          //   "author": "metadata.volumeInfo.authors",        
-          //   "meta": {
-          //     "userId": Meteor.userId(),
-          //     "dateAdded": book.meta.dateAdded,
-          //     "dateModified": dateModified,
-          //     "imgUrl":  "metadata.volumeInfo.imageLinks.thumbnail",
-          //     "pubdate": "metadata.volumeInfo.publishedDate",
-          //     "publisherDescription": "metadata.volumeInfo.description",
-          //     "pageCount": "metadata.volumeInfo.pageCount"
-          //   }
-          // }});               
         }
       }
     }
