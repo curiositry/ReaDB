@@ -17,20 +17,7 @@
     {{> header}}
   <hr>
   </div>
-  
   {{> bookList}}
-</template>
-
-<template name="header">
-  <header>
-    <br>
-    <a href="/"><h1 class="mb0">ReaDB</h1></a>
-    <h3 class="serif italic mt0" style="font-weight:400;">your private digital bookshelf</h3>
-    {{> navigation}}
-    {{#if notification}}
-      <span class="notification"><small>{{notification}}</small></span>
-    {{/if}}
-  </header>
 </template>
 
 <template name="navigation">
@@ -55,116 +42,6 @@
   </nav>
 </template>
 
-<template name="viewBook">
-<div class="container">
-
-  {{> header}}
-  <h2 class="mb0">{{book.title}}</h2>
-  
-  By <em class="mt0">{{book.author}}</em><br>
-
-  <div class="serif">{{book.review}}</div>
-  
-  <hr>
-  
-  <span class="meta">
-    <i class="fa fa-star"></i> {{book.rating}} 
-    <span class="meta-spacer"></span> 
-    {{#if book.isbn}}
-      <i class="fa fa-barcode"></i> {{book.isbn}} 
-      <span class="meta-spacer"></span> 
-    {{/if}}
-    <i class="fa fa-calendar"></i> {{book.dateRead}}
-    <span class="meta-spacer"></span> 
-    <i class="fa fa-tags"></i> {{book.tags}}
-    <span class="meta-spacer"></span> 
-    <i class="fa fa-file-text"></i> {{book.meta.pageCount}}
-  </span>
-  
-  <hr>
-  
-  {{#if book.meta.imgUrl}}
-    <img src="{{book.meta.imgUrl}}" alt="{{book.title}} cover image" style="float:left;padding-right:1rem;"/>
-  {{/if}}
-  <span class="serif">{{book.meta.publisherDescription}}</span>
-  
-  {{#if book.children}}
-  <table style="font-size:0.9rem">
-    <thead>
-      <td>Title </td>
-      <td>Author</td>
-      <td>Rating</td>
-      <td>Review</td>
-    </thead>
-    <tbody>
-    {{#each book.children}}
-      <tr>
-        <td>{{title}} </td>
-        <td>{{author}}</td>
-        <td>{{rating}}</td>
-        <td>{{review}}</td>
-      </tr>
-    {{/each}}
-  </tbody>
-  </table>
-  {{/if}}
-  <hr>
-  <span class="book-actions-toolbar">
-    <i class="fa fa-trash-o" style="color:red;cursor:pointer;" id="deleteBook"></i>
-  </span>
-  
-</div>
-</template>
-
-<template name="addBook">
-<div class="container" >
-  {{> header}}
-  <form name="addBooks" style="text-align:left;">
-    <input type="number" id="isbnInput" placeholder="ISBN #" name="isbn"/>
-    <button id="fetchFromISBN">Fetch metadata from ISBN</button>
-    <input id="titleInput" type="text" placeholder="Title" name="title" />
-    <input id="authorInput" type="text" placeholder="Author" name="author"/>
-    <input id="publicationDateInput" type="date" placeholder="Publication date" name="pubdate" />
-    <input id="dateReadInput" type="date" placeholder="Date Read" name="dateRead"/>
-    <input hidden id="publisherDescriptionInput" type="text"  name="publisherDescription" />
-    <textarea id="reviewInput" type="text"  placeholder="What you thought…" name="review"></textarea>
-    <input id="notesInput" type="text" placeholder="Notes" name="notes"/>
-    <input id="tagsInput" type="text" placeholder="Tag1, Tag2, Tag3" name="tags"/>
-    <input id="formatInput" type="text" placeholder="Format (e, p, or pl)" name="format"/>
-    
-    <input id="ratingInput" type="number" placeholder="rating" name="rating">
-    <input id="imgUrlInput" type="hidden" name="imgUrl">
-    <input id="pageCountInput" type="number" hidden name="pageCount" />
-    <br>
-    <button class="btn btn--cta" type="submit">Add Book</button>
-  </form>
-</div>
-</template>
-
-<template name="bookList">
-<div class="container">
-  <ol>
-    {{#each books}}
-      <li class="pt0">
-        <a class="mt0 mb0" style="position:relative;bottom:1.5rem;" href="/book/{{_id}}">
-          <h4 class="mt0 mb0"><strong class="mt0">{{title}}</strong> by <em class="mt0">{{author}}</em></h4>
-        </a>
-        <span class="meta"  style="position:relative;bottom:1.5rem;">
-        <span id="stars{{_id}}"><i class="fa fa-star"></i> {{rating}}</span>
-        <span class="meta-spacer"></span> 
-        {{#if isbn}}
-          <i class="fa fa-barcode"></i> {{isbn}} 
-          <span class="meta-spacer"></span> 
-        {{/if}}
-        <i class="fa fa-calendar"></i> {{dateRead}}
-        <span class="meta-spacer"></span> 
-        {{#if meta.pageCount}}<i class="fa fa-file-text"></i> {{meta.pageCount}} {{/if}}
-      </span>
-      </li>
-    {{/each}}
-</ol>
-</div>
-</template>
 
 <template name="exportJSON">
 <div class="container">
