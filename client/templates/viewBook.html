@@ -1,0 +1,59 @@
+<template name="viewBook">
+<div class="container">
+  {{> header}}
+  <h2 class="mb0">{{book.title}}</h2>
+  
+  By <em class="mt0">{{book.author}}</em><br>
+
+  <div class="serif">{{book.review}}</div>
+  
+  <hr>
+  
+  <span class="meta">
+    <i class="fa fa-star"></i> {{book.rating}} 
+    <span class="meta-spacer"></span> 
+    {{#if book.isbn}}
+      <i class="fa fa-barcode"></i> {{book.isbn}} 
+      <span class="meta-spacer"></span> 
+    {{/if}}
+    <i class="fa fa-calendar"></i> {{book.dateRead}}
+    <span class="meta-spacer"></span> 
+    <i class="fa fa-tags"></i> {{book.tags}}
+    <span class="meta-spacer"></span> 
+    <i class="fa fa-file-text"></i> {{book.meta.pageCount}}
+  </span>
+  
+  <hr>
+  
+  {{#if book.meta.imgUrl}}
+    <img src="{{book.meta.imgUrl}}" alt="{{book.title}} cover image" style="float:left;padding-right:1rem;"/>
+  {{/if}}
+  <span class="serif">{{book.meta.publisherDescription}}</span>
+  
+  {{#if book.children}}
+  <table style="font-size:0.9rem">
+    <thead>
+      <td>Title </td>
+      <td>Author</td>
+      <td>Rating</td>
+      <td>Review</td>
+    </thead>
+    <tbody>
+    {{#each book.children}}
+      <tr>
+        <td>{{title}} </td>
+        <td>{{author}}</td>
+        <td>{{rating}}</td>
+        <td>{{review}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+  </table>
+  {{/if}}
+  <hr>
+  <span class="book-actions-toolbar">
+    <i class="fa fa-trash-o" style="color:red;cursor:pointer;" id="deleteBook"></i>
+  </span>
+  
+</div>
+</template>
