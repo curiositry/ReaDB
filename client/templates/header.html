@@ -1,0 +1,11 @@
+<template name="header">
+  <header>
+    <br>
+    <a href="/"><h1 class="mb0">ReaDB</h1></a>
+    <h3 class="serif italic mt0" style="font-weight:400;">your private digital bookshelf</h3>
+    {{> navigation}}
+    {{#if notification}}
+      <span class="notification"><small>{{notification}}</small></span>
+    {{/if}}
+  </header>
+</template>
