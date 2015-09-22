@@ -42,7 +42,6 @@
   </nav>
 </template>
 
-
 <template name="exportJSON">
 <div class="container">
   {{> header}}
@@ -53,7 +52,7 @@
 <template name="exportCSV">
 <div class="container">
   {{> header}}
-  <textarea id="json">{{CSV}}</textarea>
+  <textarea id="csv">{{encodedCSV}}</textarea>
   <a href="data:text/csv;charset=utf-8, {{encodedCSV}}" download="readb-books.csv">Download books.csv</a>
 </div>
 </template>
