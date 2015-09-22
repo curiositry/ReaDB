@@ -254,3 +254,15 @@ _:-moz-tree-row(hover), article > p:not(.no-dropcap):first-of-type::first-letter
 //     @extend .sc;
 //   }
 // }
+
+.book-list li {
+  margin-bottom: 2rem;
+}
+
+.book-list img {
+  float:left;
+  display: inline;
+  height: 4rem;
+  margin-right: 1.5rem;
+  padding-top: 0rem;
+}
