@@ -23,9 +23,9 @@ Meteor.methods({
         console.log("in for loop");
         totalBooksProcessed++;        
         var book = library[i];
-        console.log(book.title);
-        console.log(book.meta);
         if (!book.meta.pubdate){
+          console.log(book.title);
+          console.log(book.meta);
           totalBooksUpdated++;
           updateUserSession({"session": {
             "userId": Meteor.userId(),
