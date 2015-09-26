@@ -10,3 +10,30 @@
     {{/if}}
   </header>
 </template>
+
+
+
+<template name="navigation">
+  <nav role="navigation" >
+    <ul>
+      <li class="sans-serif">
+        <a href="/"><i class="fa fa-home"></i></a>
+      </li><span class="meta-spacer"></span>
+      <li class="sans-serif">
+        <a href="/add"><i class="fa fa-plus"></i></a>
+      </li><span class="meta-spacer"></span>
+      <li class="sans-serif"> 
+        <a href="/export/json"><i class="fa fa-download"></i> JSON</a> /  <a href="/export/csv"><i class="fa fa-download"></i> CSV</a>
+        </li><span class="meta-spacer"></span>
+      <li class="sans-serif">
+        Import books from: <a href="/import/csv">CSV</a>
+      </li><span class="meta-spacer"></span>
+
+      <li class="sans-serif">
+        <a href="/user/{{user}}"><i class="fa fa-user"></i></a>
+      </li>
+      <span class="meta-spacer"></span>
+      {{> loginButtons}}
+    </ul>
+  </nav>
+</template>
