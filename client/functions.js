@@ -1,6 +1,6 @@
 
-fetchBooks = function() {
-  return Books.find({"meta.userId": Meteor.userId()}).fetch()
+fetchBooks = function(sort) {
+  return Books.find({"meta.userId": Meteor.userId()}, {sort: [["dateRead","desc"],["rating","desc"]]}).fetch()
 }
 
 importCSV = function(file){
