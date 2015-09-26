@@ -32,8 +32,8 @@
 <template name="exportCSV">
 <div class="container">
   {{> header}}
-  <textarea id="csv">{{encodedCSV}}</textarea>
-  <a href="data:text/csv;charset=utf-8, {{encodedCSV}}" download="readb-books.csv">Download books.csv</a>
+  <textarea id="csv">{{encodedCSV}}</textarea><br clear="all"><br>
+  <a class="btn m0a" href="data:text/csv;charset=utf-8, {{encodedCSV}}" download="readb-books.csv">Download books.csv</a>
 </div>
 </template>
 
