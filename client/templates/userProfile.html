@@ -1,13 +1,25 @@
 <template name="viewUserProfile">
 <div class="container">
   {{> header}}
+<div class="center-text">
   <hr>
-  User: {{username}}
-  Books: {{stats.bookCount}}
-  <a href="#" id="deleteBooks">Delete All My Books</a>
-  <a href="#" id="updateLibraryMetadata">Update Library Metadata</a>
+  Hello, <strong>{{username}}</strong>.
+  <br>
+  You have <strong> {{stats.bookCount}} </strong> books in your library.
+  <br><br>
+  <a href="#" class="btn btn--cta" id="deleteBooks">
+    <i class="fa fa-warning"></i> Delete All My Books
+  </a>
+  <span class="meta-spacer"></span>
+  <a href="#" class="btn" id="updateLibraryMetadata">
+    <i class="fa fa-info-circle"></i> Update Library Metadata
+  </a> 
+  
+  <br>
+  <br>
   
   <input type="text" name="username" id="newUsername" placeholder="username">
   <button type="submit" id="updateUsername">Update Username</button>
+</div>
 </div>
 </template>
