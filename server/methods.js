@@ -6,7 +6,6 @@ Meteor.methods({
       console.log("completed");
     },
     fetchBookMetadata: function(isbn, title, author){
-      console.log("e");
       this.unblock();
       return fetchBookMetadata(isbn, title, author);
     },

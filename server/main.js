@@ -1,5 +1,3 @@
-// Books.remove({})
-
 deleteUsersBooks = function(userId){
   Books.remove({"meta.userId":userId});
   return "Deleted all your books!";
