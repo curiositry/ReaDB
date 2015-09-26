@@ -20,27 +20,7 @@
   {{> bookList}}
 </template>
 
-<template name="navigation">
-  <nav role="navigation" >
-    <ul>
-      <li class="sans-serif">
-        <a href="/">Home</a>
-      </li><span class="meta-spacer"></span>
-      <li class="sans-serif">
-        <a href="/add">Add Book</a>
-      </li><span class="meta-spacer"></span>
-      <li class="sans-serif">
-        Export library as: 
-        <a href="/export/json">JSON</a> /  <a href="/export/csv">CSV</a>
-        </li><span class="meta-spacer"></span>
-      <li class="sans-serif">
-        Import books from: <a href="/import/csv">CSV</a>
-      </li>
-      <span class="meta-spacer"></span>
-      {{> loginButtons}}
-    </ul>
-  </nav>
-</template>
+
 
 <template name="exportJSON">
 <div class="container">
