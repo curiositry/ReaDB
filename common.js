@@ -1,5 +1,5 @@
 Books = new Mongo.Collection('books');
-
+Temp = new Mongo.Collection('temp');
 
 Date.prototype.yyyymmdd = function() {
   var yyyy = this.getFullYear().toString();
