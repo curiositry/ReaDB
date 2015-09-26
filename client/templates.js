@@ -219,7 +219,6 @@ Template.addBook.events({
     console.log(title);
     console.log(author);
     
-    
     Meteor.call("fetchBookMetadata", isbn, title, author, function(error, result){
       if(result){
         var metadata = JSON.parse(result.content).items[0];
