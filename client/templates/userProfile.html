@@ -1,0 +1,13 @@
+<template name="viewUserProfile">
+<div class="container">
+  {{> header}}
+  <hr>
+  User: {{username}}
+  Books: {{stats.bookCount}}
+  <a href="#" id="deleteBooks">Delete All My Books</a>
+  <a href="#" id="updateLibraryMetadata">Update Library Metadata</a>
+  
+  <input type="text" name="username" id="newUsername" placeholder="username">
+  <button type="submit" id="updateUsername">Update Username</button>
+</div>
+</template>
