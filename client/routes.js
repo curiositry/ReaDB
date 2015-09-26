@@ -36,6 +36,13 @@ Router.route('/book/:_id', function () {
   Session.set("bookId", id)
 });
 
+Router.route('/book/:_id/edit', function () {
+  this.render('editBook');
+  var params = this.params;
+  var id = params._id;
+  Session.set("bookId", id)
+});
+
 Router.route('/export/json', function () {
   this.render('exportJSON');
 });
