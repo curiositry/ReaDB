@@ -16,7 +16,7 @@ Template.importCSV.events({
 
 Template.bookList.helpers({
   books: function(){
-    result = Books.find({"meta.userId": Meteor.userId()},{sort: [["rating","asc"],["dateAdded","desc"]]});
+    var result = fetchBooks();
     // var rating = result.rating;
     // var stars;
     // for(var i = 0; i < rating; i++){
@@ -105,6 +105,57 @@ Template.viewBook.events({
     deleteBook(bookId);
     Session.set("notification", "☑ Sucessfully deleted book: " +bookId);
     Router.go("/");
+  },
+  "click #updateBookMetadata": function(){
+    console.log("click!");
+    var bookId = Session.get("bookId");
+    var book = Books.find({_id:bookId}).fetch()[0];
+    var isbn =  book.isbn;
+    var title = book.title;
+    var author = book.author;
+    Meteor.call("fetchBookMetadata", isbn, title, author, function(error, result){
+      console.log("call")
+      if(result){
+        console.log(result.content);
+        if(JSON.parse(result.content).totalItems > 0){
+          console.log("in if");
+          var metadata = JSON.parse(result.content).items[0];
+          console.log(metadata);  
+          var isbn = book.isbn;   
+          console.log(book.title);
+          d = new Date();
+          var dateModified = d.yyyymmdd();
+            
+          if(!book.isbn){
+            if (metadata.volumeInfo.industryIdentifiers[1]){
+              isbn = metadata.volumeInfo.industryIdentifiers[1].identifier;
+            }else {
+              isbn = metadata.volumeInfo.industryIdentifiers[0].identifier;
+            }
+          }
+             
+          Books.update({_id: bookId},{$set: {             
+            "isbn": isbn, 
+            "title": book.title,
+            "author": book.author,        
+            "meta": {
+              "userId": Meteor.userId(),
+              "dateAdded": book.meta.dateAdded,
+              "dateModified": dateModified,
+              "imgUrl":  metadata.volumeInfo.imageLinks.thumbnail,
+              "pubdate": metadata.volumeInfo.publishedDate,
+              "publisherDescription": metadata.volumeInfo.description,
+              "pageCount": metadata.volumeInfo.pageCount,
+              "publisherTitle": metadata.volumeInfo.title,
+              "publisherAuthors": metadata.volumeInfo.author,
+            }
+          }});
+        }
+      } if (error){
+        throw error;
+      }
+    });
+    
   }
 });
 
