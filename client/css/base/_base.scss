@@ -203,6 +203,7 @@ hr.plain-hr:after {
 .meta-spacer:after {
   color: $tertiary-color;
   content: ' • ';
+  padding:0 0.5rem;
   font-weight: 700;  
   font-family: $interface-font-stack;
 }
