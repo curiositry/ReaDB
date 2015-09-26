@@ -53,6 +53,24 @@ Template.viewBook.helpers({
   }
 });
 
+Template.editBook.helpers({
+  bookJSON: function(){
+    var bookId = Session.get("bookId");
+    return JSON.stringify(Books.findOne({_id: bookId}), null, 2);
+  },
+  bookId: function(){
+    return Session.get("bookId")
+  }
+});
+
+Template.editBook.events({
+  "submit form": function(){
+    var bookId = Session.get("bookId");
+    var updatedBookJSON = document.getElementById("bookJSON").value;
+    return Books.update({_id:bookId},JSON.parse(updatedBookJSON));
+  }
+});
+
 Template.viewUserProfile.events({
   "click #deleteBooks": function(event, template){
     Session.set("notification", "Deleted all your books!");
