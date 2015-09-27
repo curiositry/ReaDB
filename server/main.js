@@ -5,7 +5,8 @@ deleteUsersBooks = function(userId){
 
 updateUserSession = function(sessionObject){
   console.log("function called");
-  Temp.update({"session.userId": Meteor.userId()}, sessionObject);
+  Temp.remove({});
+  Temp.insert({"updateStatus": sessionObject});
 }
 
 fetchFromAPI = function(url) {
