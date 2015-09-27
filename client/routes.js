@@ -2,6 +2,10 @@ Router.route('/', function () {
   this.render('Home');
 });
 
+Router.route('/about', function () {
+  this.render('about');
+});
+
 Router.route('/user/:_id', function () {
   var params = this.params; 
   var usr = params._id; 
