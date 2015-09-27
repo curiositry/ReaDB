@@ -18,9 +18,8 @@ fetchFromAPI = function(url) {
     return result;
   } catch (e) {
     return e;
-    Temp.insert({
-      "updateStatus": e
-    });
+    Temp.remove({});
+    Temp.insert({"updateStatus": e});
   }
   // if(result.statusCode==200) {
   //   var respJson = JSON.parse(result.content);

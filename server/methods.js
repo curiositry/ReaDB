@@ -26,13 +26,14 @@ Meteor.methods({
         if (!book.hasOwnProperty("meta") || !book.meta.hasOwnProperty("pubdate") ){
           console.log(book.title);
           console.log(book.meta);
-          totalBooksUpdated++;
-          updateUserSession("Updating book # "+toString(totalBooksUpdated));
+          totalBooksUpdated = totalBooksUpdated + 1;
+          updateUserSession(toString(totalBooksUpdated));
           this.unblock();    
           var result = fetchBookMetadata(book.isbn, book.title, book.author);
-          if(result.content && JSON.parse(JSON.stringify(result)).content.totalItems > 0){
+          console.log(JSON.parse(result.content).totalItems);
+          if(JSON.parse(result.content).totalItems){
             console.log("found book in api call");
-            var metadata = JSON.parse(JSON.stringify(result.content)).items[0];
+            var metadata = JSON.parse(result.content).items[0];
             var isbn = book.isbn;   
             console.log(book.title);
             d = new Date();
