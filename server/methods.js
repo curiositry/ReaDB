@@ -23,17 +23,15 @@ Meteor.methods({
         console.log("in for loop");
         totalBooksProcessed++;        
         var book = library[i];
-        if (!book.meta.pubdate){
+        if (!book.hasOwnProperty("meta") || !book.meta.hasOwnProperty("pubdate") ){
           console.log(book.title);
           console.log(book.meta);
           totalBooksUpdated++;
-          updateUserSession({"session": {
-            "userId": Meteor.userId(),
-            "updateStatus": "updating book # "+totalBooksUpdated
-          }});
+          updateUserSession("Updating book # "+toString(totalBooksUpdated));
           this.unblock();    
           var result = fetchBookMetadata(book.isbn, book.title, book.author);
-          if(JSON.parse(JSON.stringify(result.content)).totalItems > 0){
+          if(result.content && JSON.parse(JSON.stringify(result)).content.totalItems > 0){
+            console.log("found book in api call");
             var metadata = JSON.parse(JSON.stringify(result.content)).items[0];
             var isbn = book.isbn;   
             console.log(book.title);
@@ -47,7 +45,7 @@ Meteor.methods({
                 isbn = metadata.volumeInfo.industryIdentifiers[0].identifier;
               }
             }
-               
+            console.log(metadata.volumeInfo.imageLinks.thumbnail);  
             Books.update({_id: book._id},{$set: {             
               "isbn": isbn, 
               "title": book.title,
@@ -67,6 +65,7 @@ Meteor.methods({
           } // end JSON parse if         
         } // end no meta if
       } // end for loop
+      updateUserSession("Update Library Metadata (again)");
     }, // end method
     updateUsername: function(newUsername){
       console.log(Accounts.setUsername(Meteor.userId(), newUsername));
