@@ -18,9 +18,22 @@
   <hr>
   </div>
   {{> bookList}}
+  {{> footer}}
 </template>
 
-
+<template name="about">
+<div class="container">
+    {{> header}}
+  <hr>
+  <span style="serif">
+  <p><strong>ReaDB</strong> is an open-source library application, meant to be a self-hosted privacy-respecting alternative to services like as LibraryThing and Goodreads.</p>
+  <p>ReaDB lets you import and export your books from a spreadsheet or as JSON, and can fill in metadata by querying the Google Books API.</p>
+  
+  <p>ReaDB is built by <a href="http://curiositry.github.io">Curiositry</a>. Thanks for stopping by!</p>
+  </span>
+</div>
+{{> footer}}
+</template>
 
 <template name="exportJSON">
 <div class="container">
@@ -42,7 +55,7 @@
     {{> header}}
   <form >
     <input class="input-file" id="fileInput" type="file" name="files[]">
-    <button type="submit" id="importCSV">Import .csv</button>
+    <input type="submit" style="padding:0.5rem" class="btn" id="importCSV" value="Import .csv" />
   </form>
 </div>
 </template>
