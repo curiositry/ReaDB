@@ -13,12 +13,16 @@
 </head>
 
 <template name="home">
+  {{#if currentUser}}
   <div class="container">
     {{> header}}
   <hr>
   </div>
   {{> bookList}}
   {{> footer}}
+  {{else}}
+  {{> about}}
+{{/if}}
 </template>
 
 <template name="about">
