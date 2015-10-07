@@ -17,20 +17,21 @@ Template.importCSV.events({
 Template.bookList.helpers({
   books: function(){
     var result = fetchBooks();
-    // var rating = result.rating;
-    // var stars;
-    // for(var i = 0; i < rating; i++){
-    //   stars += "<i class='fa fa-star'></i>";
-    // }
-    // document.getElementById('stars'+result._id).innerHTML = stars;
-    return result;
-  }  
+    if (result) {
+      return result;
+    } else {
+      return false;
+    }
+  },
+  stats: function(){
+    return getPublicStats(Meteor.userId());
+  }
 });
 
 Template.header.helpers({
   notification: function(){
     var notification = Session.get("notification");
-    // Session.set("notification", "");
+    Session.set("notification", "");
     return notification;
   }
 });
@@ -45,6 +46,26 @@ Template.navigation.helpers({
     }
   }
 })
+
+Template.login.events({
+  'click .login-btn': function(e){
+    e.stopPropagation();
+    Accounts._loginButtonsSession.set('dropdownVisible', true);
+},
+'click .signup-btn': function(e){
+  console.log("click");
+  e.stopPropagation();
+  Accounts._loginButtonsSession.set('dropdownVisible', true);
+  Accounts._loginButtonsSession.resetMessages();
+  Accounts._loginButtonsSession.set('inSignupFlow', true);
+  Accounts._loginButtonsSession.set('inForgotPasswordFlow', false);
+  Tracker.flush()
+  var redraw = document.getElementById('login-dropdown-list');
+  redraw.style.display = 'none';
+  redraw.offsetHeight; // it seems that this line does nothing but is necessary for the redraw to work
+  redraw.style.display = 'block';
+}
+});
 
 Template.viewBook.helpers({
   book: function(){
@@ -100,11 +121,7 @@ Template.viewUserProfile.events({
 
 Template.viewUserProfile.helpers({
   stats: function(){
-    var bookCount = Books.find({"meta.userId": Session.get("profileUserId")}).count();
-    var stats = {
-      "bookCount": bookCount
-    };
-    return stats;
+    return getPublicStats(Session.get("profileUserId"))
   },
   username: function(){
     return Session.get("profileUsername");
