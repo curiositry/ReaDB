@@ -1,3 +1,33 @@
+
+Meteor.startup(function() {
+    var loginAttemptVerifier = function(parameters) {
+      if (parameters.user && parameters.user.emails && (parameters.user.emails.length > 0)) {
+        // return true if verified email, false otherwise.
+        var found = _.find(
+                           parameters.user.emails, 
+                           function(thisEmail) { return thisEmail.verified }
+                          );
+
+        if (!found) {
+          Accounts.sendVerificationEmail(parameters.user._id, parameters.user.emails[0].address);
+          throw new Meteor.Error(500, 'We sent you an email.');
+        }
+        return found && parameters.allowed;
+      } else {
+        console.log("user has no registered emails.");
+        return false;
+      }
+    }
+    Accounts.validateLoginAttempt(loginAttemptVerifier);
+    
+    return Mandrill.config({
+        username: Meteor.settings.private.MANDRILL_API_USER,
+        key: Meteor.settings.private.MANDRILL_API_KEY
+    });
+});
+
+
+
 deleteUsersBooks = function(userId){
   Books.remove({"meta.userId":userId});
   return "Deleted all your books!";
