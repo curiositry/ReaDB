@@ -66,7 +66,7 @@ Meteor.methods({
           } // end JSON parse if         
         } // end no meta if
       } // end for loop
-      updateUserSession("Update Library Metadata (again)");
+      updateUserSession("Update Library Metadata (working…)");
     }, // end method
     updateUsername: function(newUsername){
       console.log(Accounts.setUsername(Meteor.userId(), newUsername));
