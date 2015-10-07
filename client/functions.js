@@ -1,6 +1,19 @@
 
 fetchBooks = function(sort) {
-  return Books.find({"meta.userId": Meteor.userId()}, {sort: [["dateRead","desc"],["rating","desc"]]}).fetch()
+  var books = Books.find({"meta.userId": Meteor.userId()}, {sort: [["dateRead","desc"],["rating","desc"]]}).fetch();
+  if (books) {
+    return books;
+  } else {
+    return false;
+  }
+}
+
+getPublicStats = function(userId){
+  var bookCount = Books.find({"meta.userId": userId}).count();
+  var stats = {
+    "bookCount": bookCount
+  };
+  return stats;
 }
 
 importCSV = function(file){
