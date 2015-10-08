@@ -1,8 +1,16 @@
 
 Meteor.methods({
-    upload : function(fileContent) {
-      console.log("start insert");
+    fetchBooks: function(sort, fields){
+      return fetchBooks(Meteor.userId(), sort, fields);
+    },
+    uploadCSV : function(fileContent) {
+      console.log("start CSV insert");
       importCSV(fileContent);
+      console.log("completed");
+    },
+    uploadJSON : function(fileContent) {
+      console.log("start JSON insert");
+      importJSON(fileContent);
       console.log("completed");
     },
     fetchBookMetadata: function(isbn, title, author){
