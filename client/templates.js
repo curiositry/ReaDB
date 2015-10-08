@@ -52,12 +52,6 @@ Template.navigation.helpers({
     var username = Meteor.users.find({_id:Meteor.userId()}).fetch()[0].username;
     if (username) return username;
     else return Meteor.userId();
-    // var username = Meteor.users.find({_id:Meteor.userId()}).fetch()[0].username;
-    // if(username){
-    //   return username;
-    // } else {
-    //   return Meteor.userId();
-    // }
   }
 })
 
@@ -102,7 +96,10 @@ Template.editBook.events({
   "submit form": function(){
     var bookId = Session.get("bookId");
     var updatedBookJSON = document.getElementById("bookJSON").value;
-    return Books.update({_id:bookId},JSON.parse(updatedBookJSON));
+    Meteor.call("updateBook", bookId, JSON.parse(updatedBookJSON), function(err, res){
+      if (err) throw err;
+      if (res) return res;
+    });
   }
 });
 
@@ -176,8 +173,7 @@ Template.viewBook.events({
               isbn = metadata.volumeInfo.industryIdentifiers[0].identifier;
             }
           }
-             
-          Books.update({_id: bookId},{$set: {             
+          var updatedFields =  {             
             "isbn": isbn, 
             "title": book.title,
             "author": book.author,        
@@ -192,7 +188,16 @@ Template.viewBook.events({
               "publisherTitle": metadata.volumeInfo.title,
               "publisherAuthors": metadata.volumeInfo.author,
             }
-          }});
+          };
+          Meteor.call("updateBookMetadata", bookId, updatedFields, function(err, res){
+            if(res){
+              Session.set("notification", "☑ Sucessfully updated "+ book.title +" metadata!");   
+              return true;
+            } if (err) {
+              throw err;
+            }
+          });
+          
         }
       } if (error){
         throw error;
@@ -238,6 +243,8 @@ Template.exportCSV.events({
 Template.addBook.events({
   "click #fetchFromISBN": function(event, template){
     event.preventDefault();
+    event.stopPropagation();
+    
     var isbn = document.getElementById("isbnInput").value;
     var title = document.getElementById("titleInput").value;
     var author = document.getElementById("authorInput").value;
@@ -286,7 +293,7 @@ Template.addBook.events({
     event.preventDefault();
     d = new Date();
     var dateAdded = d.yyyymmdd();
-    Books.insert({
+    var newBook = {
       "isbn": event.target.isbn.value, 
       "title": event.target.title.value,
       "author": event.target.author.value,
@@ -305,8 +312,18 @@ Template.addBook.events({
         "pageCount": event.target.pageCount.value,
         "imgUrl": event.target.imgUrl.value
       }
+    };
+    Meteor.call("insertBook", newBook, function(err, res){
+      if (err) {
+        throw err;
+      } if (res) {
+        Session.set("notification", "☑ "+event.target.title.value+" sucessfully added to database");
+        Router.go("/");
+        return;
+      } else {
+        console.log("insert book method call failed");
+        return false;
+      }
     });
-    Session.set("notification", "☑ "+event.target.title.value+" sucessfully added to database");
-    Router.go("/");
   }
-})
+});
