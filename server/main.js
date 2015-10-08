@@ -1,4 +1,3 @@
-
 Meteor.startup(function() {
     var loginAttemptVerifier = function(parameters) {
       if (parameters.user && parameters.user.emails && (parameters.user.emails.length > 0)) {
@@ -26,7 +25,31 @@ Meteor.startup(function() {
     });
 });
 
+fetchBooks = function(user, sort, fields) {
+  console.log(sort);
+  console.log(fields);
+  var query = {};
+  query[0] = {"meta.userId": user};
+  
 
+  query[1] = sort;
+  if (typeof sort === undefined) {
+    query[1] = {sort: [["dateRead","desc"],["rating","desc"]]};
+  }
+  
+  if (fields != undefined) {
+    query[2] = fields;
+  } else {
+    query[2] = {fields:{}};
+  }
+  console.log(query[0] + query[1] + query[2]);
+  var books = Books.find(query[0], query[2] ).fetch();
+  if (books) {
+    return books;
+  } else {
+    return false;
+  }
+}
 
 deleteUsersBooks = function(userId){
   Books.remove({"meta.userId":userId});
@@ -106,6 +129,14 @@ convertToCSV = function(objArray) {
   return CSV;
 }
 
+importJSON = function(file) {
+  console.log("enter function importJSON")
+  var data = JSON.parse(file);
+  data.forEach(function (item, index, array) {
+      Books.insert(item);
+  });
+  return;
+}
 
 importCSV = function(file) {
   console.log("enter function import_file_orders")
