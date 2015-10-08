@@ -64,3 +64,13 @@
   </form>
 </div>
 </template>
+
+<template name="importJSON">
+<div class="container">
+    {{> header}}
+  <form >
+    <input class="input-file" id="fileInput" type="file" name="files[]">
+    <input type="submit" style="padding:0.5rem" class="btn" id="importJSON" value="Import .JSON" />
+  </form>
+</div>
+</template>
