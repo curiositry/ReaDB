@@ -3,6 +3,47 @@ Meteor.methods({
     fetchBooks: function(sort, fields){
       return fetchBooks(Meteor.userId(), sort, fields);
     },
+    insertBook: function(bookObject){
+      console.log("in insert method");
+      console.log(bookObject.meta.userId)
+      
+      if(bookObject.meta.userId == Meteor.userId()){
+        Books.insert(bookObject);
+        return true;
+      } else {
+        return false;
+      }
+    },
+    deleteBook: function(bookId){
+      var book = Books.find({_id:bookId}).fetch()[0];
+      if(book.meta.userId == Meteor.userId()){
+        Books.remove({_id:bookId});
+        return true;
+      } else {
+        console.log("Oops! Book doesn’t seem to belong to you!");
+        return false;
+      }
+    },
+    updateBook: function(bookId, updatedBookObject){
+      var book = Books.find({_id:bookId}).fetch()[0];
+      if(book.meta.userId == Meteor.userId()){
+        Books.update({_id:bookId}, updatedBookObject);
+        return true;
+      } else {
+        console.log("Oops! Book doesn’t seem to belong to you!");
+        return false;
+      }
+    },
+    updateBookMetadata: function(bookId, updatedFields){
+      var book = Books.find({_id:bookId}).fetch()[0];
+      if(book.meta.userId == Meteor.userId()){
+        Books.update({_id: bookId},{$set: updatedFields});
+        return true;
+      } else {
+        console.log("Oops! Book doesn’t seem to belong to you!");
+        return false;
+      }
+    },
     uploadCSV : function(fileContent) {
       console.log("start CSV insert");
       importCSV(fileContent);
