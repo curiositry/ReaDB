@@ -6,6 +6,10 @@ Router.route('/about', function () {
   this.render('about');
 });
 
+Router.route('/search', function () {
+  this.render('search');
+});
+
 Router.route('/user/:_id', function () {
   var params = this.params; 
   var usr = params._id; 
