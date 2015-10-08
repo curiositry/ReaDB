@@ -5,7 +5,22 @@ Template.importCSV.events({
   var f = document.getElementById('fileInput').files[0];
   console.log("read file");
   readFile(f, function(content) {
-    Meteor.call('upload',content);
+    Meteor.call('uploadCSV',content);
+    Router.go("/")
+
+    Session.set("notification", "Sucessfully imported "+f.name+" as CSV");
+  });
+ }
+});
+
+Template.importJSON.events({
+ "click #importJSON" : function(event, template) {
+  event.stopPropagation();
+  event.preventDefault();;
+  var f = document.getElementById('fileInput').files[0];
+  console.log("read file");
+  readFile(f, function(content) {
+    Meteor.call('uploadJSON',content);
     Router.go("/")
 
     Session.set("notification", "Sucessfully imported "+f.name+" as CSV");
@@ -16,12 +31,8 @@ Template.importCSV.events({
 
 Template.bookList.helpers({
   books: function(){
-    var result = fetchBooks();
-    if (result) {
-      return result;
-    } else {
-      return false;
-    }
+    fetchBooks(null,null)
+    return Session.get("books");
   },
   stats: function(){
     return getPublicStats(Meteor.userId());
@@ -37,13 +48,16 @@ Template.header.helpers({
 });
 
 Template.navigation.helpers({
-  user: function(){
+  user: function() {
     var username = Meteor.users.find({_id:Meteor.userId()}).fetch()[0].username;
-    if(username){
-      return username;
-    } else {
-      return Meteor.userId();
-    }
+    if (username) return username;
+    else return Meteor.userId();
+    // var username = Meteor.users.find({_id:Meteor.userId()}).fetch()[0].username;
+    // if(username){
+    //   return username;
+    // } else {
+    //   return Meteor.userId();
+    // }
   }
 })
 
@@ -190,7 +204,9 @@ Template.viewBook.events({
 
 Template.exportJSON.helpers({
   "JSON": function(){
-    return toJSONString(fetchBooks());
+    var fields = {fields: {"_id":0}};
+    fetchBooks(undefined, fields);
+    return toJSONString(Session.get("books"));
   }
 });
 
