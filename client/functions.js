@@ -1,11 +1,15 @@
 
-fetchBooks = function(sort) {
-  var books = Books.find({"meta.userId": Meteor.userId()}, {sort: [["dateRead","desc"],["rating","desc"]]}).fetch();
-  if (books) {
-    return books;
-  } else {
-    return false;
-  }
+fetchBooks = function(sort, fields) {
+  Meteor.call("fetchBooks", sort, fields, function(err,res){
+    if (err){    
+      throw err;
+    } else if (res) {
+      Session.set("books",JSON.parse(JSON.stringify(res)));  
+      return JSON.parse(JSON.stringify(res));
+    } else {
+      return false;
+    }
+  });
 }
 
 getPublicStats = function(userId){
