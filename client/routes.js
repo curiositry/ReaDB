@@ -59,6 +59,10 @@ Router.route('/import/csv', function () {
   this.render('importCSV');
 });
 
+Router.route('/import/json', function () {
+  this.render('importJSON');
+});
+
 Router.route('add', function () {
   this.render('addBook');
   // var params = this.params; // { _id: "5" }
