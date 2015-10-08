@@ -1,4 +1,8 @@
 Books = new Mongo.Collection('books');
+Books.initEasySearch(['title', 'author'], {
+    'limit' : 10,
+    'use' : 'mongo-db'
+});
 
 Temp = new Mongo.Collection('temp');
 
