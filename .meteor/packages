@@ -5,8 +5,8 @@
 # but you can also edit it by hand.
 
 msavin:mongol
-autopublish
-insecure
+#autopublish
+#insecure
 iron:router
 #meteortoys:allthings
 fortawesome:fontawesome
