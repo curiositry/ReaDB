@@ -59,11 +59,11 @@ readFile = function(f,onLoadCallback) {
 // }
 
 deleteBook = function(bookId) {
-  var book = Books.find({_id:bookId}).fetch()[0];
-  if(book.meta.userId == Meteor.userId()){
-    Books.remove({_id:bookId});
-  }else {
-    console.log("Oops! Book doesn’t seem to belong to you!");
-    Session.set("notification","Oops! Book doesn’t seem to belong to you!");  
-  }
+  Meteor.call("deleteBook", bookId, function(err,res){
+    if (err) throw err;
+    if (res) return res;
+    else {
+      Session.set("notification","Oops! Book doesn’t seem to belong to you!"); 
+    }
+  });
 }
