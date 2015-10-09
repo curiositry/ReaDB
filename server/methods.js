@@ -79,7 +79,6 @@ Meteor.methods({
           updateUserSession(toString(totalBooksUpdated));
           this.unblock();    
           var result = fetchBookMetadata(book.isbn, book.title, book.author);
-          console.log(JSON.parse(result.content).totalItems);
           if(JSON.parse(result.content).totalItems){
             console.log("found book in api call");
             var metadata = JSON.parse(result.content).items[0];
