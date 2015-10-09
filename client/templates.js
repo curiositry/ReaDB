@@ -211,7 +211,7 @@ Template.exportJSON.helpers({
   "JSON": function(){
     var fields = {fields: {"_id":0}};
     fetchBooks(undefined, fields);
-    return toJSONString(Session.get("books"));
+    return encodeURIComponent(toJSONString(Session.get("books")));
   }
 });
 
