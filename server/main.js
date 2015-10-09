@@ -133,6 +133,7 @@ importJSON = function(file) {
   console.log("enter function importJSON")
   var data = JSON.parse(file);
   data.forEach(function (item, index, array) {
+      item.meta.userId = Meteor.userId();
       Books.insert(item);
   });
   return;
