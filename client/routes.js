@@ -1,13 +1,16 @@
-Router.route('/', function () {
-  this.render('Home');
+Router.configure({
+  layoutTemplate: 'layout'
 });
 
-Router.route('/about', function () {
-  this.render('about');
-});
-
-Router.route('/search', function () {
-  this.render('search');
+Router.map(function() {
+  if(Meteor.userId()){
+    this.route('bookList', {path: '/'});
+  } else {
+    this.route('about', {path: '/'});
+  }  
+  this.route('addBook', {path: '/add'});
+  this.route('about', {path: '/about'});
+  this.route('search', {path: '/search'});
 });
 
 Router.route('/user/:_id', function () {
@@ -67,9 +70,9 @@ Router.route('/import/json', function () {
   this.render('importJSON');
 });
 
-Router.route('add', function () {
-  this.render('addBook');
-  // var params = this.params; // { _id: "5" }
-  // var id = params._id; // "5"
-  // Session.set("bookId", id)
-});
+// Router.onBeforeAction(function() {
+//   if (!Meteor.userId()) {
+//     this.render("login");
+//   } else {
+//     this.next();
+//   }}, {except: ['login','about']});
