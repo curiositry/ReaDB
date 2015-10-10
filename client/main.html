@@ -12,66 +12,58 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 </head>
 
-<template name="home">
-  {{#if currentUser}}
+<template name="layout">
   <div class="container">
     {{> header}}
-  <hr>
+    <hr>
+  {{#unless currentUser}}
+      {{> login}}
+    {{else}}
+      {{> yield}}
+  {{/unless}}
   </div>
-  {{> bookList}}
   {{> footer}}
-  {{else}}
-  {{> about}}
-{{/if}}
 </template>
 
-
 <template name="about">
-<div class="container">
-    {{> header}}
-  <hr>
+
   <span style="serif">
   <p><strong>ReaDB</strong> is an open-source library application, meant to be a self-hosted privacy-respecting alternative to services like as LibraryThing and Goodreads.</p>
   <p>ReaDB lets you import and export your books from a spreadsheet or as JSON, and can fill in metadata by querying the Google Books API.</p>
   
   <p>ReaDB is built by <a href="http://curiositry.github.io">Curiositry</a>. Thanks for stopping by!</p>
   </span>
-</div>
-{{> footer}}
+
 </template>
 
 <template name="exportJSON">
-<div class="container">
-  {{> header}}
+
   <textarea id="json">{{JSON}}</textarea><br clear="all"><br>
   <a class="btn m0a" href="data:application/json;charset=utf-8, {{JSON}}" download="readb-books.json">Download books.json</a>
-</div>
+
 </template>
 
 <template name="exportCSV">
-<div class="container">
-  {{> header}}
+
   <textarea id="csv">{{encodedCSV}}</textarea><br clear="all"><br>
   <a class="btn m0a" href="data:text/csv;charset=utf-8, {{encodedCSV}}" download="readb-books.csv">Download books.csv</a>
-</div>
+
 </template>
 
 <template name="importCSV">
-<div class="container">
-    {{> header}}
+
   <form >
     <input class="input-file" id="fileInput" type="file" name="files[]">
     <input type="submit" style="padding:0.5rem" class="btn" id="importCSV" value="Import .csv" />
   </form>
-</div>
+
 </template>
 
 <template name="importJSON">
-<div class="container">
-    {{> header}}
+
   <form >
     <input class="input-file" id="fileInput" type="file" name="files[]">
     <input type="submit" style="padding:0.5rem" class="btn" id="importJSON" value="Import .JSON" />
   </form>
-</div>
+
 </template>
