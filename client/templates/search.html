@@ -1,30 +1,24 @@
 <template name="search">
-  <div class="container">
-    {{> header}}
-    <br>
-    <div class="center-text">
-      {{> esInput index="books" placeholder="Filter books…" }}
-      
-      {{#ifEsIsSearching index="books"}}
-      <br clear="all">
-        <i class="fa fa-spinner fa-3x butler-color"></i><br> <span class="serif">Loading...</span>
-      {{/ifEsIsSearching}}
-    </div>
-
-    {{#esEach index="books"}}
-      <ol class="book-list" style="list-style-type:none;">
-        {{> bookListItem}}
-      </ol>
-    {{/esEach}}
+  <br>
+  <div class="center-text">
+    {{> esInput index="books" placeholder="Filter books…" }}
     
-    {{> esLoadMoreButton index="books" class="btn" content="+ Load More Books ..."}}
-
-    {{#ifEsHasNoResults index="books"}}
-      <br>
-      <h1 class="butler-color mt0">No results found…</h1>
-    {{/ifEsHasNoResults}}
-
-    
+    {{#ifEsIsSearching index="books"}}
+    <br clear="all">
+      <i class="fa fa-spinner fa-3x butler-color"></i><br> <span class="serif">Loading...</span>
+    {{/ifEsIsSearching}}
   </div>
-  {{> footer}}
+
+  {{#esEach index="books"}}
+    <ol class="book-list" style="list-style-type:none;">
+      {{> bookListItem}}
+    </ol>
+  {{/esEach}}
+  
+  {{> esLoadMoreButton index="books" class="btn" content="+ Load More Books ..."}}
+
+  {{#ifEsHasNoResults index="books"}}
+    <br>
+    <h1 class="butler-color mt0">No results found…</h1>
+  {{/ifEsHasNoResults}}
 </template>

@@ -1,6 +1,4 @@
 <template name="viewBook">
-<div class="container">
-  {{> header}}
   <h2 class="mb0">{{book.title}}</h2>
   
   By <em class="mt0">{{book.author}}</em><br>
@@ -57,7 +55,5 @@
     <i class="fa fa-info-circle" style="color:tan;cursor:pointer;" id="updateBookMetadata"></i>
     <span class="meta-spacer"></span>
     <a href="/book/{{book._id}}/edit"><i class="fa fa-edit" style="color:#000033;"></i></a>
-  </span>
-  
-</div>
+  </span>  
 </template>

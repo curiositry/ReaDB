@@ -1,7 +1,4 @@
 <template name="addBook">
-<div class="container" >
-  {{> header}}
-  {{#if currentUser}}
   <form name="addBooks" style="text-align:left;">
     <input type="text" id="isbnInput" placeholder="ISBN #" name="isbn"/>
     <button id="fetchFromISBN">Fetch metadata from ISBN</button>
@@ -21,10 +18,5 @@
     <br>
     <button class="btn btn--cta" type="submit">Add Book</button>
   </form>
-  {{else}}
-  {{> login}}
-  {{/if}}
   <hr>
-</div>
-{{> footer}}
 </template>

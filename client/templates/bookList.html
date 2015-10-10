@@ -1,16 +1,14 @@
 <template name="bookList">
-<div class="container">
   {{#if stats.bookCount}}
     <div class="center-text">{{stats.bookCount}} books:</div>
     {{else}}
-    <h1 class="butler-color mt0">It looks like your library is empty… <br><br>Click the "+" icon in the menu bar to start filling your shelves!</h1>
+    <h1 class="butler-color mt0">It looks like your library is empty…          <br><br>Click the "+" icon in the menu bar to start filling your shelves!</h1>
   {{/if}}
   <ol class="book-list" style="list-style-type:none;">
     {{#each books}}
       {{> bookListItem}}
     {{/each}}
-</ol>
-</div>
+  </ol>
 </template>
 
 <template name="bookListItem">
