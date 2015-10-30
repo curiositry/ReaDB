@@ -6,6 +6,8 @@ BooksIndex = new EasySearch.Index({
   engine: new EasySearch.MongoDB()
 });
 
+Temp  = new Mongo.Collection('temp');
+
 Date.prototype.yyyymmdd = function() {
   var yyyy = this.getFullYear().toString();
   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
