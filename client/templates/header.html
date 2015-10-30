@@ -1,51 +1,42 @@
 <template name="header">
-  <header>
-    <br>
+  <header class="main-header">
     <img src="/apple-touch-icon.png" class="mt0" alt="ReaDB Logo">
-    <a href="/"><h1 class="mb0">ReaDB</h1></a>
-    <h3 class="serif italic mt0" style="font-weight:400;">your private digital bookshelf</h3>
-    {{> navigation}}
-    {{#if notification}}
-      <span class="notification"><small>{{notification}}</small></span>
-    {{/if}}
+    <a href="/"><h1 class="mb0 serif">ReaDB</h1></a>
+    <h4>Your Private Digital Bookshelf</h4>
   </header>
+  <br>
 </template>
-
 
 
 <template name="navigation">
   <nav role="navigation" >
     <ul>
       <li class="sans-serif">
-        <a href="/"><i class="fa fa-home"></i></a>
-      </li><span class="meta-spacer"></span>
-      <li class="sans-serif">
-        <a href="/about"><i class="fa fa-question-circle"></i></a>
-      </li><span class="meta-spacer"></span>
-      <li class="sans-serif">
-        <a href="/search"><i class="fa fa-search"></i></a>
-      </li><span class="meta-spacer"></span>
-      <li class="sans-serif">
-        <a href="/add"><i class="fa fa-plus"></i></a>
-      </li><span class="meta-spacer"></span>
-      <li class="sans-serif"> 
-        <a href="/export/json"><i class="fa fa-download"></i> JSON</a> 
-      </li><span class="meta-spacer"></span>
-      <li class="sans-serif">
-        <a href="/export/csv"><i class="fa fa-download"></i> CSV</a>
-      </li><span class="meta-spacer"></span>
-      <li class="sans-serif">
-         <a href="/import/json"><i class="fa fa-upload"></i> JSON</a>
-      </li><span class="meta-spacer"></span>
-      <li class="sans-serif">
-         <a href="/import/csv"><i class="fa fa-upload"></i> CSV</a>
-      </li><span class="meta-spacer"></span>
-
-      <li class="sans-serif">
-        <a href="/user/{{user}}"><i class="fa fa-user"></i></a>
+        {{> loginButtons}}
       </li>
-      <span class="meta-spacer"></span>
-      {{> loginButtons}}
+      <li class="sans-serif">
+        <a href="/"><i class="fa fa-home"></i> Home</a>
+      </li>
+      <li class="sans-serif">
+        <a href="/about"><i class="fa fa-question-circle"></i> About</a>
+      </li>
+      <li class="sans-serif">
+        <a href="/search"><i class="fa fa-search"> </i> Search</a>
+      </li>
+      <li class="sans-serif">
+        <a href="/add"><i class="fa fa-plus"></i> Add Book</a>
+      </li>
+      <li class="sans-serif">
+        <a href="/IO"><i class="fa fa-download"></i> Import / Export books</a> 
+      </li>
+
+      {{#if currentUser}}
+        {{#if user}}
+          <li class="sans-serif">
+            <a href="/user/{{user}}"><i class="fa fa-user"></i> Your Profile</a>
+          </li>
+        {{/if}}
+      {{/if}}    
     </ul>
   </nav>
 </template>
