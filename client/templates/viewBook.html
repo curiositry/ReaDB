@@ -16,7 +16,13 @@
     {{/if}}
     <i class="fa fa-calendar"></i> {{book.dateRead}}
     <span class="meta-spacer"></span> 
-    <i class="fa fa-tags"></i> {{book.tags}}
+    {{#if book.tags}}
+      <span class="meta-spacer"></span>
+      <i class="fa fa-tags butler-color"></i>
+      {{#each tags}}
+       <strong><a href="/tags/{{this}}">{{this}}</a></strong>, 
+      {{/each}}
+    {{/if}}
     <span class="meta-spacer"></span> 
     <i class="fa fa-file-text"></i> {{book.meta.pageCount}}
   </span>
