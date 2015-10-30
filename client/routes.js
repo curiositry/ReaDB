@@ -54,7 +54,7 @@ Router.route('/user/:_id', function () {
 });
 
 Router.route('/tags/:tag', function () {
-  this.render('graceList');
+  this.render('bookList');
   var params = this.params;
   var tag = params.tag; 
   var query = tag;
