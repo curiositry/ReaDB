@@ -1,7 +1,7 @@
 
 Meteor.methods({
-    fetchBooks: function(sort, fields){
-      return fetchBooks(Meteor.userId(), sort, fields);
+    fetchBooks: function(search, sort, fields){
+      return fetchBooks(search, sort, fields, Meteor.userId());
     },
     insertBook: function(bookObject){
       console.log("in insert method");
@@ -57,6 +57,15 @@ Meteor.methods({
     fetchBookMetadata: function(isbn, title, author){
       this.unblock();
       return fetchBookMetadata(isbn, title, author);
+    },
+    fetchUsername: function(userId){
+      var username = Meteor.users.find({"_id":userId}).fetch()[0].username;
+      console.log(username)
+      if (username) {;
+        return username;
+      } else {
+        return userId;
+      }
     },
     processCSV: function(){
       console.log("process method called");
