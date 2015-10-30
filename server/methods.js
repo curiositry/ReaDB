@@ -95,6 +95,7 @@ Meteor.methods({
             console.log(book.title);
             d = new Date();
             var dateModified = d.yyyymmdd();
+            var dateReadSortable = new Date(book.dateRead).getTime() / 1000;
               
             if(!book.isbn){
               if (metadata.volumeInfo.industryIdentifiers[1]){
@@ -112,6 +113,7 @@ Meteor.methods({
                 "userId": Meteor.userId(),
                 "dateAdded": book.meta.dateAdded,
                 "dateModified": dateModified,
+                "dateReadSort": dateReadSortable,
                 "imgUrl":  metadata.volumeInfo.imageLinks.thumbnail,
                 "pubdate": metadata.volumeInfo.publishedDate,
                 "publisherDescription": metadata.volumeInfo.description,
