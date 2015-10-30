@@ -31,11 +31,52 @@ Template.importJSON.events({
 
 Template.bookList.helpers({
   books: function(){
-    fetchBooks(null,null)
-    return Session.get("books");
+    var tag = Session.get("findBy");
+    var filters = Session.get("filters");
+    var sortBy = Session.get("sortBy");
+    var sortOrder = Session.get("sortOrder");  
+
+    if (sortBy){
+      if(sortOrder){
+        var sort = {};
+        sort[sortBy] = parseInt(sortOrder);
+        var sortQuery = {};
+        sortQuery["sort"] = sort;
+      } else {
+        var sortQuery = "{sort: {"+sortBy+": -1}}";      
+      }
+      Session.set("sortQuery", sortQuery);
+    }
+    var sortQuery = Session.get("sortQuery");
+    console.log(sortQuery);
+    if(tag){
+      console.log(tag);
+      var search = {"tags": {$regex: tag, $options: "i"}};
+      console.log(search);
+      fetchBooks(search);
+    } else if (sortQuery) {
+      var query = sortQuery;
+      fetchBooks(null, sortQuery, null);
+    } else {
+      fetchBooks();
+    }
+    var books = Session.get("books");
+    for (var book in books) {
+      // books[book].text = books[book].text.replace(/\n/g,"<br/>");  
+      console.log(tagsToArray(books[book].tags));
+      books[book].tags = tagsToArray(books[book].tags);
+    }
+    return books;
   },
   stats: function(){
-    return getPublicStats(Meteor.userId());
+    var tag = Session.get("findBy");
+    if(tag){
+      var tagRegExp = new RegExp(tag,"i");
+      var query = {"tags":tagRegExp};
+      return getPublicStats(Meteor.userId(), query);
+    } else {
+      return getPublicStats(Meteor.userId());
+    }
   }
 });
 
@@ -49,31 +90,31 @@ Template.header.helpers({
 
 Template.navigation.helpers({
   user: function() {
-    var username = Meteor.users.find({_id:Meteor.userId()}).fetch()[0].username;
-    if (username) return username;
-    else return Meteor.userId();
+    if (Meteor.userId()){
+      return fetchUsername(Meteor.userId());
+    }
   }
-})
-
-Template.login.events({
-  'click .login-btn': function(e){
-    e.stopPropagation();
-    Accounts._loginButtonsSession.set('dropdownVisible', true);
-},
-'click .signup-btn': function(e){
-  console.log("click");
-  e.stopPropagation();
-  Accounts._loginButtonsSession.set('dropdownVisible', true);
-  Accounts._loginButtonsSession.resetMessages();
-  Accounts._loginButtonsSession.set('inSignupFlow', true);
-  Accounts._loginButtonsSession.set('inForgotPasswordFlow', false);
-  Tracker.flush()
-  var redraw = document.getElementById('login-dropdown-list');
-  redraw.style.display = 'none';
-  redraw.offsetHeight; // it seems that this line does nothing but is necessary for the redraw to work
-  redraw.style.display = 'block';
-}
 });
+
+// Template.login.events({
+  // 'click .login-btn': function(event, template){
+  //   event.stopPropagation();
+  //   Accounts._loginButtonsSession.set('dropdownVisible', true);
+  // },
+  // 'click .signup-btn': function(e){
+  //   console.log("click");
+  //   e.stopPropagation();
+  //   Accounts._loginButtonsSession.set('dropdownVisible', true);
+  //   Accounts._loginButtonsSession.resetMessages();
+  //   Accounts._loginButtonsSession.set('inSignupFlow', true);
+  //   Accounts._loginButtonsSession.set('inForgotPasswordFlow', false);
+  //   Tracker.flush()
+  //   var redraw = document.getElementById('login-dropdown-list');
+  //   redraw.style.display = 'none';
+  //   redraw.offsetHeight; // it seems that this line does nothing but is necessary for the redraw to work
+  //   redraw.style.display = 'block';
+  // }
+// });
 
 Template.viewBook.helpers({
   book: function(){
@@ -132,10 +173,10 @@ Template.viewUserProfile.events({
 
 Template.viewUserProfile.helpers({
   stats: function(){
-    return getPublicStats(Session.get("profileUserId"))
+    return getPublicStats(Session.get("profileUserId"), null)
   },
   username: function(){
-    return Session.get("profileUsername");
+    return fetchUsername(Session.get("profileUserId"));
   }
 });
 
