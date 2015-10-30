@@ -1,0 +1,17 @@
+<template name="filterBar">
+  <div class="filter-bar">
+  <form action="/filter" style="text-align:left;">
+    <i class="fa fa-sort-numeric-asc butler-color"> <strong class="sans-serif meta">Sort:</strong> </i>
+    
+    <select name="sortby" id="filterbar-sortby">
+      <option value="sortDate">Newest</option>
+      <option value="favorites">Most Popular</option>
+      <option value="title">Alphabetical</option>        
+    </select>
+    <select name="sortorder" id="filterbar-sortorder">
+      <option value="-1">Descending</option>
+      <option value="1">Ascending</option>    
+    </select>
+  </form>
+</div>
+</template>
