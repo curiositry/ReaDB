@@ -4,6 +4,7 @@
     {{else}}
     <h1 class="butler-color mt0">It looks like your library is empty…          <br><br>Click the "+" icon in the menu bar to start filling your shelves!</h1>
   {{/if}}
+  {{> filterBar}}
   <ol class="book-list" style="list-style-type:none;">
     {{#each books}}
       {{> bookListItem}}
@@ -27,6 +28,13 @@
     {{#if isbn}}
       <i class="fa fa-barcode"></i> {{isbn}} 
       <span class="meta-spacer"></span> 
+    {{/if}}
+    {{#if tags}}
+      <i class="fa fa-tags butler-color"></i>
+      {{#each tags}}
+       <strong><a href="/tags/{{this}}">{{this}}</a></strong>, 
+      {{/each}}
+      <span class="meta-spacer"></span>
     {{/if}}
     <i class="fa fa-calendar"></i> {{dateRead}}
     <span class="meta-spacer"></span> 
