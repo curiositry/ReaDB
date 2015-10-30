@@ -3,6 +3,9 @@ Meteor.methods({
     fetchBooks: function(search, sort, fields){
       return fetchBooks(search, sort, fields, Meteor.userId());
     },
+    fetchBook: function(bookId){
+      return Books.findOne({"_id": bookId});
+    },
     insertBook: function(bookObject){
       console.log("in insert method");
       console.log(bookObject.meta.userId)
