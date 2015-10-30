@@ -7,8 +7,11 @@ Template.importCSV.events({
   readFile(f, function(content) {
     Meteor.call('uploadCSV',content);
     Router.go("/")
-
-    Session.set("notification", "Sucessfully imported "+f.name+" as CSV");
+    Bert.alert({
+        title: 'Import successful!',
+        message: 'Sucessfully imported '+f.name+' as CSV',
+        type: 'success',
+      });
   });
  }
 });
@@ -142,14 +145,14 @@ Template.filterBar.events({
   }
 });
 
-
-Template.header.helpers({
-  notification: function(){
-    var notification = Session.get("notification");
-    Session.set("notification", "");
-    return notification;
-  }
-});
+// 
+// Template.header.helpers({
+//   notification: function(){
+//     var notification = Session.get("notification");
+//     Session.set("notification", "");
+//     return notification;
+//   }
+// });
 
 Template.navigation.helpers({
   user: function() {
@@ -209,7 +212,11 @@ Template.editBook.events({
 
 Template.viewUserProfile.events({
   "click #deleteBooks": function(event, template){
-    Session.set("notification", "Deleted all your books!");
+    Bert.alert({
+        title: 'Farenheight 451!',
+        message: 'All the books in your library have been deleted.',
+        type: 'info',
+      });
     Meteor.call("deleteCurrentUsersBooks");
   },
   "click #updateLibraryMetadata": function(){
@@ -224,6 +231,11 @@ Template.viewUserProfile.events({
     Session.set("newUsername",newUsername);
     Session.set("oldUsername",oldUsername);
     Session.set("notification", "Username sucessfully changed from "+oldUsername+" to "+newUsername);
+    Bert.alert({
+        title: 'Hello, '+ newUsername,
+        message: 'Username sucessfully changed from '+oldUsername+' to '+ newUsername,
+        type: 'success',
+      });
     Meteor.call("updateUsername", newUsername, function(err, res){
       if(res){    
         Router.go("/");
@@ -248,7 +260,11 @@ Template.viewBook.events({
   "click #deleteBook": function(){
     var bookId = Session.get("bookId");
     deleteBook(bookId);
-    Session.set("notification", "☑ Sucessfully deleted book: " +bookId);
+    Bert.alert({
+        title: 'Book deleted!',
+        message: 'Sucessfully deleted book: ' + bookId,
+        type: 'success',
+      });
     Router.go("/");
   },
   "click #updateBookMetadata": function(){
@@ -389,7 +405,11 @@ Template.addBook.events({
         
       }
       if(error){
-        Session.set("notification", "Error fetching metadata from ISBN: "+error);
+        Bert.alert({
+            title: 'Metadata not found…',
+            message: 'Error fetching metadata from ISBN: '+error,
+            type: 'warning',
+          });
       }
     });
     
