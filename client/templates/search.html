@@ -1,24 +1,30 @@
 <template name="search">
   <br>
-  <div class="center-text">
-    {{> esInput index="books" placeholder="Filter books…" }}
+  <div>
+    {{> EasySearch.Input index=booksIndex}}
     
-    {{#ifEsIsSearching index="books"}}
+    {{#EasySearch.IfSearching index=booksIndex}}
     <br clear="all">
-      <i class="fa fa-spinner fa-3x butler-color"></i><br> <span class="serif">Loading...</span>
-    {{/ifEsIsSearching}}
+      <i class="fa fa fa-spinner fa-pulse fa-3x butler-color"></i><br> <span class="serif italic">loading...</span>
+    {{/EasySearch.IfSearching}}
   </div>
+  
+  {{> EasySearch.LoadMore index=booksIndex}}
 
-  {{#esEach index="books"}}
+  {{#EasySearch.IfNoResults index=booksIndex}}
+    <br>
+    <h1 class="butler-color mt0">No results found…</h1>
+  {{/EasySearch.IfNoResults}}
+
+  {{#EasySearch.Each index=booksIndex }}
     <ol class="book-list" style="list-style-type:none;">
       {{> bookListItem}}
     </ol>
-  {{/esEach}}
+  {{/EasySearch.Each}}
   
-  {{> esLoadMoreButton index="books" class="btn" content="+ Load More Books ..."}}
+  {{> EasySearch.Pagination index=booksIndex maxPages=10}}
 
-  {{#ifEsHasNoResults index="books"}}
-    <br>
-    <h1 class="butler-color mt0">No results found…</h1>
-  {{/ifEsHasNoResults}}
+  
+  <!-- {{> esLoadMoreButton index="books" class="btn" content="+ Load More Books ..."}} -->
+
 </template>
