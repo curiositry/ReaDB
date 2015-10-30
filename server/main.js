@@ -38,7 +38,7 @@ fetchBooks = function(search, sort, fields, user) {
   }
 
   if (typeof sort === undefined || sort === null) {
-    query[1] = {sort: { sortDate: -1} };
+    query[1] = {sort: { "meta.dateReadSort": -1} };
   } else {  
     query[1] = sort;
   }
