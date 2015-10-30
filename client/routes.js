@@ -1,13 +1,20 @@
 Router.configure({
-  layoutTemplate: 'layout'
+  layoutTemplate: 'layout',
+  notFoundTemplate: 'pageNotFound'
 });
 
+if(Meteor.userId()){
+  Router.route('/', function(){
+    this.render('bookList');
+    Session.set("findBy", "");
+  });
+} else {
+  Router.route('/', function(){
+    this.render("about")
+  });
+}  
+
 Router.map(function() {
-  if(Meteor.userId()){
-    this.route('bookList', {path: '/'});
-  } else {
-    this.route('about', {path: '/'});
-  }  
   this.route('addBook', {path: '/add'});
   this.route('about', {path: '/about'});
   this.route('search', {path: '/search'});
@@ -16,29 +23,43 @@ Router.map(function() {
 Router.route('/user/:_id', function () {
   var params = this.params; 
   var usr = params._id; 
-  this.render("404");
-  var usernameRegex = new RegExp(["^", usr, "$"].join(""), "i");
-  if (Meteor.users.find({"_id":usr}).fetch()[0]){
-    console.log("id match");
-    Session.set("userId", usr);
-    var username = Meteor.users.find({"_id":usr}).fetch()[0].username;
+  this.waitOn = function(){
+    var usernameRegex = new RegExp(["^", usr, "$"].join(""), "i");
+    if (Meteor.users.find({"_id":usr}).fetch()[0]){
+      console.log("id match");
+      Session.set("userId", usr);
+      var username = Meteor.users.find({"_id":usr}).fetch()[0].username;
+      Session.set("profileUsername", username);
+      this.next();
+    } else if (Meteor.users.find({"username":usernameRegex}).fetch()[0]._id){
+      console.log("userame match");  
+      var userId = Meteor.users.find({"username":usernameRegex}).fetch()[0]._id;
+      var username = usr;
+      Session.set("profileUserId", userId);
+      Session.set("profileUsername", username);
+      this.next();
+    } else if (Session.get("newUsername")) {
+      console.log("username change match");
+      console.log("username changed!");
+      var newUsername = Session.get("newUsername");
+      Router.go("/user/"+newUsername);
+    } else {
+      console.log("epic fail")
+      Router.go("/404");
+      this.next();
+    }
     Session.set("profileUsername", username);
-    this.render('viewUserProfile');
-    this.next();
-  } else if (Meteor.users.find({"username":usernameRegex}).fetch()[0]){
-    var userId = Meteor.users.find({"username":usernameRegex}).fetch()[0]._id;
-    var username = usr;
-    Session.set("profileUserId", userId);
-    Session.set("profileUsername", username);
-    this.render('viewUserProfile');
-    this.next();
-  } else if (Session.get("newUsername")) {
-    console.log("username changed!");
-    var newUsername = Session.get("newUsername");
-    Router.go("/user/"+newUsername);
   }
+  this.render('viewUserProfile');
 });
 
+Router.route('/tags/:tag', function () {
+  this.render('graceList');
+  var params = this.params;
+  var tag = params.tag; 
+  var query = tag;
+  Session.set("findBy",query);
+});
 
 Router.route('/book/:_id', function () {
   this.render('viewBook');
@@ -70,9 +91,7 @@ Router.route('/import/json', function () {
   this.render('importJSON');
 });
 
-// Router.onBeforeAction(function() {
-//   if (!Meteor.userId()) {
-//     this.render("login");
-//   } else {
-//     this.next();
-//   }}, {except: ['login','about']});
+Router.route("/(.*)", function() {
+    this.render('pageNotFound');
+    this.next();
+});
