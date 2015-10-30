@@ -5,7 +5,7 @@
   font-weight: 700;
   font-size: 1.25rem;
   letter-spacing: 0.05rem;
-  padding: 0.7rem 1.25rem;
+  padding: 0.7rem 1rem 0.5rem 1rem;
   text-transform: uppercase;
   border: 2px solid  lighten($active-color, 40);
   -webkit-transtition: all 0.3s ease-in-out;
@@ -30,19 +30,17 @@
 
 
 .btn--cta {
-  @include gradient(darken(adjust-hue($active-color, -3%), 3%),
+  @include gradient($active-color,
                     darken(adjust-hue($active-color, -10%), 10%)
                    );
   color:white;
-  border: 2px solid  lighten($active-color, 20);
-
-
+  border: 2px solid  lighten($active-color, 10);
   box-shadow: none;
   
   &:hover {
     @include gradient(adjust-hue($active-color, 10%), 
                       adjust-hue($active-color, 10%)
                      );
-    box-shadow: 0 0 1rem -0.3rem $primary-color inset;
+    box-shadow: 0 0 1rem 1rem $primary-color inset;
   }
 }
