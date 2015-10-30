@@ -11,9 +11,9 @@ $butler-color: lighten($interactive-color, 50);
 $bg-color: #fdfdfd;
 
 
-$text-font-stack:  'Linux Libertine', 'Georgia', 'PT Serif', 'Source Serif Pro', 'Charter', 'Georgia', serif;
-$interface-font-stack:  'Source Sans Pro', 'Source Sans Pro', 'Roboto', 'PT Sans', 'Helvetica', sans-serif;
-$header-font-stack:  'Source Sans Pro', $interface-font-stack;
+$text-font-stack:  'Cabin', 'PT Serif', 'Source Serif Pro', 'Charter', 'Georgia', serif;
+$interface-font-stack:  $text-font-stack, 'Source Sans Pro', 'Roboto', 'PT Sans', 'Helvetica', sans-serif;
+$header-font-stack:  $interface-font-stack;
 $mono-font-stack: 'Source Code Pro', monospace;
 
 $font-adjust-sm: 0.5;
