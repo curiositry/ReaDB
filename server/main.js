@@ -31,9 +31,8 @@ fetchBooks = function(search, sort, fields, user) {
   var query = {};
   
   if(typeof search === undefined || search === null){
-    query[0] = {};   
+    query[0] = {"meta.userId":user};   
   } else {
-  
     console.log("search found:"+search);
     query[0] = search;  
   }
@@ -54,7 +53,7 @@ fetchBooks = function(search, sort, fields, user) {
   
   console.log("QUERY" + JSON.stringify(query[0]) + JSON.stringify(query[1]) + query[2]);
   
-  var books = Books.find(query[0] ,query[1], query[2]).fetch();
+  var books = Books.find(query[0] , query[1] , query[2]).fetch();
   if (books) {
     return books;
   } else {
