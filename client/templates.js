@@ -84,9 +84,9 @@ Template.bookList.helpers({
 
 
 Template.search.helpers({
-  gracesIndex: () => GracesIndex,
+  booksIndex: () => BooksIndex,
   index: function () {
-    return GracesIndex;  
+    return BooksIndex;  
   }
 });
 
