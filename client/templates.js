@@ -51,7 +51,7 @@ Template.bookList.helpers({
       Session.set("sortQuery", sortQuery);
     }
     var sortQuery = Session.get("sortQuery");
-    console.log(sortQuery);
+    // console.log(sortQuery);
     if(tag){
       console.log(tag);
       var search = {"tags": {$regex: tag, $options: "i"}};
@@ -185,7 +185,19 @@ Template.navigation.helpers({
 Template.viewBook.helpers({
   book: function(){
     var bookId = Session.get("bookId");
-    return Books.findOne({_id: bookId});
+    Meteor.call("fetchBook", bookId, function(err, res){
+      if(err){
+        throw err;
+      } else if (res) {
+        var book = res;
+        var tagsArray = tagsToArray(book.tags);
+        book.tags = tagsArray;
+        console.log(book.tags);
+        Session.set("book",book);
+        return book;
+      }
+    });
+    return Session.get("book");
   }
 });
 
