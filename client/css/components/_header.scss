@@ -8,7 +8,7 @@ header h1 {
 header img {
   @include breakpoint(lg){
     position: relative;
-    top: 0.5rem;
+    top: 0.25rem;
     margin-right: 1rem;
     display: inline;
     float: left;
@@ -20,10 +20,11 @@ header h4 {
   margin-bottom: 0;
   font-weight: 400;
   color: darken($primary-color, 20);
-  font-size:1rem;
+  font-size:0.8rem;
   margin-top:0.5rem;
-  font-variant:small-caps;
   font-family:$header-font-stack;
+  text-transform: uppercase;
+  
 }
 
 
@@ -70,7 +71,7 @@ header h4 {
   display: none;
 }
 
-nav a{
+nav a {
   margin-top: 0;
   font-family: $interface-font-stack;
   text-transform: uppercase;
@@ -80,6 +81,7 @@ nav a{
   padding: 1rem 2rem;
   width: 100%;
   display: block;
+  border-bottom: none;
   &:hover, &:focus {
     background-color: $primary-color;
     color: $tertiary-color;
