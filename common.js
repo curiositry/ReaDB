@@ -1,6 +1,6 @@
 Books = new Mongo.Collection('books');
 
-GracesIndex = new EasySearch.Index({
+BooksIndex = new EasySearch.Index({
   collection: Books,
   fields: ['title'],
   engine: new EasySearch.MongoDB()
