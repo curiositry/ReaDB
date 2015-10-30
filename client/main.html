@@ -24,27 +24,15 @@
     {{> navigation}}
   </div>
   <main class="main">
-    
-  <div class="container">
-    <br>
-    {{#if currentUser}}
-        {{> yield}}
-      {{else}}
-        {{>login}}
-    {{/if}}
-    {{> footer}}
-  </div>
+    <div class="container">
+      {{#if currentUser}}
+          {{> yield}}
+        {{else}}
+          {{>login}}
+      {{/if}}
+      {{> footer}}
+    </div>
   </main>
 </div>
 </template>
 
-<template name="about">
-
-  <span style="serif">
-  <p><strong>ReaDB</strong> is an open-source library application, meant to be a self-hosted privacy-respecting alternative to services like as LibraryThing and Goodreads.</p>
-  <p>ReaDB lets you import and export your books from a spreadsheet or as JSON, and can fill in metadata by querying the Google Books API.</p>
-  
-  <p>ReaDB is built by <a href="http://curiositry.github.io">Curiositry</a>. Thanks for stopping by!</p>
-  </span>
-
-</template>
