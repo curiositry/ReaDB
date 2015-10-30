@@ -18,6 +18,11 @@ Router.map(function() {
   this.route('addBook', {path: '/add'});
   this.route('about', {path: '/about'});
   this.route('search', {path: '/search'});
+  this.route('IO', {path: '/IO'});
+  this.route('exportJSON', {path: '/export/json'});
+  this.route('importJSON', {path: '/import/json'});
+  this.route('exportCSV', {path: '/export/csv'});
+  this.route('importCSV', {path: '/import/csv'});
 });
 
 Router.route('/user/:_id', function () {
@@ -75,21 +80,9 @@ Router.route('/book/:_id/edit', function () {
   Session.set("bookId", id)
 });
 
-Router.route('/export/json', function () {
-  this.render('exportJSON');
-});
 
-Router.route('/export/csv', function () {
-  this.render('exportCSV');
-});
 
-Router.route('/import/csv', function () {
-  this.render('importCSV');
-});
 
-Router.route('/import/json', function () {
-  this.render('importJSON');
-});
 
 Router.route("/(.*)", function() {
     this.render('pageNotFound');
