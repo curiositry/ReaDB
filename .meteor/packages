@@ -4,12 +4,10 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-msavin:mongol
+
 #autopublish
 #insecure
-iron:router
-#meteortoys:allthings
-fortawesome:fontawesome
+
 accounts-base
 accounts-password
 accounts-ui
@@ -28,6 +26,12 @@ random
 ejson
 spacebars
 check
+
+iron:router
+msavin:mongol
+fortawesome:fontawesome
 msavin:jetsetter
 wylio:mandrill
-matteodem:easy-search
+easy:search
+themeteorchef:bert
+ecmascript
