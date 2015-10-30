@@ -242,7 +242,6 @@ Template.viewUserProfile.events({
     var oldUsername = Meteor.users.find({_id:Meteor.userId()}).fetch()[0].username;
     Session.set("newUsername",newUsername);
     Session.set("oldUsername",oldUsername);
-    Session.set("notification", "Username sucessfully changed from "+oldUsername+" to "+newUsername);
     Bert.alert({
         title: 'Hello, '+ newUsername,
         message: 'Username sucessfully changed from '+oldUsername+' to '+ newUsername,
