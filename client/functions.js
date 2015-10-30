@@ -1,6 +1,6 @@
 
-fetchBooks = function(sort, fields) {
-  Meteor.call("fetchBooks", sort, fields, function(err,res){
+fetchBooks = function(search, sort, fields) {
+  Meteor.call("fetchBooks", search, sort, fields, function(err,res){
     if (err){    
       throw err;
     } else if (res) {
@@ -12,8 +12,29 @@ fetchBooks = function(sort, fields) {
   });
 }
 
-getPublicStats = function(userId){
-  var bookCount = Books.find({"meta.userId": userId}).count();
+fetchUsername = function(userId){
+  Meteor.call("fetchUsername", userId, function(err, res){
+    if (err) {
+      console.log(err);  
+      Session.set("fetchedUsername", err);
+      throw err;
+    } else if (res) {
+      console.log(res);    
+      Session.set("fetchedUsername", res);
+      return res;
+    } else {
+      Session.set("fetchedUsername", "not found");
+      return false;    
+    }
+  });
+  return Session.get("fetchedUsername");
+}
+
+getPublicStats = function(userId, query){
+  if (typeof query === undefined || query == null) {
+    query = {};
+  }
+  var bookCount = Books.find(query).count();
   var stats = {
     "bookCount": bookCount
   };
@@ -66,4 +87,25 @@ deleteBook = function(bookId) {
       Session.set("notification","Oops! Book doesn’t seem to belong to you!"); 
     }
   });
+}
+
+
+trim11 = function(str) {
+  str = str.replace(/^\s+/, '');
+  for (var i = str.length - 1; i >= 0; i--) {
+    if (/\S/.test(str.charAt(i))) {
+      str = str.substring(0, i + 1);
+      break;
+    }
+  }
+  return str;
+}
+
+tagsToArray = function(tags){
+  var tagArray = [];
+  tagArray = tags.split(',');
+  for(var i = 0; i < tagArray.length; i++){
+    tagArray[i] = trim11(tagArray[i]);
+  }
+  return tagArray;
 }
