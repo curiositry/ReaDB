@@ -25,25 +25,36 @@ Meteor.startup(function() {
     });
 });
 
-fetchBooks = function(user, sort, fields) {
-  console.log(sort);
-  console.log(fields);
-  var query = {};
-  query[0] = {"meta.userId": user};
+fetchBooks = function(search, sort, fields, user) {
+  console.log("fetch books function called");
   
+  var query = {};
+  
+  if(typeof search === undefined || search === null){
+    query[0] = {};   
+  } else {
+  
+    console.log("search found:"+search);
+    query[0] = search;  
+  }
 
-  query[1] = sort;
-  if (typeof sort === undefined) {
-    query[1] = {sort: [["dateRead","desc"],["rating","desc"]]};
+  if (typeof sort === undefined || sort === null) {
+    query[1] = {sort: { sortDate: -1} };
+  } else {  
+    query[1] = sort;
   }
   
-  if (fields != undefined) {
+  if (typeof(fields) === undefined || fields === null) {
+    query[2] = {fields:{}};
+  } else if (fields) {
     query[2] = fields;
   } else {
-    query[2] = {fields:{}};
+    query[2] = {fields:{fields:0}};
   }
-  console.log(query[0] + query[1] + query[2]);
-  var books = Books.find(query[0], query[2] ).fetch();
+  
+  console.log("QUERY" + JSON.stringify(query[0]) + JSON.stringify(query[1]) + query[2]);
+  
+  var books = Books.find(query[0] ,query[1], query[2]).fetch();
   if (books) {
     return books;
   } else {
