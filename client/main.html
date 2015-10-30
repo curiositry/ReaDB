@@ -12,17 +12,30 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 </head>
 
+<body class="nav-open">
+  
+</body>
+
 <template name="layout">
-  <div class="container">
+  <div class="wrap">
+  <a href="#!" id="toggle-sidebar"><i class="fa fa-times-circle" id="toggle-sidebar-icon"> <strong id="toggle-sidebar-text" class="sans-serif hidden ">MENU</strong></i></a>
+  <div class="sidebar">
     {{> header}}
-    <hr>
-  {{#unless currentUser}}
-      {{> login}}
-    {{else}}
-      {{> yield}}
-  {{/unless}}
+    {{> navigation}}
   </div>
-  {{> footer}}
+  <main class="main">
+    
+  <div class="container">
+    <br>
+    {{#if currentUser}}
+        {{> yield}}
+      {{else}}
+        {{>login}}
+    {{/if}}
+    {{> footer}}
+  </div>
+  </main>
+</div>
 </template>
 
 <template name="about">
@@ -33,37 +46,5 @@
   
   <p>ReaDB is built by <a href="http://curiositry.github.io">Curiositry</a>. Thanks for stopping by!</p>
   </span>
-
-</template>
-
-<template name="exportJSON">
-
-  <textarea id="json">{{JSON}}</textarea><br clear="all"><br>
-  <a class="btn m0a" href="data:application/json;charset=utf-8, {{JSON}}" download="readb-books.json">Download books.json</a>
-
-</template>
-
-<template name="exportCSV">
-
-  <textarea id="csv">{{encodedCSV}}</textarea><br clear="all"><br>
-  <a class="btn m0a" href="data:text/csv;charset=utf-8, {{encodedCSV}}" download="readb-books.csv">Download books.csv</a>
-
-</template>
-
-<template name="importCSV">
-
-  <form >
-    <input class="input-file" id="fileInput" type="file" name="files[]">
-    <input type="submit" style="padding:0.5rem" class="btn" id="importCSV" value="Import .csv" />
-  </form>
-
-</template>
-
-<template name="importJSON">
-
-  <form >
-    <input class="input-file" id="fileInput" type="file" name="files[]">
-    <input type="submit" style="padding:0.5rem" class="btn" id="importJSON" value="Import .JSON" />
-  </form>
 
 </template>
