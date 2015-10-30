@@ -84,7 +84,11 @@ deleteBook = function(bookId) {
     if (err) throw err;
     if (res) return res;
     else {
-      Session.set("notification","Oops! Book doesn’t seem to belong to you!"); 
+      Bert.alert({
+          title: 'Oops!',
+          message: 'That book doesn’t seem to belong to you…',
+          type: 'danger',
+        });
     }
   });
 }
