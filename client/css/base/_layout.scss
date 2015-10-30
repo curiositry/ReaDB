@@ -1,0 +1,40 @@
+.wrap, html, body {
+  height: 100%;
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar{
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 100% !important;
+  width: 20rem;
+  position:fixed;
+  left: -20rem;
+  float: left;
+  display: block;
+  margin: 0;
+  padding: 0;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.nav-open .sidebar{
+  left:0
+}
+
+.main {
+  margin-left: 1rem;
+  margin-top: 0;
+  box-sizing: border-box;
+}
+
+.nav-open .main {
+  box-sizing: border-box;
+  float:left;
+  width: calc(100% - 22rem);
+  margin-left: 22rem;
+}
