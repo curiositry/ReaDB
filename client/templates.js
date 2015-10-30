@@ -63,7 +63,6 @@ Template.bookList.helpers({
     var books = Session.get("books");
     for (var book in books) {
       // books[book].text = books[book].text.replace(/\n/g,"<br/>");  
-      console.log(tagsToArray(books[book].tags));
       books[book].tags = tagsToArray(books[book].tags);
     }
     return books;
@@ -79,6 +78,70 @@ Template.bookList.helpers({
     }
   }
 });
+
+
+Template.search.helpers({
+  gracesIndex: () => GracesIndex,
+  index: function () {
+    return GracesIndex;  
+  }
+});
+
+Template.layout.onRendered(function (){
+  function WidthChange(mq) {
+    if (!mq.matches) {
+      var body =  document.getElementsByTagName("body")[0];
+      body.classList.toggle('nav-open');
+      var icon = document.getElementById("toggle-sidebar-icon");
+      var text = document.getElementById("toggle-sidebar-text");
+      if (body.classList.contains('nav-open')) {
+        icon.classList.add("fa-times-circle");
+        icon.classList.remove("fa-bars");
+        text.classList.add("hidden");
+      } else {
+        icon.classList.remove("fa-times-circle");
+        icon.classList.add("fa-bars");    
+        text.classList.remove("hidden");
+      }
+    }
+  }
+  var mq = window.matchMedia("(min-width: 960px)");
+  mq.addListener(WidthChange);
+  WidthChange(mq);
+})
+
+
+Template.layout.events({
+  "click #toggle-sidebar": function(event, template){
+    var body =  document.getElementsByTagName("body")[0];
+    body.classList.toggle('nav-open');
+    var icon = document.getElementById("toggle-sidebar-icon");
+    var text = document.getElementById("toggle-sidebar-text");
+    if (body.classList.contains('nav-open')) {
+      icon.classList.add("fa-times-circle");
+      icon.classList.remove("fa-bars");
+      text.classList.add("hidden");
+    } else {
+      icon.classList.remove("fa-times-circle");
+      icon.classList.add("fa-bars");    
+      text.classList.remove("hidden");
+    }
+  }
+});
+
+Template.filterBar.events({
+  "click #filterbar-sortby": function(event, template){
+    event.preventDefault();
+    var sortByValue = document.getElementById("filterbar-sortby").value;
+    Session.set("sortBy", sortByValue);
+  },
+  "click #filterbar-sortorder": function(event, template){
+    event.preventDefault();
+    var sortOrderValue = document.getElementById("filterbar-sortorder").value;;
+    Session.set("sortOrder",sortOrderValue);
+  }
+});
+
 
 Template.header.helpers({
   notification: function(){
