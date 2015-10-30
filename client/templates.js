@@ -239,7 +239,8 @@ Template.viewUserProfile.helpers({
     return getPublicStats(Session.get("profileUserId"), null)
   },
   username: function(){
-    return fetchUsername(Session.get("profileUserId"));
+    console.log(Session.get("profileUserId"));
+    return fetchUsername(Meteor.userId());
   }
 });
 
