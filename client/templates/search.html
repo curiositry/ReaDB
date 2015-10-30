@@ -1,7 +1,7 @@
 <template name="search">
   <br>
   <div>
-    {{> EasySearch.Input index=booksIndex}}
+    {{> EasySearch.Input index=booksIndex event="enter"}}
     
     {{#EasySearch.IfSearching index=booksIndex}}
     <br clear="all">
