@@ -411,7 +411,9 @@ Template.addBook.events({
       "notes": event.target.notes.value, 
       "meta": {
         "userId": Meteor.userId(),
-        "dateAdded": dateAdded,
+        "dateAdded": dateAdded
+      },
+      "publisherMetadata": {
         "imgUrl": event.target.imgUrl.value,
         "pubdate": event.target.pubdate.value,
         "publisherDescription": event.target.publisherDescription.value,
