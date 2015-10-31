@@ -23,15 +23,15 @@
       {{/each}}
     {{/if}}
     <span class="meta-spacer"></span> 
-    <i class="fa fa-file-text"></i> {{book.meta.pageCount}}
+    <i class="fa fa-file-text"></i> {{book.publisherMetadata.pageCount}}
   </span>
   
   <hr>
   
-  {{#if book.meta.imgUrl}}
-    <img src="{{book.meta.imgUrl}}" alt="{{book.title}} cover image" style="float:left;padding-right:1rem;"/>
+  {{#if book.publisherMetadata.imgUrl}}
+    <img src="{{book.publisherMetadata.imgUrl}}" alt="{{book.title}} cover image" style="float:left;padding-right:1rem;"/>
   {{/if}}
-  <span class="serif">{{book.meta.publisherDescription}}</span>
+  <span class="serif">{{book.publisherMetadata.publisherDescription}}</span>
   
   {{#if book.children}}
   <table style="font-size:0.9rem">
