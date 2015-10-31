@@ -6,7 +6,7 @@ BooksIndex = new EasySearch.Index({
   engine: new EasySearch.MongoDB()
 });
 
-Temp  = new Mongo.Collection('temp');
+Temp = new Mongo.Collection('temp');
 
 Date.prototype.yyyymmdd = function() {
   var yyyy = this.getFullYear().toString();
