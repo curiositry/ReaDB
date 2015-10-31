@@ -15,8 +15,8 @@
 
 <template name="bookListItem">
   <li class="pt0">
-    {{#if meta.imgUrl}}
-      <img src="{{meta.imgUrl}}" alt="" />
+    {{#if publisherMetadata.imgUrl}}
+      <img src="{{publisherMetadata.imgUrl}}" alt="" />
       {{else}}
       <img src="/apple-touch-icon.png" alt="" style="height:3rem;" />
     {{/if}}
@@ -39,7 +39,7 @@
     {{/if}}
     <i class="fa fa-calendar"></i> {{dateRead}}
     <span class="meta-spacer"></span> 
-    {{#if meta.pageCount}}<i class="fa fa-file-text"></i> {{meta.pageCount}} {{/if}}
+    {{#if publisherMetadata.pageCount}}<i class="fa fa-file-text"></i> {{publisherMetadata.pageCount}} {{/if}}
   </span>
   </li>
 </template>
