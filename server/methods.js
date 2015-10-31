@@ -27,6 +27,21 @@ Meteor.methods({
         return false;
       }
     },
+    insertTempItem: function(tempItem){
+      if(tempItem.userId == Meteor.userId()){
+        Temp.insert(tempItem);
+      }
+    },
+    deleteTempItem: function(id){
+      if(Temp.findOne({"_id":id}).userId == Meteor.userId()){
+        Temp.remove({"_id":id});
+      }
+    },
+    updateTempItem: function(id, object){
+      if(Temp.findOne({"_id":id}).userId == Meteor.userId()){
+        Temp.update({"_id":id}, object);
+      }
+    },
     updateBook: function(bookId, updatedBookObject){
       var book = Books.find({_id:bookId}).fetch()[0];
       if(book.meta.userId == Meteor.userId()){
