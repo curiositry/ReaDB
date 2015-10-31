@@ -124,6 +124,7 @@ processBookMetadata = function(bookId) {
       }
     };
     console.log(updatedFields);
+    Meteor.call("deleteTempItem", tempData._id);
     Meteor.call("updateBookMetadata", bookId, updatedFields, function(err, res){
       if(res){
         Bert.alert({
@@ -144,7 +145,6 @@ updateBookMetadata = function(bookId) {
       throw err;
     } else if (res) {
       var book = res;
-      Session.set("bookToUpdateMetadata", book);
       var isbn =  book.isbn;
       var title = book.title;
       var author = book.author;
