@@ -132,10 +132,17 @@ convertToCSV = function(objArray) {
   console.log("process function called");
   var data = Books.find(
       {"meta.userId": Meteor.userId()},
-      {fields: {_id:0,bookid:0}}
+      {fields: {_id:0, publisherMetadata:0}}
     ).fetch();
-  var JSON = toJSONString(data);
-  var CSV = convertToCSV(JSON);
+  var rawJSON = JSON.parse(toJSONString(data));
+  for (key in rawJSON){
+    if (rawJSON.hasOwnProperty(key)) {
+     rawJSON[key].review = rawJSON[key].review.replace(/\n/g,"");  
+     console.log(rawJSON[key].review);
+   }
+  }
+  var orderedJSON = JSON.parse(JSON.stringify( rawJSON, ["isbn","title","author","rating","dateRead","format","tags","review"], 4));
+  var CSV = convertToCSV(orderedJSON);
   return CSV;
 }
 
