@@ -136,10 +136,11 @@ convertToCSV = function(objArray) {
     ).fetch();
   var rawJSON = JSON.parse(toJSONString(data));
   for (key in rawJSON){
-    if (rawJSON.hasOwnProperty(key)) {
-     rawJSON[key].review = rawJSON[key].review.replace(/\n/g,"");  
-     console.log(rawJSON[key].review);
-   }
+    console.log(rawJSON[key]);
+    if(rawJSON[key].hasOwnProperty("review") && rawJSON[key].review != null && rawJSON[key].review != ""){
+      rawJSON[key].review = rawJSON[key].review.replace(/\n/g,"");  
+      console.log(rawJSON[key].review);
+    }
   }
   var orderedJSON = JSON.parse(JSON.stringify( rawJSON, ["isbn","title","author","rating","dateRead","format","tags","review"], 4));
   var CSV = convertToCSV(orderedJSON);
