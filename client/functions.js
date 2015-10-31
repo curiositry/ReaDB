@@ -114,7 +114,9 @@ processBookMetadata = function(bookId) {
         "userId": Meteor.userId(),
         "dateAdded": book.meta.dateAdded,
         "dateModified": dateModified,
-        "dateReadSort": dateReadSortable,
+        "dateReadSort": dateReadSortable
+      },
+      "publisherMetadata": {
         "imgUrl":  metadata.volumeInfo.imageLinks.thumbnail,
         "pubdate": metadata.volumeInfo.publishedDate,
         "publisherDescription": metadata.volumeInfo.description,
