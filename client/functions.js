@@ -19,7 +19,6 @@ fetchUsername = function(userId){
       Session.set("fetchedUsername", err);
       throw err;
     } else if (res) {
-      console.log(res);    
       Session.set("fetchedUsername", res);
       return res;
     } else {
