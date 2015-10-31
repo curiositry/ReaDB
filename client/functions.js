@@ -87,7 +87,12 @@ processBookMetadata = function(bookId) {
     console.log(tempData.metadataResponse);
     var metadataResponse = tempData.metadataResponse;
     var book = tempData.book;
-    var metadata = JSON.parse(metadataResponse).items[0];
+    if(Session.get("metadataResponseIndex")){
+      var metadataIndex = Session.get("metadataResponseIndex");
+    } else {
+      var metadataIndex = 0;
+    }
+    var metadata = JSON.parse(metadataResponse).items[metadataIndex];
     console.log(metadata);  
     var isbn = book.isbn;   
     console.log(book.title);
@@ -153,7 +158,12 @@ updateBookMetadata = function(bookId) {
               "book": book,
               "metadataResponse": res.content
             }
-            Meteor.call("insertTempItem", tempObject);
+            var existingBookTempItem = Temp.findOne({"bookId":book._id});
+            if (existingBookTempItem){
+              Meteor.call("updateTempItem", existingBookTempItem._id, tempObject);
+            } else {
+              Meteor.call("insertTempItem", tempObject);
+            }
             processBookMetadata(bookId);
           }
         } if (err){
