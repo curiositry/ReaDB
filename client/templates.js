@@ -192,7 +192,6 @@ Template.viewBook.helpers({
         var book = res;
         var tagsArray = tagsToArray(book.tags);
         book.tags = tagsArray;
-        console.log(book.tags);
         Session.set("book",book);
         return book;
       }
