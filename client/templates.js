@@ -231,10 +231,10 @@ Template.viewUserProfile.events({
     Meteor.call("deleteCurrentUsersBooks");
   },
   "click #updateLibraryMetadata": function(){
-    Meteor.call("updateLibraryMetadata");
+    updateLibraryMetadata()
     var el = document.getElementById("updateLibraryMetadata");
-    Meteor.call("updateUserSession", "<i class='fa fa-spinner'></i> Working…");
-    el.innerHTML = Temp.find({}).fetch()[0].updateStatus;
+    Session.set("updateStatus","<i class='fa fa-spinner'></i> Working…");
+    el.innerHTML = Session.get("updateStatus");
   },
   "click #updateUsername": function(){
     var newUsername = document.getElementById("newUsername").value;
