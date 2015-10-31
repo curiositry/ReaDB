@@ -281,6 +281,31 @@ Template.viewBook.events({
     console.log("click!");
     var bookId = Session.get("bookId");
     updateBookMetadata(bookId);
+  },
+  "click #increaseMetadataIndex": function(){
+    var index = Session.get("metadataResponseIndex");
+    if (index){
+      var newIndex = index + 1;
+      Session.set("metadataResponseIndex", newIndex);
+    } else {
+      Session.set("metadataResponseIndex", 1);
+    }
+    var bookId = Session.get("bookId");
+    updateBookMetadata(bookId);
+  },
+  "click #decreaseMetadataIndex": function(){
+    var index = Session.get("metadataResponseIndex");
+    if (index && index > 0){
+      var newIndex = index - 1;
+      Session.set("metadataResponseIndex", newIndex);
+    } else {
+      Session.set("metadataResponseIndex", 0);
+    }
+    var bookId = Session.get("bookId");
+    updateBookMetadata(bookId);
+    Bert.alert({
+      title: 'Updating metadata…',
+    });
   }
 });
 
