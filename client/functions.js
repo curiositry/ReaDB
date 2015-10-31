@@ -78,6 +78,93 @@ readFile = function(f,onLoadCallback) {
 //   window.open("data:text/"+format+";charset="+charset+"," + escape(data));
 // }
 
+applyBookMetadata = function(){
+  
+}
+
+processBookMetadata = function(bookId) {
+    var tempData = Temp.findOne({"bookId":bookId});
+    console.log(tempData.metadataResponse);
+    var metadataResponse = tempData.metadataResponse;
+    var book = tempData.book;
+    var metadata = JSON.parse(metadataResponse).items[0];
+    console.log(metadata);  
+    var isbn = book.isbn;   
+    console.log(book.title);
+    d = new Date();
+    var dateModified = d.yyyymmdd();
+    var dateReadSortable = new Date(book.dateRead).getTime() / 1000;      
+    if(!book.isbn){
+      if (metadata.volumeInfo.industryIdentifiers[1]){
+        isbn = metadata.volumeInfo.industryIdentifiers[1].identifier;
+      }else {
+        isbn = metadata.volumeInfo.industryIdentifiers[0].identifier;
+      }
+    }
+    var updatedFields =  {             
+      "isbn": isbn, 
+      "title": book.title,
+      "author": book.author,     
+      "meta": {
+        "userId": Meteor.userId(),
+        "dateAdded": book.meta.dateAdded,
+        "dateModified": dateModified,
+        "dateReadSort": dateReadSortable,
+        "imgUrl":  metadata.volumeInfo.imageLinks.thumbnail,
+        "pubdate": metadata.volumeInfo.publishedDate,
+        "publisherDescription": metadata.volumeInfo.description,
+        "pageCount": metadata.volumeInfo.pageCount,
+        "publisherTitle": metadata.volumeInfo.title,
+        "publisherAuthors": metadata.volumeInfo.author,
+      }
+    };
+    console.log(updatedFields);
+    Meteor.call("updateBookMetadata", bookId, updatedFields, function(err, res){
+      if(res){
+        Bert.alert({
+            title: book.title+' Metadata Updated!',
+            message: 'Found metadata for '+ book.title +' using Google Books API',
+            type: 'success',
+          });
+        return true;
+      } if (err) {
+        throw err;
+      }
+    });
+}
+
+updateBookMetadata = function(bookId) {
+  Meteor.call("fetchBook", bookId, function(err,res){
+    if (err) {
+      throw err;
+    } else if (res) {
+      var book = res;
+      Session.set("bookToUpdateMetadata", book);
+      var isbn =  book.isbn;
+      var title = book.title;
+      var author = book.author;
+      Meteor.call("fetchBookMetadata", isbn, title, author, function(err,res){
+        if(res){
+          // console.log(res.content);
+          if(JSON.parse(res.content).totalItems > 0){
+            var tempObject = {
+              "userId": Meteor.userId(),
+              "bookId": book._id,
+              "book": book,
+              "metadataResponse": res.content
+            }
+            Meteor.call("insertTempItem", tempObject);
+            processBookMetadata(bookId);
+          }
+        } if (err){
+          throw error;
+        }
+      });
+    }
+  });
+  
+}
+
 deleteBook = function(bookId) {
   Meteor.call("deleteBook", bookId, function(err,res){
     if (err) throw err;
