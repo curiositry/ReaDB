@@ -92,14 +92,14 @@ Meteor.methods({
     updateLibraryMetadata: function(){
       // this.unblock();
       console.log("update lib meta called");
-      var library = Books.find({}).fetch(); 
+      var library = Books.find({"meta.userId":Meteor.userId()}).fetch(); 
       var totalBooksProcessed = 0;
       var totalBooksUpdated = 0;    
       for(var i = 0; i < library.length; i++){
         console.log("in for loop");
         totalBooksProcessed++;        
         var book = library[i];
-        if (!book.hasOwnProperty("meta") || !book.meta.hasOwnProperty("pubdate") ){
+        if (!book.hasOwnProperty("publisherMetadata") || !book.publisherMetadata.hasOwnProperty("pubdate") ){
           console.log(book.title);
           console.log(book.meta);
           totalBooksUpdated = totalBooksUpdated + 1;
@@ -131,7 +131,9 @@ Meteor.methods({
                 "userId": Meteor.userId(),
                 "dateAdded": book.meta.dateAdded,
                 "dateModified": dateModified,
-                "dateReadSort": dateReadSortable,
+                "dateReadSort": dateReadSortable
+              },
+              "publisherMetadata": {
                 "imgUrl":  metadata.volumeInfo.imageLinks.thumbnail,
                 "pubdate": metadata.volumeInfo.publishedDate,
                 "publisherDescription": metadata.volumeInfo.description,
