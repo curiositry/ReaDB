@@ -84,7 +84,7 @@ applyBookMetadata = function(){
 
 processBookMetadata = function(bookId) {
     var tempData = Temp.findOne({"bookId":bookId});
-    console.log(tempData.metadataResponse);
+    // console.log(tempData.metadataResponse);
     var metadataResponse = tempData.metadataResponse;
     var book = tempData.book;
     if(Session.get("metadataResponseIndex")){
@@ -117,7 +117,6 @@ processBookMetadata = function(bookId) {
         "dateReadSort": dateReadSortable
       },
       "publisherMetadata": {
-        "imgUrl":  metadata.volumeInfo.imageLinks.thumbnail,
         "pubdate": metadata.volumeInfo.publishedDate,
         "publisherDescription": metadata.volumeInfo.description,
         "pageCount": metadata.volumeInfo.pageCount,
@@ -125,6 +124,9 @@ processBookMetadata = function(bookId) {
         "publisherAuthors": metadata.volumeInfo.author,
       }
     };
+    if (metadata.volumeInfo.hasOwnProperty("imageLinks")){
+      updatedFields.publisherMetadata["imgUrl"] = metadata.volumeInfo.imageLinks.thumbnail;
+    }
     console.log(updatedFields);
     Meteor.call("deleteTempItem", tempData._id);
     Meteor.call("updateBookMetadata", bookId, updatedFields, function(err, res){
@@ -152,7 +154,7 @@ updateBookMetadata = function(bookId) {
       var author = book.author;
       Meteor.call("fetchBookMetadata", isbn, title, author, function(err,res){
         if(res){
-          // console.log(res.content);
+          
           if(JSON.parse(res.content).totalItems > 0){
             var tempObject = {
               "userId": Meteor.userId(),
@@ -167,15 +169,52 @@ updateBookMetadata = function(bookId) {
               Meteor.call("insertTempItem", tempObject);
             }
             processBookMetadata(bookId);
+          } else if (JSON.parse(res.content).stack) {
+            console.log(JSON.parse(res.content).stack);
+            Bert.alert({
+              title: 'That’s all we can do for now',
+              message: 'We’ve fetched metadata for as many books as the Google Books API allows. Wait an hour or so and then we can update the rest.',
+              type: 'warning',
+            });
+            return false;
+          } else {
+            return false;
           }
         } if (err){
           throw error;
+        } else {
+          return false;
         }
       });
     }
   });
   
 }
+
+updateLibraryMetadata = function(){
+  console.log("update lib meta called");
+  fetchBooks();
+  var library = Session.get("books");
+  var totalBooksProcessed = 0;
+  var totalBooksUpdated = 0;    
+  for(var i = 0; i < library.length; i++){
+    console.log("in for loop");
+    totalBooksProcessed++;
+    Session.set("updateStatus", "<i class='fa fa-spinner'></i> processing book "+totalBooksProcessed+" of "+library.length);   
+    var book = library[i];
+    if (!book.hasOwnProperty("publisherMetadata") || !book.publisherMetadata.hasOwnProperty("pubdate") ){
+      console.log(book.title);
+      console.log(book.meta);
+      totalBooksUpdated = totalBooksUpdated + 1;
+      // updateUserSession(toString(totalBooksUpdated));
+      updateBookMetadata(book._id);
+    } else {
+      Bert.alert({
+        title: book.title+' already has metadata'
+      });
+    }
+  } // end for loop
+}, // end function
 
 deleteBook = function(bookId) {
   Meteor.call("deleteBook", bookId, function(err,res){
