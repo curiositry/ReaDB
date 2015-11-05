@@ -10,7 +10,12 @@
     <textarea id="reviewInput" type="text"  placeholder="What you thought…" name="review"></textarea>
     <input id="notesInput" type="text" placeholder="Notes" name="notes"/>
     <input id="tagsInput" type="text" placeholder="Tag1, Tag2, Tag3" name="tags"/>
-    <input id="formatInput" type="text" placeholder="Format (e, p, or pl)" name="format"/>
+    <select name="format" id="formatInput">
+      <option value="e">E-Book</option>
+      <option value="p">Hardcopy</option>
+      <option value="pl">Loan</option>
+    </select>
+    
     
     <input id="ratingInput" type="number" placeholder="rating" name="rating">
     <input id="imgUrlInput" type="hidden" name="imgUrl">
