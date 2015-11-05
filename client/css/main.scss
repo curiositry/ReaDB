@@ -4,8 +4,8 @@
 
 @import 'base/variables';
 
-@import 'utils/helpers';
 @import 'utils/mixins';
+@import 'utils/helpers';
 
 @import 'base/base';
 @import 'base/typography';
@@ -23,9 +23,11 @@
 @import 'components/input';
 @import 'components/output';
 @import 'components/notifications';
-@import 'components/header';
 @import 'components/accounts';
 @import 'components/book-list';
+
+@import 'layout/header';
+@import 'layout/footer';
 
 @import 'vendor/_prism.css';
 @import 'components/icons';
