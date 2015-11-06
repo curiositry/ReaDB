@@ -85,9 +85,6 @@ Template.bookList.helpers({
 
 Template.search.helpers({
   booksIndex: () => BooksIndex,
-  index: function () {
-    return BooksIndex;  
-  }
 });
 
 Template.layout.onRendered(function (){
