@@ -1,13 +1,21 @@
 <template name="search">
   <br>
   <div>
-    {{> EasySearch.Input index=booksIndex event="enter"}}
+    {{> EasySearch.Input index=booksIndex timeout="500"}}
     
     {{#EasySearch.IfSearching index=booksIndex}}
     <br clear="all">
       <i class="fa fa fa-spinner fa-pulse fa-3x butler-color"></i><br> <span class="serif italic">loading...</span>
     {{/EasySearch.IfSearching}}
   </div>
+  
+  {{#EasySearch.Each index=booksIndex }}
+  <ul>
+    <li>
+      <a href="http://localhost:3000/book/{{_id}}/">{{title}}</a>
+    </li>
+  </ul>
+  {{/EasySearch.Each}}
   
   {{> EasySearch.LoadMore index=booksIndex}}
 
@@ -16,15 +24,6 @@
     <h1 class="butler-color mt0">No results found…</h1>
   {{/EasySearch.IfNoResults}}
 
-  {{#EasySearch.Each index=booksIndex }}
-    <ol class="book-list" style="list-style-type:none;">
-      {{> bookListItem}}
-    </ol>
-  {{/EasySearch.Each}}
-  
   {{> EasySearch.Pagination index=booksIndex maxPages=10}}
-
-  
-  <!-- {{> esLoadMoreButton index="books" class="btn" content="+ Load More Books ..."}} -->
 
 </template>
