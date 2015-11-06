@@ -92,3 +92,9 @@
     display: none;
   }
 }
+
+.hidden-lg {
+  @include breakpoint(sm) {
+    display: none;
+  }
+}
