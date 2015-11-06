@@ -21,25 +21,31 @@
       <img src="/apple-touch-icon.png" alt="" style="height:3rem;" />
     {{/if}}
     <a class="mt0 mb0" style="" href="/book/{{_id}}">
-      <h4 class="mt0 mb0" style="font-weight:normal"><strong class="mt0">{{title}}</strong> by <em class="mt0">{{author}}</em></h4>
+      <h4 class="mt0 mb0" style="font-weight:normal">
+        <strong class="mt0">{{title}}</strong> <br class="hidden-lg"> by <em class="mt0">{{author}}</em></h4>
     </a>
-    <span class="meta"  style="">
+    <span class="meta">
     <span id="stars{{_id}}"><i class="fa fa-star"></i> {{rating}}</span>
     <span class="meta-spacer"></span> 
     {{#if isbn}}
       <i class="fa fa-barcode"></i> {{isbn}} 
       <span class="meta-spacer"></span> 
     {{/if}}
+    <i class="fa fa-calendar"></i> {{dateRead}}
+    <span class="meta-spacer"></span> 
+    {{#if publisherMetadata.pageCount}}
+      <i class="fa fa-file-text"></i> {{publisherMetadata.pageCount}} 
+    {{/if}}
+    
     {{#if tags}}
+      <br class="hidden-lg">
+      <span class="meta-spacer hidden-sm"></span>
       <i class="fa fa-tags butler-color"></i>
       {{#each tags}}
        <strong><a href="/tags/{{this}}">{{this}}</a></strong>, 
       {{/each}}
-      <span class="meta-spacer"></span>
+      
     {{/if}}
-    <i class="fa fa-calendar"></i> {{dateRead}}
-    <span class="meta-spacer"></span> 
-    {{#if publisherMetadata.pageCount}}<i class="fa fa-file-text"></i> {{publisherMetadata.pageCount}} {{/if}}
   </span>
   </li>
 </template>
