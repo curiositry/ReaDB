@@ -78,7 +78,6 @@ Meteor.methods({
     },
     fetchUsername: function(userId){
       var username = Meteor.users.find({"_id":userId}).fetch()[0].username;
-      console.log(username)
       if (username) {;
         return username;
       } else {
