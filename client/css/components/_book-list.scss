@@ -5,6 +5,13 @@
   border-bottom: 1px solid white;
 }
 
+.book-list .meta{
+  font-size: 0.7rem !important;
+  @include breakpoint(md) {
+    font-size: 1rem;
+  }
+}
+
 .book-list img {
   float:left;
   display: inline;
