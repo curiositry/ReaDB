@@ -6,8 +6,15 @@
 }
 
 .book-list .meta{
-  font-size: 0.7rem !important;
-  @include breakpoint(md) {
+  margin-top: 0.5rem;
+  display: inline-block;
+  @include breakpoint(mbl) {
+    font-size: 0.8rem;
+  }
+  @include breakpoint(sm) {
+    font-size: 0.8rem;
+  }
+  @include breakpoint(lg) {
     font-size: 1rem;
   }
 }
