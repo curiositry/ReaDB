@@ -67,6 +67,11 @@ Template.bookList.helpers({
     for (var book in books) {
       // books[book].text = books[book].text.replace(/\n/g,"<br/>");  
       books[book].tags = tagsToArray(books[book].tags);
+      if (books[book].tags.length > 3) {
+        var tags = books[book].tags;
+        var truncatedTags = [ tags[0], tags[1], tags[2] ];
+        books[book].tags = truncatedTags;
+      }
     }
     return books;
   },
