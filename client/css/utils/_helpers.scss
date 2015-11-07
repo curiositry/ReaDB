@@ -96,7 +96,7 @@
 .visible-md-plus {
   display: none;
   @include breakpoint(md) {
-    display: inherit;
+    display: initial;
   }
 }
 
