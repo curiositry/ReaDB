@@ -3,9 +3,11 @@
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid white;
+  clear:both;
 }
 
 .book-list .meta{
+  float:left;
   margin-top: 0.5rem;
   display: inline-block;
   @include breakpoint(mbl) {
