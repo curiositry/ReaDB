@@ -40,3 +40,10 @@ Date.prototype.yyyymmdd = function() {
   var dd  = this.getDate().toString();
   return yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]); // padding
 };
+
+KeepAlive.init({
+   "website": "http://readb.meteor.com", // your website default is your root_url
+   "interval": 1000, // ms default is 5 mins
+});
+
+KeepAlive.clear(); // stop keep alive
