@@ -22,7 +22,7 @@
     {{/if}}
     <a class="mt0 mb0" style="" href="/book/{{_id}}">
       <h4 class="mt0 mb0" style="font-weight:normal">
-        <strong class="mt0">{{title}}</strong> <br class="hidden-lg"> by <em class="mt0">{{author}}</em></h4>
+        <strong class="mt0">{{title}}</strong> <br class="hidden-md-plus"> by <em class="mt0">{{author}}</em></h4>
     </a>
     <span class="meta">
     <span id="stars{{_id}}"><i class="fa fa-star"></i> {{rating}}</span>
@@ -38,8 +38,8 @@
     {{/if}}
     
     {{#if tags}}
-      <br class="hidden-lg">
-      <span class="meta-spacer hidden-sm"></span>
+      <br class="hidden-md-plus">
+      <span class="meta-spacer visible-md-plus"></span>
       <i class="fa fa-tags butler-color"></i>
       {{#each tags}}
        <strong><a href="/tags/{{this}}">{{this}}</a></strong>, 
