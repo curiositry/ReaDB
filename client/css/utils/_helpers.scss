@@ -87,14 +87,21 @@
   opacity:0.8;
 }
 
-.hidden-sm {
+.hidden-mbl {
   @include breakpoint(mbl) {
     display: none;
   }
 }
 
-.hidden-lg {
-  @include breakpoint(sm) {
+.visible-md-plus {
+  display: none;
+  @include breakpoint(md) {
+    display: inherit;
+  }
+}
+
+.hidden-md-plus {
+  @include breakpoint(md) {
     display: none;
   }
 }
