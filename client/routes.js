@@ -18,6 +18,8 @@ Router.map(function() {
   this.route('addBook', {path: '/add'});
   this.route('about', {path: '/about'});
   this.route('search', {path: '/search'});
+  this.route('login', {path: '/login'});
+  
   this.route('IO', {path: '/IO'});
   this.route('exportJSON', {path: '/export/json'});
   this.route('importJSON', {path: '/import/json'});
@@ -67,13 +69,6 @@ Router.route('/tags/:tag', function () {
 });
 
 Router.route('/book/:_id', function () {
-  this.render('viewBook');
-  var params = this.params; // { _id: "5" }
-  var id = params._id; // "5"
-  Session.set("bookId", id)
-});
-
-Router.route('/book/:_id/:params', function () {
   this.render('viewBook');
   var params = this.params; // { _id: "5" }
   var id = params._id; // "5"
