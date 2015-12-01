@@ -98,5 +98,15 @@ Meteor.methods({
     updateUserSession: function(sessionObject){
       console.log("Method called");
       updateUserSession(sessionObject);
+    },
+    getUserStatistics: function(userId, query){
+      if (typeof query === undefined || query == null) {
+        query = {};
+      }
+      if (userId == Meteor.userId()) {
+        return getUserStatistics("private", Meteor.userId, query);
+      } else {
+        return getUserStatistics("public", Meteor.userId, query);
+      }
     }
 });
