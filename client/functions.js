@@ -30,14 +30,28 @@ fetchUsername = function(userId){
 }
 
 getPublicStats = function(userId, query){
-  if (typeof query === undefined || query == null) {
-    query = {};
+  Meteor.call("getUserStatisitics", userId, query, function(err,res){
+    PMR(err,res);
+  })
+}
+
+processMethodResponse = function(err,res){
+  if (err) {
+    throw err;
+  } else if (res) {
+    return res;
+  } else {
+    Bert.alert({
+        title: 'Method call failed…',
+        message: 'Failed to call Meteor method!',
+        type: 'error',
+      });
+    return false;
   }
-  var bookCount = Books.find(query).count();
-  var stats = {
-    "bookCount": bookCount
-  };
-  return stats;
+}
+
+PMR = function(err, res){
+  return processMethodResponse(err, res);
 }
 
 importCSV = function(file){
