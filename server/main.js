@@ -72,6 +72,34 @@ updateUserSession = function(sessionObject){
   Temp.insert({"updateStatus": sessionObject});
 }
 
+getUserStatisitics = function(scope, userId, query) {
+  if (scope == "private") {
+    
+  }
+  pageCounts = [];
+  var books = Books.find({"userId":userId}).fetch();
+  books.forEach(function (books) {
+    if(book.publisherMetadata.pageCount){
+      pageCounts.push(book.publisherMetadata.pageCount);
+    }
+  });
+  var bookCount = Books.find({"userId":userId}).count();
+  var pagesRead = sum(pageCounts);
+  var wordsRead = pagesRead * 250;
+  var avgWordCount = wordsRead / bookCount;
+  var avgPageCount = pagesRead / bookCount;
+   
+  var stats = {
+    "bookCount": bookCount,
+    "pagesRead": pagesRead,
+    "wordsRead": wordsRead,
+    "avgPageCount": avgPageCount,
+    "avgWordCount": avgWordCount
+  };
+  
+  return stats;
+}
+
 fetchFromAPI = function(url) {
   console.log("fetchFromAPI function called");
   console.log(url);
