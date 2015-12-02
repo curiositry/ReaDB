@@ -29,9 +29,21 @@ fetchUsername = function(userId){
   return Session.get("fetchedUsername");
 }
 
-getPublicStats = function(userId, query){
-  Meteor.call("getUserStatisitics", userId, query, function(err,res){
-    PMR(err,res);
+getUserStatistics = function(userId, query){
+  Meteor.call("getUserStatistics", userId, query, function(err,res){
+    if (err) {
+      throw err;
+    } else if (res) {
+      Session.set("userStats", res);
+      return res;
+    } else {
+      Bert.alert({
+          title: 'Method call failed…',
+          message: 'Failed to call Meteor method!',
+          type: 'error',
+        });
+      return false;
+    }
   })
 }
 
