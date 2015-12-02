@@ -1,0 +1,38 @@
+.pagination {
+  display: inline-block;
+  text-align: center;
+}
+
+li.page {
+  text-align: center;
+  font-family: $interface-font-stack;
+  cursor:pointer;
+  text-decoration: none;
+  display: inline !important;
+  padding: 0.25rem 0.5rem 0.25rem 0.8rem;
+  margin: 0.25rem;
+  background-color: $tertiary-color;
+  color:$interactive-color;
+  border-radius:0.25rem;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  border: 2px solid $interactive-color;
+  &:hover {
+    color: #fff;
+    background-color: $interactive-color;
+    border: 2px solid $active-color;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+  }
+}
+
+.pagination .current {
+  color: #fff;
+  background-color: $interactive-color;
+  border: 2px solid $active-color;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
