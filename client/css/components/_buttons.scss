@@ -1,4 +1,5 @@
 .btn {
+  white-space: nowrap;
   cursor: pointer;
   @include gradient($tertiary-color, darken($tertiary-color, 5));
   color: $primary-color;
