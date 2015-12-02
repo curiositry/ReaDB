@@ -86,9 +86,6 @@ Template.bookList.helpers({
       getUserStatistics(Session.get("profileUserId"), null);
       return Session.get("userStats");
     }
-  },
-  toSlug: function(str){
-    return slugify(str);
   }
 });
 
@@ -97,9 +94,6 @@ Template.search.helpers({
   booksIndex: () => BooksIndex,
   index: function () {
     return BooksIndex;  
-  },
-  toSlug: function(str){
-    return slugify(str);
   }
 });
 

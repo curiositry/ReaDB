@@ -72,21 +72,21 @@ Router.route('/tags/:tag', function () {
   Session.set("findBy",query);
 });
 
-Router.route('/book/:_id', function () {
+Router.route('/b/:_id', function () {
   this.render('viewBook');
   var params = this.params;
   var id = params._id;
   Session.set("bookId", id)
 });
 
-Router.route('/:booktitle/:_id', function () {
+Router.route('/b/:author/:title/:_id', function () {
   this.render('viewBook');
   var params = this.params;
   var id = params._id;
   Session.set("bookId", id)
 });
 
-Router.route('/book/:_id/edit', function () {
+Router.route('/b/:_id/edit', function () {
   this.render('editBook');
   var params = this.params;
   var id = params._id;

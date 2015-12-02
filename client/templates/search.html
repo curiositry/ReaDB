@@ -23,7 +23,7 @@
 {{else}}
     <ol class="book-list" style="list-style-type:none;">
       {{#EasySearch.Each index=booksIndex }}  
-        <a href="{{appUrl}}/{{toSlug title}}/{{__originalId}}">
+        <a href="{{appUrl}}/b/{{slugify author}}/{{slugify title}}/{{__originalId}}">
           {{title}}
         </a>
         <br>
