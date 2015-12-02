@@ -10,10 +10,9 @@ $tertiary-color:  lighten(#eca106, 35);
 $butler-color: lighten($interactive-color, 50);
 $bg-color: #fdfdfd;
 
-
-$text-font-stack:  'Cabin', 'Charter', 'Georgia', serif;
-$interface-font-stack:  'Cabin',  'Roboto', 'San Francisco', 'Helvetica', sans-serif;
-$header-font-stack:  $interface-font-stack;
+$text-font-stack:  'Charter', 'Georgia', serif;
+$interface-font-stack:   'Open Sans', 'San Francisco', 'Helvetica', sans-serif;
+$header-font-stack:  'Playfair Display', $interface-font-stack;
 $mono-font-stack: 'Source Code Pro', monospace;
 
 $font-adjust-sm: 0.5;
