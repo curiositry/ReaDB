@@ -13,18 +13,17 @@ header img {
     display: inline;
     float: left;
   }
-  height: 50px;
+  height: 3rem;
 }
 
 header h4 {
   margin-bottom: 0;
   font-weight: 400;
   color: darken($primary-color, 20);
-  font-size:0.8rem;
+  font-size:0.9rem;
   margin-top:0.5rem;
-  font-family:$header-font-stack;
-  text-transform: uppercase;
-  
+  font-family:$interface-font-stack;
+  // text-transform: uppercase;
 }
 
 
