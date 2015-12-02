@@ -1,6 +1,7 @@
 Router.configure({
   layoutTemplate: 'layout',
-  notFoundTemplate: 'pageNotFound'
+  notFoundTemplate: 'pageNotFound',
+  loadingTemplate: 'loading'
 });
 
 if(Meteor.userId()){
@@ -27,10 +28,14 @@ Router.map(function() {
   this.route('importCSV', {path: '/import/csv'});
 });
 
-Router.route('/user/:_id', function () {
-  var params = this.params; 
-  var usr = params._id; 
-  this.waitOn = function(){
+Router.route("viewUserProfile", {
+  path: "/user/:_id",
+  template: "viewUserProfile",
+  waitOn: function() {  
+    var params = this.params; 
+    var usr = params._id; 
+    Session.set("usr", usr);
+    var usr = Session.get("usr");
     var usernameRegex = new RegExp(["^", usr, "$"].join(""), "i");
     if (Meteor.users.find({"_id":usr}).fetch()[0]){
       console.log("id match");
@@ -51,13 +56,12 @@ Router.route('/user/:_id', function () {
       var newUsername = Session.get("newUsername");
       Router.go("/user/"+newUsername);
     } else {
-      console.log("epic fail")
+      console.log("epic fail");
       Router.go("/404");
       this.next();
     }
     Session.set("profileUsername", username);
   }
-  this.render('viewUserProfile');
 });
 
 Router.route('/tags/:tag', function () {
@@ -70,8 +74,15 @@ Router.route('/tags/:tag', function () {
 
 Router.route('/book/:_id', function () {
   this.render('viewBook');
-  var params = this.params; // { _id: "5" }
-  var id = params._id; // "5"
+  var params = this.params;
+  var id = params._id;
+  Session.set("bookId", id)
+});
+
+Router.route('/:booktitle/:_id', function () {
+  this.render('viewBook');
+  var params = this.params;
+  var id = params._id;
   Session.set("bookId", id)
 });
 
