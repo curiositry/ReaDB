@@ -1,7 +1,7 @@
 <template name="viewBook">
   <h2 class="mb0">{{book.title}}</h2>
   
-  By <em class="mt0">{{book.author}}</em><br>
+  <em class="serif" style="margin-top:0.5rem;">By</em> {{book.author}}<br>
 
   <div class="serif">
 {{#markdown}}{{{book.review}}}{{/markdown}}
@@ -31,7 +31,7 @@
   <hr>
   
   {{#if book.publisherMetadata.imgUrl}}
-    <img src="{{book.publisherMetadata.imgUrl}}" alt="{{book.title}} cover image" style="float:left;padding-right:1rem;"/>
+    <img src="{{book.publisherMetadata.imgUrl}}" alt="{{book.title}} cover image" class="fl" style="padding-right:2rem;"/>
   {{/if}}
   <span class="serif">{{book.publisherMetadata.publisherDescription}}</span>
   
