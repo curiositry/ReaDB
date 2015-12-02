@@ -267,13 +267,22 @@ deleteBook = function(bookId) {
   });
 }
 
+truncate = function(str, end, char){
+  if (str.length > end){
+    var trimmedStr = str.substring( 0, end);
+    // Don’t trim in the middle of a word…
+    trimmedStr = trimmedStr.substr(0, Math.min(trimmedStr.length,         trimmedStr.lastIndexOf(" ")));
+     if (char) {
+       trimmedStr += char;
+     }
+   } else {
+     var trimmedStr = str;
+   }
+   return trimmedStr;
+ }
 
-slugify = function(str){
-  let maxLength = 100;
-  var trimmedStr = str.substr(0, maxLength);
-  //re-trim if we are in the middle of a word
-  trimmedStr = trimmedStr.substr(0, Math.min(trimmedStr.length,         trimmedStr.lastIndexOf(" ")));
-  
+slugify = function(str){  
+  var trimmedStr =  truncate(str, 100);  
   // trimmedStr.replace(/&lt;br&gt;/g," ");
   var cleanedStr = trimmedStr.replace(/(<|&lt;)br\s*\/*(>|&gt;)/g,' ');
 
