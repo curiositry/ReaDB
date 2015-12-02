@@ -190,11 +190,22 @@ updateBookMetadata = function(bookId) {
             }
             var existingBookTempItem = Temp.findOne({"bookId":book._id});
             if (existingBookTempItem){
-              Meteor.call("updateTempItem", existingBookTempItem._id, tempObject);
+              Meteor.call("updateTempItem", existingBookTempItem._id, tempObject, function(err,res){
+                if(res) {
+                  processBookMetadata(bookId);
+                } else {
+                  throw(err);
+                }  
+              });
             } else {
-              Meteor.call("insertTempItem", tempObject);
+              Meteor.call("insertTempItem", tempObject, function(){
+                if(res) {
+                  processBookMetadata(bookId);
+                } else {
+                  throw(err);
+                }
+              });
             }
-            processBookMetadata(bookId);
           } else if (JSON.parse(res.content).stack) {
             console.log(JSON.parse(res.content).stack);
             Bert.alert({
