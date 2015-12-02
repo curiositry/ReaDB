@@ -43,7 +43,7 @@ Router.route("viewUserProfile", {
       var username = Meteor.users.find({"_id":usr}).fetch()[0].username;
       Session.set("profileUsername", username);
       this.next();
-    } else if (Meteor.users.find({"username":usernameRegex}).fetch()[0]._id){
+    } else if (Meteor.users.findOne({"username":usernameRegex}).hasOwnProperty("_id")){
       console.log("userame match");  
       var userId = Meteor.users.find({"username":usernameRegex}).fetch()[0]._id;
       var username = usr;
