@@ -2,7 +2,13 @@
   <div class="center-text">
     Hello, <strong>{{username}}</strong>.
     <br>
+    {{#if stats.bookCount}}
+    <span class="user-statistics">
     You have <strong> {{stats.bookCount}} </strong> books in your library, with an average of <strong> {{stats.avgPageCount}} </strong> pages per book, or <strong>{{stats.avgWordCount}}</strong> words per book. You’ve read a total of <strong>{{stats.pagesRead}}</strong> pages, which is around <strong>{{stats.wordsRead}}</strong> words. Congratulations!
+  </span>
+  {{else}}
+  <h1 class="butler-color">Hmm, looks like you haven’t filled your shelves yet. Would you like to <a href="/add">add a book</a> or <a href="/IO">import</a> a collection?</h1>
+  {{/if}}
     <br><br>
     <a href="#" class="btn btn--cta" id="deleteBooks">
       <i class="fa fa-warning"></i> Delete All My Books
