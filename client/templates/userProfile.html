@@ -1,7 +1,6 @@
 <template name="viewUserProfile">
   <div class="center-text">
-    Hello, <strong>{{username}}</strong>.
-    <br>
+    <h1 style="font-weight:400;">Hello, <strong>{{username}}</strong>!</h1>
     {{#if stats.bookCount}}
     <span class="user-statistics">
     You have <strong> {{stats.bookCount}} </strong> books in your library, with an average of <strong> {{stats.avgPageCount}} </strong> pages per book, or <strong>{{stats.avgWordCount}}</strong> words per book. You’ve read a total of <strong>{{stats.pagesRead}}</strong> pages, which is around <strong>{{stats.wordsRead}}</strong> words. Congratulations!
@@ -11,17 +10,17 @@
   {{/if}}
     <br><br>
     <a href="#" class="btn btn--cta" id="deleteBooks">
-      <i class="fa fa-warning"></i> Delete All My Books
+      <i class="fa fa-warning"></i>Delete All My Books
     </a>
-    <span class="meta-spacer"></span>
+     &nbsp;<br><br>&nbsp; 
     <a href="#" class="btn" id="updateLibraryMetadata">
-      <i class="fa fa-info-circle"></i> Update Library Metadata
+      <i class="fa fa-info-circle"></i>Update Library Metadata
     </a> 
     
     <br>
     <br>
     
     <input type="text" name="username" id="newUsername" placeholder="username">
-    <button type="submit" id="updateUsername">Update Username</button>
+    <button type="submit btn" id="updateUsername">Update Username</button>
   </div>
 </template>
