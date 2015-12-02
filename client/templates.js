@@ -92,6 +92,12 @@ Template.bookList.helpers({
 
 Template.search.helpers({
   booksIndex: () => BooksIndex,
+  index: function () {
+    return BooksIndex;  
+  },
+  toSlug: function(str){
+    return slugify(str);
+  }
 });
 
 Template.layout.onRendered(function (){
