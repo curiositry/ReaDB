@@ -80,9 +80,11 @@ Template.bookList.helpers({
     if(tag){
       var tagRegExp = new RegExp(tag,"i");
       var query = {"tags":tagRegExp};
-      return getUserStatistics(Meteor.userId(), query);
+      getUserStatistics(Session.get("profileUserId"), null);
+      return Session.get("userStats");
     } else {
-      return getUserStatistics(Meteor.userId());
+      getUserStatistics(Session.get("profileUserId"), null);
+      return Session.get("userStats");
     }
   }
 });
