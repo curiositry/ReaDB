@@ -1,7 +1,10 @@
 <template name="search">
-  <br>
+  <h1 class="serif">Search for book:</h1>
   <div>
-    {{> EasySearch.Input index=booksIndex timeout="500"}}
+  
+    {{> EasySearch.Input index=booksIndex }}
+    
+    <!--attributes=(placeholder: "Search for this") --> 
     
     {{#EasySearch.IfSearching index=booksIndex}}
     <br clear="all">
@@ -9,21 +12,26 @@
     {{/EasySearch.IfSearching}}
   </div>
   
-  {{#EasySearch.Each index=booksIndex }}
-  <ul>
-    <li>
-      <a href="http://localhost:3000/book/{{_id}}/">{{title}}</a>
-    </li>
-  </ul>
-  {{/EasySearch.Each}}
-  
-  {{> EasySearch.LoadMore index=booksIndex}}
-
   {{#EasySearch.IfNoResults index=booksIndex}}
     <br>
     <h1 class="butler-color mt0">No results found…</h1>
   {{/EasySearch.IfNoResults}}
+{{#EasySearch.IfInputEmpty index=booksIndex}}
+<br>
+<h1 class="butler-color mt0">Start typing…</h1>
 
-  {{> EasySearch.Pagination index=booksIndex maxPages=10}}
-
+{{else}}
+    <ol class="book-list" style="list-style-type:none;">
+      {{#EasySearch.Each index=booksIndex }}  
+        <a href="{{appUrl}}/{{toSlug title}}/{{__originalId}}">
+          {{truncate title "80" " …"}}
+        </a>
+        <br>
+      {{/EasySearch.Each}}
+    </ol>
+    
+    <br>
+    {{> EasySearch.Pagination index=booksIndex maxPages=10  style="display:inline;"}}
+  {{/EasySearch.IfInputEmpty}}
+  <br>
 </template>
