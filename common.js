@@ -44,3 +44,12 @@ Date.prototype.yyyymmdd = function() {
 numberWithCommas = function(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+Meteor.setInterval(function(){
+    try {
+      console.log("self keepalive ping");
+      Meteor.http.get(Meteor.absoluteUrl());
+    } catch(err){
+      
+    }
+  }, 10000);
