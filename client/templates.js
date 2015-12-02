@@ -86,6 +86,9 @@ Template.bookList.helpers({
       getUserStatistics(Session.get("profileUserId"), null);
       return Session.get("userStats");
     }
+  },
+  toSlug: function(str){
+    return slugify(str);
   }
 });
 
