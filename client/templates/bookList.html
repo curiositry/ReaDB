@@ -1,10 +1,11 @@
 <template name="bookList">
   {{#if stats.bookCount}}
     <div class="center-text">{{stats.bookCount}} books:</div>
+    {{> filterBar}}
     {{else}}
-    <h1 class="butler-color mt0">It looks like your library is empty…          <br><br>Click the "+" icon in the menu bar to start filling your shelves!</h1>
+    <h1 class="butler-color mt0" style="line-height:2;">Your library is empty— <br><a href="/add">Add</a> or <a href="/IO">import</a> books to get started!</h1>
   {{/if}}
-  {{> filterBar}}
+  
   <br>
   <ol class="book-list" style="list-style-type:none;">
     {{#each books}}
@@ -20,7 +21,7 @@
       {{else}}
       <img src="/apple-touch-icon.png" alt="" style="width:3rem;" >
     {{/if}}
-    <a class="mb0" href="/book/{{_id}}">
+    <a class="mb0" href="/{{toSlug title}}/{{_id}}">
       <h4 class="mt0 mb0" style="font-weight:normal">
         <strong class="mt0">{{title}}</strong> <br class="hidden-md-plus"> by <em class="mt0">{{author}}</em></h4>
     </a>
