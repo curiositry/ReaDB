@@ -257,6 +257,22 @@ deleteBook = function(bookId) {
 }
 
 
+slugify = function(str){
+  let maxLength = 100;
+  var trimmedStr = str.substr(0, maxLength);
+  //re-trim if we are in the middle of a word
+  trimmedStr = trimmedStr.substr(0, Math.min(trimmedStr.length,         trimmedStr.lastIndexOf(" ")));
+  
+  // trimmedStr.replace(/&lt;br&gt;/g," ");
+  var cleanedStr = trimmedStr.replace(/(<|&lt;)br\s*\/*(>|&gt;)/g,' ');
+
+  return cleanedStr.toString().toLowerCase().trim()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/&/g, '-and-')         // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+}
+
 trim11 = function(str) {
   str = str.replace(/^\s+/, '');
   for (var i = str.length - 1; i >= 0; i--) {
