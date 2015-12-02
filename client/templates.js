@@ -143,13 +143,10 @@ Template.layout.events({
 });
 
 Template.filterBar.events({
-  "click #filterbar-sortby": function(event, template){
+  "click .filter-bar": function(event, template){
     event.preventDefault();
     var sortByValue = document.getElementById("filterbar-sortby").value;
     Session.set("sortBy", sortByValue);
-  },
-  "click #filterbar-sortorder": function(event, template){
-    event.preventDefault();
     var sortOrderValue = document.getElementById("filterbar-sortorder").value;;
     Session.set("sortOrder",sortOrderValue);
   }
@@ -423,7 +420,8 @@ Template.addBook.events({
       "notes": event.target.notes.value, 
       "meta": {
         "userId": Meteor.userId(),
-        "dateAdded": dateAdded
+        "dateAdded": dateAdded,
+        "dateReadSort": new Date(event.target.dateRead.value).getTime() / 1000
       },
       "publisherMetadata": {
         "imgUrl": event.target.imgUrl.value,
