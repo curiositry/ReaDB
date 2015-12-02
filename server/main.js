@@ -72,30 +72,36 @@ updateUserSession = function(sessionObject){
   Temp.insert({"updateStatus": sessionObject});
 }
 
-getUserStatisitics = function(scope, userId, query) {
+getUserStatistics = function(scope, userId, query) {
   if (scope == "private") {
     
   }
   pageCounts = [];
   var books = Books.find({"userId":userId}).fetch();
-  books.forEach(function (books) {
+  books.forEach(function (book) {
+    
     if(book.publisherMetadata.pageCount){
       pageCounts.push(book.publisherMetadata.pageCount);
     }
   });
   var bookCount = Books.find({"userId":userId}).count();
-  var pagesRead = sum(pageCounts);
+  let pagesRead = 0;
+  for (var i = pageCounts.length; i--;){
+    pagesRead = Number(pagesRead) + Number(pageCounts[i]);
+  }
   var wordsRead = pagesRead * 250;
   var avgWordCount = wordsRead / bookCount;
   var avgPageCount = pagesRead / bookCount;
    
   var stats = {
     "bookCount": bookCount,
-    "pagesRead": pagesRead,
-    "wordsRead": wordsRead,
-    "avgPageCount": avgPageCount,
-    "avgWordCount": avgWordCount
+    "pagesRead": numberWithCommas(pagesRead),
+    "wordsRead": numberWithCommas(wordsRead),
+    "avgPageCount": numberWithCommas(avgPageCount),
+    "avgWordCount": numberWithCommas(avgWordCount)
   };
+  
+  console.log(stats);
   
   return stats;
 }
