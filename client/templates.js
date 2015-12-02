@@ -202,6 +202,7 @@ Template.viewBook.helpers({
         var book = res;
         var tagsArray = tagsToArray(book.tags);
         book.tags = tagsArray;
+        book.review = book.review.replace(/\n/g,"<br>"); 
         Session.set("book",book);
         return book;
       }
