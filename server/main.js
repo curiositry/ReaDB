@@ -73,18 +73,20 @@ updateUserSession = function(sessionObject){
 }
 
 getUserStatistics = function(scope, userId, query) {
+  console.log(userId);
   if (scope == "private") {
-    
+    var books = Books.find({"meta.userId": Meteor.userId()}).fetch();
+  } else if (scope == "public" || !scope) {
+    var books = Books.find({"meta.userId": userId}).fetch();
   }
   pageCounts = [];
-  var books = Books.find({"userId":userId}).fetch();
+  var bookCount = 0;
   books.forEach(function (book) {
-    
+    bookCount = bookCount + 1;
     if(book.publisherMetadata.pageCount){
       pageCounts.push(book.publisherMetadata.pageCount);
     }
   });
-  var bookCount = Books.find({"userId":userId}).count();
   let pagesRead = 0;
   for (var i = pageCounts.length; i--;){
     pagesRead = Number(pagesRead) + Number(pageCounts[i]);
@@ -97,8 +99,8 @@ getUserStatistics = function(scope, userId, query) {
     "bookCount": bookCount,
     "pagesRead": numberWithCommas(pagesRead),
     "wordsRead": numberWithCommas(wordsRead),
-    "avgPageCount": numberWithCommas(avgPageCount),
-    "avgWordCount": numberWithCommas(avgWordCount)
+    "avgPageCount": numberWithCommas(Math.round(avgPageCount)),
+    "avgWordCount": numberWithCommas(Math.round(avgWordCount))
   };
   
   console.log(stats);
