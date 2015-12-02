@@ -80,9 +80,9 @@ Template.bookList.helpers({
     if(tag){
       var tagRegExp = new RegExp(tag,"i");
       var query = {"tags":tagRegExp};
-      return getPublicStats(Meteor.userId(), query);
+      return getUserStatistics(Meteor.userId(), query);
     } else {
-      return getPublicStats(Meteor.userId());
+      return getUserStatistics(Meteor.userId());
     }
   }
 });
@@ -260,7 +260,8 @@ Template.viewUserProfile.events({
 
 Template.viewUserProfile.helpers({
   stats: function(){
-    return getPublicStats(Session.get("profileUserId"), null)
+    getUserStatistics(Session.get("profileUserId"), null);
+    return Session.get("userStats");
   },
   username: function(){
     console.log(Session.get("profileUserId"));
