@@ -24,7 +24,7 @@
     <ol class="book-list" style="list-style-type:none;">
       {{#EasySearch.Each index=booksIndex }}  
         <a href="{{appUrl}}/{{toSlug title}}/{{__originalId}}">
-          {{truncate title "80" " …"}}
+          {{title}}
         </a>
         <br>
       {{/EasySearch.Each}}
