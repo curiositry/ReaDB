@@ -1,26 +1,68 @@
 <template name="addBook">
   <form name="addBooks" style="text-align:left;">
-    <input type="text" id="isbnInput" placeholder="ISBN #" name="isbn"/>
-    <button id="fetchFromISBN">Fetch metadata from ISBN</button>
-    <input id="titleInput" type="text" placeholder="Title" name="title" />
-    <input id="authorInput" type="text" placeholder="Author" name="author"/>
-    <input hidden id="publicationDateInput" type="date" placeholder="Publication date" name="pubdate" />
-    <input id="dateReadInput" type="date" placeholder="Date Read" name="dateRead"/>
-    <input hidden id="publisherDescriptionInput" type="text"  name="publisherDescription" />
-    <textarea id="reviewInput" type="text"  placeholder="What you thought…" name="review"></textarea>
-    <input id="notesInput" type="text" placeholder="Notes" name="notes"/>
-    <input id="tagsInput" type="text" placeholder="Tag1, Tag2, Tag3" name="tags"/>
-    <select name="format" id="formatInput">
-      <option value="e">E-Book</option>
-      <option value="a">Audiobook</option>
-      <option value="p">Hardcopy</option>
-      <option value="pl">Library Book</option>
-    </select>    
     
-    <input id="ratingInput" type="number" placeholder="rating" name="rating">
-    <input id="imgUrlInput" type="hidden" name="imgUrl">
-    <input id="pageCountInput" type="number" hidden name="pageCount" />
-    <br>
-    <button class="btn btn--cta" type="submit">Add Book</button>
+    <label for="isbnInput">ISBN number</label><br>
+    <input type="text" id="isbnInput" placeholder="ISBN #" name="isbn">
+    
+    <button id="fetchFromISBN">Fetch metadata from ISBN</button><br>
+    
+    <span class="fl" style="padding-right:0.5rem">
+      <label for="titleInput">Book title</label><br>
+      <input id="titleInput" type="text" placeholder="Title" name="title" >
+    </span> 
+    
+    <span class="fl">
+      <label for="authorInput">Author(s)</label><br>
+      <input id="authorInput" type="text" placeholder="Author" name="author">
+    </span>
+    <br clear="all">
+    
+    <span class="fl" style="padding-right:0.5rem">
+      <label for="tagsInput">Tags (seperated by commas)</label><br>
+    <input id="tagsInput" type="text" placeholder="Tag1, Tag2, Tag3" name="tags">
+      
+    </span>
+    
+    <span class="fl">
+      <label for="dateReadInput">Date read</label><br>
+      <input id="dateReadInput" type="date" placeholder="Date Read" name="dateRead">
+    </span>
+    <br clear="all">
+    
+    <label for="reviewInput" style="margin-bottom:0.5rem;">
+      Book review
+    </label><br>
+    <textarea class="mt1" id="reviewInput" type="text"  placeholder="What you thought…" name="review"></textarea>
+
+    <span class="fl" style="padding-right:0.5rem">
+      <label for="ratingInput">Rating</label><br>
+      <input min="0" max="10" id="ratingInput" type="number" placeholder="0–10" name="rating" style="width:5rem;"> 
+    </span>
+    
+    <span class="fl" style="padding-right:0.5rem">
+      <label for="notesInput">Notes</label><br>
+      <input id="notesInput" type="text" placeholder="Notes" name="notes">    
+    </span> 
+    
+    <span class="fl">
+      <label for="formatInput">Format</label><br>
+      <select name="format" id="formatInput">
+        <option value="e">E-Book</option>
+        <option value="a">Audiobook</option>
+        <option value="p">Hardcopy</option>
+        <option value="pl">Library Book</option>
+      </select>
+    </span>
+    
+    <br clear="all">
+    <br clear="all">
+    <input class="btn btn--cta fl" type="submit" value="Add Book" style="display:block">
+    <br clear="all">
+    <input hidden id="imgUrlInput" name="imgUrl">
+    <input hidden id="pageCountInput" type="number" name="pageCount" >
+    <input hidden id="publicationDateInput" type="date" placeholder="Publication date" name="pubdate" >
+    <input hidden id="publisherDescriptionInput" type="text"  name="publisherDescription" >
+    
+
   </form>
 </template>
