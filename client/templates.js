@@ -55,7 +55,6 @@ Template.bookList.helpers({
     if(tag){
       console.log(tag);
       var search = {"tags": {$regex: tag, $options: "i"}};
-      console.log(search);
       fetchBooks(search);
     } else if (sortQuery) {
       var query = sortQuery;
@@ -80,8 +79,16 @@ Template.bookList.helpers({
     if(tag){
       var tagRegExp = new RegExp(tag,"i");
       var query = {"tags":tagRegExp};
-      getUserStatistics(Session.get("profileUserId"), null);
-      return Session.get("userStats");
+      var tag = Session.get("findBy");
+      if (tag) {
+        var search = {"tags": {$regex: tag, $options: "i"}};
+        getUserStatistics(Meteor.userId(), search);
+      } else {
+        getUserStatistics(Meteor.userId(), null);
+      }
+      var stats = Session.get("userStats")
+      stats.tagSearch = tag;
+      return stats;
     } else {
       getUserStatistics(Session.get("profileUserId"), null);
       return Session.get("userStats");
