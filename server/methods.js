@@ -100,13 +100,17 @@ Meteor.methods({
       updateUserSession(sessionObject);
     },
     getUserStatistics: function(userId, query){
+      console.log(userId);
+      console.log(Meteor.userId);
+      console.log(Meteor.userId());
+      
       if (typeof query === undefined || query == null) {
         query = {};
       }
-      if (userId == Meteor.userId()) {
-        return getUserStatistics("private", Meteor.userId, query);
+      if (userId == Meteor.userId() || !userId) {
+        return getUserStatistics("private", Meteor.userId(), query);
       } else {
-        return getUserStatistics("public", Meteor.userId, query);
+        return getUserStatistics("public", userId, query);
       }
     }
 });
