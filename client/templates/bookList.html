@@ -1,10 +1,23 @@
 <template name="bookList">
-  {{#if stats.bookCount}}
+  {{#if stats.tagSearch}}
+  <h3 class="center-text">{{stats.bookCount}} {{plural stats.bookCount "books" "book" "books" }} tagged <em>{{stats.tagSearch}}</em>:</h3>
+  {{#if ifItemExists stats.bookCount}}
+    {{> filterBar}}
+  {{/if}}
+  
+  {{else}}
+    {{#if stats.bookCount}}
     <div class="center-text">{{stats.bookCount}} books:</div>
     {{> filterBar}}
-    {{else}}
-    <h1 class="butler-color mt0" style="line-height:2;">Your library is empty— <br><a href="/add">Add</a> or <a href="/IO">import</a> books to get started!</h1>
+    {{/if}}
+    {{#if stats.libraryEmpty}}
+      <h1 class="butler-color mt0" style="line-height:2;">
+        Your library is empty— 
+        <br><a href="/add">Add</a> or <a href="/IO">import</a> books to get started!
+      </h1>
+    {{/if}}
   {{/if}}
+  
   
   <br>
   <ol class="book-list" style="list-style-type:none;">
