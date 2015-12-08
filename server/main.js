@@ -75,10 +75,14 @@ updateUserSession = function(sessionObject){
 getUserStatistics = function(scope, userId, query) {
   console.log(userId);
   if (scope == "private") {
-    var books = Books.find({"meta.userId": Meteor.userId()}).fetch();
-  } else if (scope == "public" || !scope) {
-    var books = Books.find({"meta.userId": userId}).fetch();
+    var uid = Meteor.userId();
+  } else if (scope == "public" || userId == Meteor.userId() || !scope ) {
+    var uid = userId;
   }
+  console.log(userId);
+  query["meta.userId"] = uid;
+  var books = Books.find(query).fetch();
+  console.log(query);
   pageCounts = [];
   var bookCount = 0;
   books.forEach(function (book) {
@@ -96,13 +100,19 @@ getUserStatistics = function(scope, userId, query) {
   var wordsRead = pagesRead * 250;
   var avgWordCount = wordsRead / bookCount;
   var avgPageCount = pagesRead / bookCount;
+  var libraryEmpty = false;
+  if (bookCount == 0) {
+    var libraryEmpty = true;
+    
+  }
    
   var stats = {
     "bookCount": bookCount,
     "pagesRead": numberWithCommas(pagesRead),
     "wordsRead": numberWithCommas(wordsRead),
     "avgPageCount": numberWithCommas(Math.round(avgPageCount)),
-    "avgWordCount": numberWithCommas(Math.round(avgWordCount))
+    "avgWordCount": numberWithCommas(Math.round(avgWordCount)),
+    "libraryEmpty": libraryEmpty
   };
   
   console.log(stats);
