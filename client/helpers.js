@@ -16,6 +16,13 @@ Handlebars.registerHelper('plural', function(num, nill, singular, plural) {
    }
 });
 
+Handlebars.registerHelper('ifItemExists', function(item) {
+   if (item) {
+    return true;
+  } else {
+    return false;
+  }
+});
 
 Handlebars.registerHelper('replaceLinebreaks', function(passedString, replacement) {
   var theString = passedString.replace(/\n/g,"<br>");
