@@ -48,3 +48,11 @@ select {
   -moz-appearance: auto;
   appearance: auto;
 }
+
+label {
+  display: block;
+  float:left;
+  position: relative;
+  top: 1rem;
+  font-size:1rem;
+}
