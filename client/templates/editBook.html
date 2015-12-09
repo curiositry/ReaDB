@@ -1,5 +1,21 @@
 <template name="editBook">
-  <form name="editBook" style="text-align:left;" action="/b/{{bookId}}" method="POST">
+  <form name="editBook" style="text-align:left;" action="#" method="POST">
+      <input type="text" id="isbnInput" placeholder="ISBN #" name="isbn" value="{{book.isbn}}" >
+      <input id="titleInput" type="text" placeholder="Title" name="title" value="{{book.title}}" >
+      <input id="authorInput" type="text" placeholder="Author" name="author" value="{{book.author}}" >
+      <input id="dateReadInput" type="date" placeholder="Date Read" name="dateRead" value="{{book.dateRead}}">
+      <input hidden id="publisherDescriptionInput" type="text"  name="publisherDescription"  >
+      <textarea id="reviewInput" type="text"  placeholder="What you thought…" name="review" value="{{book.review}}"></textarea>
+      <input id="notesInput" type="text" placeholder="Notes" name="notes" value="{{book.notes}}" >
+      <input id="tagsInput" type="text" placeholder="Tag1, Tag2, Tag3" name="tags" value="{{book.tags}}" >      
+      <input id="ratingInput" type="number" placeholder="rating" name="rating" value="{{book.rating}}">
+      <br>
+      <a href="/b/{{bookId}}" class="btn">Cancel</a> <button class="btn btn--cta" type="submit">Update Book</button>
+    </form>
+</template>
+
+<template name="editBookJSON">
+  <form name="editBookJSON" style="text-align:left;" action="/b/{{bookId}}" method="POST">
     <textarea style="font-family:monospace;font-size:1rem;" name="bookJSON" id="bookJSON" cols="100" rows="200">{{bookJSON}}</textarea>
     <button class="btn btn--cta" type="submit">Update Book</button>
   </form>
