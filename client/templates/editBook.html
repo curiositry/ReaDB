@@ -1,5 +1,5 @@
 <template name="editBook">
-  <form name="editBook" style="text-align:left;" action="/book/{{bookId}}" method="POST">
+  <form name="editBook" style="text-align:left;" action="/b/{{bookId}}" method="POST">
     <textarea style="font-family:monospace;font-size:1rem;" name="bookJSON" id="bookJSON" cols="100" rows="200">{{bookJSON}}</textarea>
     <button class="btn btn--cta" type="submit">Update Book</button>
   </form>
