@@ -83,8 +83,10 @@ getUserStatistics = function(scope, userId, query) {
   var bookCount = 0;
   books.forEach(function (book) {
     bookCount = bookCount + 1;
-    if(book.publisherMetadata.pageCount){
-      pageCounts.push(book.publisherMetadata.pageCount);
+    if(book.hasOwnProperty("publisherMetadata")){
+      if(book.publisherMetadata.hasOwnProperty("pageCount")){
+        pageCounts.push(book.publisherMetadata.pageCount);
+      }
     }
   });
   let pagesRead = 0;
