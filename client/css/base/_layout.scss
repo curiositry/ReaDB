@@ -26,6 +26,14 @@
   left:0
 }
 
+body:not(.nav-open) .toggle-sidebar {
+  position:absolute;
+  top:0;
+  width:100%;
+  text-align:center;
+  border-right: 0;
+}
+
 .main {
   margin-left: 0rem;
   margin-top: 4rem;
