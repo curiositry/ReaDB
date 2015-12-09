@@ -79,13 +79,6 @@ Router.route('/b/:_id', function () {
   Session.set("bookId", id)
 });
 
-Router.route('/b/:author/:title/:_id', function () {
-  this.render('viewBook');
-  var params = this.params;
-  var id = params._id;
-  Session.set("bookId", id)
-});
-
 Router.route('/b/:_id/edit', function () {
   this.render('editBook');
   var params = this.params;
@@ -93,9 +86,19 @@ Router.route('/b/:_id/edit', function () {
   Session.set("bookId", id)
 });
 
+Router.route('/b/:_id/editJSON', function () {
+  this.render('editBookJSON');
+  var params = this.params;
+  var id = params._id;
+  Session.set("bookId", id)
+});
 
-
-
+Router.route('/b/:author/:title/:_id', function () {
+  this.render('viewBook');
+  var params = this.params;
+  var id = params._id;
+  Session.set("bookId", id)
+});
 
 Router.route("/(.*)", function() {
     this.render('pageNotFound');
