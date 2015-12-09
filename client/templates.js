@@ -206,6 +206,64 @@ Template.viewBook.helpers({
 });
 
 Template.editBook.helpers({
+  book: function(){
+    var bookId = Session.get("bookId");
+    Meteor.call("fetchBook", bookId, function(err,res){
+      if (err) {
+        throw err;
+      } if (res) {
+        Session.set("bookToEdit", res);
+      } else {
+        Bert.alert({
+            title: 'Book not found',
+            message: 'Could not edit book because there is no book with id '+bookId,
+            type: 'warning',
+          });
+      }
+    });
+    return Session.get("bookToEdit");
+  },
+  bookId: function(){
+    return Session.get("bookId")
+  }
+});
+
+Template.editBook.events({
+  "submit form": function(event, template){
+    event.preventDefault();
+    event.stopPropagation();
+    var bookId = Session.get("bookId");
+    console.log(bookId);
+    var book = Session.get("bookToEdit");
+    console.log(book);
+    
+    d = new Date();
+    var dateModified = d.yyyymmdd();    
+    book.isbn = event.target.isbn.value;
+    book.title = event.target.title.value;
+    console.log(book.title);
+    book.author = event.target.author.value;
+    book.rating = event.target.rating.value;
+    book.dateRead = event.target.dateRead.value;
+    book.tags = event.target.tags.value;
+    book.review = event.target.review.value; 
+    book.notes = event.target.notes.value; 
+    book.meta.userId = Meteor.userId();
+    book.meta.dateModified = dateModified;
+    book.meta.dateModifiedSort = new Date(dateModified).getTime() / 1000;
+
+    Meteor.call("updateBook", bookId, book, function(err, res){
+      if (err) throw err;
+      if (res) {
+        console.log("RESSSS");
+        Router.go("/");
+        return res;
+      }
+    });
+  }
+});
+
+Template.editBookJSON.helpers({
   bookJSON: function(){
     var bookId = Session.get("bookId");
     return JSON.stringify(Books.findOne({_id: bookId}), null, 2);
@@ -215,7 +273,7 @@ Template.editBook.helpers({
   }
 });
 
-Template.editBook.events({
+Template.editBookJSON.events({
   "submit form": function(){
     var bookId = Session.get("bookId");
     var updatedBookJSON = document.getElementById("bookJSON").value;
@@ -403,6 +461,7 @@ Template.addBook.events({
   },
   "submit form": function(event, template){
     event.preventDefault();
+    event.stopPropagation();
     d = new Date();
     var dateAdded = d.yyyymmdd();
     var newBook = {
