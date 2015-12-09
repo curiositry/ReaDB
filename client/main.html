@@ -18,7 +18,12 @@
 
 <template name="layout">
   <div class="wrap">
-  <a href="#!" id="toggle-sidebar"><i class="fa fa-times-circle" id="toggle-sidebar-icon"> <strong id="toggle-sidebar-text" class="sans-serif hidden ">MENU</strong></i></a>
+  <a href="#!" id="toggle-sidebar" class="toggle-sidebar">
+    <i class="fa fa-times-circle" id="toggle-sidebar-icon"></i>
+    <strong id="toggle-sidebar-text" class="sans-serif hidden ">
+      MENU
+    </strong>
+  </a>
   <div class="sidebar">
     {{> header}}
     {{> navigation}}
