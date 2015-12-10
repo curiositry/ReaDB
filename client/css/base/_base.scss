@@ -157,7 +157,8 @@ td, th {
 // Give inline items breating room;
 .meta-spacer:after {
   color: $tertiary-color;
-  content: ' • ';
+  content: ' / ';
+  margin: 0 0.5rem;
   font-family: $interface-font-stack;
 }
 
