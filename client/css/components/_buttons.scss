@@ -1,48 +1,53 @@
-.btn {
-  white-space: nowrap;
-  cursor: pointer;
-  @include gradient($tertiary-color, darken($tertiary-color, 5));
+// This is our basic button
+button, 
+.btn, 
+input[type=submit] {
+  @include gradient($tertiary-color, 
+                    mix($tertiary-color, $primary-color, 90)
+                   );
+                   
+  padding: 0.5rem 0.8rem;
   color: $primary-color;
   font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: 0.05rem;
-  padding: 0.7rem 1rem 0.5rem 1rem;
   text-transform: uppercase;
-  border: 2px solid  lighten($active-color, 40);
-  -webkit-transtition: all 0.3s ease-in-out;
-  -moz-transtition: all 0.3s ease-in-out;
-  -ms-transtition: all 0.3s ease-in-out;
-  -o-transtition: all 0.3s ease-in-out;
-  transtition: all 0.3s ease-in-out;
+  cursor:pointer;
+  border: 1px solid $interactive-color;
+  border-radius: 0.15rem;
+  
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+
+  
   
   &:hover {
-    @include gradient($interactive-color, $interactive-color);
-    color: $bg-color !important;
-    border: 2px solid  darken($tertiary-color, 20);
-    box-shadow: 0 0 0.25rem 0.25rem $active-color inset;
-    
-    -webkit-transtition: all 0.3s ease-in-out;
-    -moz-transtition: all 0.3s ease-in-out;
-    -ms-transtition: all 0.3s ease-in-out;
-    -o-transtition: all 0.3s ease-in-out;
-    transtition: all 0.3s ease-in-out;
-  }
-}
-
-
-.btn--cta {
-  @include gradient($active-color,
-                    darken(adjust-hue($active-color, -10%), 10%)
-                   );
-  color:white;
-  border: 2px solid  lighten($active-color, 10);
-  box-shadow: none;
-  
-  &:hover {
-    @include gradient(adjust-hue($active-color, 10%), 
+    @include gradient(adjust-hue($interactive-color, 10%), 
                       adjust-hue($active-color, 10%)
                      );
-    box-shadow: 0 0 1rem 1rem $primary-color inset;
+                     
+    box-shadow: 0 0 0.5rem 0rem $primary-color inset;
+    color: $bg-color !important;
+    border: 1px solid $active-color;
+    box-shadow: 0 0 0.5rem -0.15rem $primary-color inset;
+    
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
   }
 }
 
+// And this is our red hot chili peppers button
+.btn--cta {
+  @include gradient($interactive-color, 
+                    mix($interactive-color, black, 75)
+                   );
+  color: $bg-color;
+  border: 1px solid $tertiary-color;
+  
+  &:hover {
+    @include gradient(adjust-hue($interactive-color, 10%), 
+                      adjust-hue($active-color, 10%)
+                     );
+    box-shadow: 0 0 0.5rem -0.15rem $primary-color inset;
+  }
+}
