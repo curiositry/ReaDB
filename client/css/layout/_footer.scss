@@ -1,7 +1,7 @@
 .site-footer span {
   display: block;
   margin: 0;
-  @include breakpoint(lg) {
+  @include respond-to(lg) {
     display: inline;
     margin-top: auto;
   }
@@ -9,7 +9,7 @@
 
 .site-footer .meta-spacer::after {
     content: '';
-    @include breakpoint(lg) {
+    @include respond-to(lg) {
       content: ' • ';
     }
 }

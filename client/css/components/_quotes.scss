@@ -1,7 +1,5 @@
 %quote {
   font-size: 1rem;
-  z-index:1;
-  font-family: $text-font-stack;
 }
 
 %quote:before {
@@ -13,10 +11,11 @@
   right: 2.5rem;
   color: darken($tertiary-color, 5);
   font-size: 5.966rem;
+  z-index: -1;
 }
 
 %pull {
-  @include breakpoint(lg) {
+  @include respond-to(lg) {
     float: right;
     width: 40%;
   }
@@ -25,7 +24,6 @@
 blockquote {
   @extend %quote;
   margin: 1rem;
-  margin-top: 4rem !important;
   margin-right: 0;
   padding: 0 1.5rem;
   display: block;

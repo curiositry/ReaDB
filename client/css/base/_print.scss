@@ -1,57 +1,32 @@
+/**
+* PRINT STYLES
+* ------------
+* This file sets some sane defaults for printing. 
+*/
+
 @media print{
   
-  html {
-    // font-size:85%;
-  }
-  
+  // Black and white for better contrast
   body {
     background: #fff;
     color: #000;
-    padding-top: 2cm !important;
-    padding: 0 24pt;
-    // font-size: 12pt;
-  }
-  
-  p {
-    // font-size: 12pt;
-  }
-  
-  p a {
-    font-size: calc(85% * 12pt) !important;
-    font-size: 8pt !important;
-    color:#222;
-  }
-  
-  hr + p {
-    margin-left: 0.5rem;
-  }
-  
-  h1 {
-    font-size: 36pt !important;
-  }
-  
-  h4 {
-    font-size: 14pt !important;
+    font-size:12pt;
   }
 
+  // Make it so readers can find out where a link pointed
   p a:after {
     content: " (" attr(href) ")";
     font-size: 80%;
   }
-
-  .main-header__navigation, 
-  footer,
-  header {
+  
+  // Clearing the clutter
+  hr:after {
     display: none;
+  }
+
+  // Nice margins
+  @page {
+    margin: 3cm;
   }
   
-  .main-header {
-    position: absolute;
-    top:0;
-    display: none;
-  }
-
-  @page {
-    margin: 48pt;
-  }
 }

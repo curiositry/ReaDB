@@ -1,0 +1,27 @@
+/**
+* ◊SOCIAL SHARING BUTTONS
+* -----------------------
+* At the moment this component just makes the font-awesome icons for twitter,
+* facebook, and google+ turn their brand colour on hover.
+*/
+
+.share {
+}
+
+.share .fa-twitter {
+  color: #4099FF;
+}
+
+.share .fa-facebook {
+  color: #3a5795;
+}
+
+.share .fa-google-plus {
+  color: #dd4b39;
+}
+
+.share .fa:hover {
+  color: $active-color;
+  cursor: pointer;
+}
+

@@ -1,33 +1,37 @@
-.content > img,
-p > img  {
+/**
+* FIGURES
+* -------
+* Default styles for figures and their captions
+*/
+
+main img {
   margin: 1.5rem 0;  
 }
 
 figure:not(.plain-figure) {
   margin: 1.5rem auto;
-  border: 4px solid tint($butler-color, 50);
+  // border: 4px solid tint($tertiary-color, 50);
+  text-align: center;
 }
 
-figure:not(.plain-figure) figcaption {
-  background-color: $tertiary-color;
+figcaption {
   font-family: $interface-font-stack;
   font-size: 0.8rem;
-  line-height: 1rem;
-  padding: 0.5rem;
+  padding: 1rem;
   margin-top: 0;
 }
 
-figure img, 
-.thumb img {
-  margin-top: 0;
-}
-
-.thumb{
+.thumb,
+figure.thumb{
   width: 100%;
-  max-width: 225px;
-  margin: 0.5rem;
-  float:right;
+  margin: 1rem auto;
   line-height: 1;
+  
+  @include respond-to(sm){
+    float:right;
+    max-width: 225px;
+    margin: 0.5rem 0 0.5rem 1rem;
+  }
 }
 
 .thumb img.full-img{

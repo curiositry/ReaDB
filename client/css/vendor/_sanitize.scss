@@ -1,20 +1,23 @@
-/*! sanitize.css | CC0 Public Domain | github.com/jonathantneal/sanitize.css */
+/*! sanitize.css v3.0.0 | CC0 1.0 Public Domain | github.com/10up/sanitize.css */
 
+$root-background-color: #FFFFFF !default;
 $root-box-sizing: border-box !default;
+$root-color: #000000 !default;
 $root-cursor: default !default;
 $root-font-family: sans-serif !default;
-$root-font-size: 16px !default;
+$root-font-size: 100% !default;
 $root-line-height: 1.5 !default;
 $root-text-rendering: optimizeLegibility !default;
 
-$html-background-color: #FFFFFF !default;
 $anchor-text-decoration: none !default;
+$background-repeat: no-repeat !default;
 $form-element-background-color: transparent !default;
 $form-element-min-height: if(unitless($root-line-height), #{$root-line-height}em, if(unit($root-line-height) != '%', $root-line-height, null)) !default;
 $media-element-vertical-align: middle !default;
 $monospace-font-family: monospace !default;
 $nav-list-style: none !default;
 $selection-background-color: #B3D4FC !default;
+$selection-color: #ffffff !default;
 $selection-text-shadow: none !default;
 $small-font-size: 75% !default;
 $table-border-collapse: collapse !default;
@@ -27,72 +30,81 @@ $textarea-resize: vertical !default;
 * Normalization
 */
 
-:root {
-	-ms-overflow-style: -ms-autohiding-scrollbar; // IE11+
-	overflow-y: scroll; // All browsers without overlaying scrollbars
-	text-size-adjust: 100%; // iOS 8+
+audio:not([controls]) {
+	display: none; // Chrome 44-, iOS 8+, Safari 9+
 }
 
-audio:not([controls]) {
-	display: none; // Chrome 40+, iOS 8+, Safari 8+
+button {
+	overflow: visible; // Internet Explorer 11-
+	-webkit-appearance: button; // iOS 8+
 }
 
 details {
-	display: block; // Firefox 36+, Internet Explorer 11+, Windows Phone 8.1+
+	display: block; // Edge 12+, Firefox 40+, Internet Explorer 11-, Windows Phone 8.1+
+}
+
+html {
+	-ms-overflow-style: -ms-autohiding-scrollbar; // Edge 12+, Internet Explorer 11-
+	overflow-y: scroll; // All browsers without overlaying scrollbars
+	-webkit-text-size-adjust: 100%; // iOS 8+
 }
 
 input {
+	-webkit-border-radius: 0; // iOS 8+
+
+	&[type="button"], &[type="reset"], &[type="submit"] {
+		-webkit-appearance: button; // iOS 8+
+	}
+
 	&[type="number"] {
 		width: auto; // Firefox 36+
 	}
 
 	&[type="search"] {
-		-webkit-appearance: textfield; // Safari 8+
+		-webkit-appearance: textfield; // Chrome 45+, Safari 9+
 
 		&::-webkit-search-cancel-button,
 		&::-webkit-search-decoration {
-			-webkit-appearance: none; // Safari 8+
+			-webkit-appearance: none; // Chrome 45+, Safari 9+
 		}
 	}
 }
 
 main {
-	display: block; // Android 4.3-, Internet Explorer 11+, Windows Phone 8.1+
-}
-
-summary {
-	display: block; // Firefox 36+, Internet Explorer 11+, Windows Phone 8.1+
+	display: block; // Android 4.3-, Internet Explorer 11-, Windows Phone 8.1+
 }
 
 pre {
-	overflow: auto; // Internet Explorer 11+
+	overflow: auto; // Internet Explorer 11-
 }
 
 progress {
-	display: inline-block; // Internet Explorer 11+, Windows Phone 8.1+
+	display: inline-block; // Internet Explorer 11-, Windows Phone 8.1+
 }
 
 small {
 	font-size: $small-font-size; // All browsers
 }
 
+summary {
+	display: block; // Firefox 40+, Internet Explorer 11-, Windows Phone 8.1+
+}
+
+svg:not(:root) {
+	overflow: hidden; // Internet Explorer 11-
+}
+
 template {
-	display: none; // Android 4.3-, Internet Explorer 11+, iOS 7-, Safari 7-, Windows Phone 8.1+
+	display: none; // Android 4.3-, Internet Explorer 11-, iOS 7-, Safari 7-, Windows Phone 8.1+
 }
 
 textarea {
-	overflow: auto; // Internet Explorer 11+
+	overflow: auto; // Edge 12+, Internet Explorer 11-
 }
 
 [hidden] {
 	display: none; // Internet Explorer 10-
 }
-
-[unselectable] {
-	user-select: none; // Android 4.4+, Chrome 40+, Firefox 36+, iOS 8+, Safari 8+
-}
-
-
 
 /*
 * Universal inheritance
@@ -121,7 +133,7 @@ textarea {
 * Opinionated defaults
 */
 
-// specify solid border style of all elements
+// specify the border style and width of all elements
 
 *,
 ::before,
@@ -130,9 +142,10 @@ textarea {
 	border-width: 0;
 }
 
-// remove margin and padding of all elements
+// specify the core styles of all elements
 
 * {
+	background-repeat: $background-repeat;
 	margin: 0;
 	padding: 0;
 }
@@ -140,16 +153,12 @@ textarea {
 // specify the root styles of the document
 
 :root {
+	background-color: $root-background-color;
 	box-sizing: $root-box-sizing;
+	color: $root-color;
 	cursor: $root-cursor;
 	font: #{$root-font-size}/#{$root-line-height} $root-font-family;
 	text-rendering: $root-text-rendering;
-}
-
-// specify the html background color
-
-html {
-	background-color: $html-background-color;
 }
 
 // specify the text decoration of anchors
@@ -158,7 +167,7 @@ a {
 	text-decoration: $anchor-text-decoration;
 }
 
-// specify media element style
+// specify the alignment of media elements
 
 audio,
 canvas,
@@ -178,7 +187,7 @@ textarea {
 	background-color: $form-element-background-color;
 }
 
-// specify inheritance of form elements
+// specify the inherited color and font of form elements
 
 button,
 input,
@@ -230,50 +239,74 @@ nav ul {
 	list-style: $nav-list-style;
 }
 
-// style select like a standard input
+// specify the standard appearance of selects
 
 select {
-	// -moz-appearance: none;    // Firefox 36+
-	// -webkit-appearance: none; // Chrome 41+
+	-moz-appearance: none;    // Firefox 40+
+	-webkit-appearance: none; // Chrome 45+
 
 	&::-ms-expand {
-		display: none;        // Internet Explorer 11+
+		display: none;        // Edge 12+, Internet Explorer 11-
 	}
 
 	&::-ms-value {
-		color: currentColor;  // Internet Explorer 11+
+		color: currentColor;  // Edge 12+, Internet Explorer 11-
 	}
 }
 
-// specify the border styles of tables
+// specify the border styling of tables
 
 table {
 	border-collapse: $table-border-collapse;
 	border-spacing: $table-border-spacing;
 }
 
-// specify textarea resizability
+// specify the resizability of textareas
 
 textarea {
 	resize: $textarea-resize;
 }
 
-// specify text selection background color and omit drop shadow
+// specify the background color, font color and drop shadow of text selections
 
-::selection {
+::-moz-selection {
 	background-color: $selection-background-color; // required when declaring ::selection
+	color: $selection-color;
 	text-shadow: $selection-text-shadow;
 }
 
-// hide content from screens but not screenreaders
+::selection {
+	background-color: $selection-background-color; // required when declaring ::selection
+	color: $selection-color;
+	text-shadow: $selection-text-shadow;
+}
 
-@media screen {
-	[hidden~="screen"] {
-		display: inherit;
-	}
+// specify the progress cursor of updating elements
 
-	[hidden~="screen"]:not(:active):not(:focus):not(:target) {
-		clip: rect(0 0 0 0) !important;
-		position: absolute !important;
+[aria-busy="true"] {
+	cursor: progress;
+}
+
+// specify the pointer cursor of trigger elements
+
+[aria-controls] {
+	cursor: pointer;
+}
+
+// specify the unstyled cursor of disabled, not-editable, or otherwise inoperable elements
+
+[aria-disabled] {
+	cursor: default;
+}
+
+// specify the style of visually hidden yet accessible elements
+
+[hidden][aria-hidden="false"] {
+	clip: rect(0 0 0 0);
+	display: inherit;
+	position: absolute;
+
+	&:focus {
+		clip: auto;
 	}
 }

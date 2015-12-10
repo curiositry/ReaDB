@@ -13,13 +13,13 @@ h4 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   display: inline-block;
-  @include breakpoint(mbl) {
+  @include respond-to(mbl) {
     font-size: 0.8rem;
   }
-  @include breakpoint(sm) {
+  @include respond-to(sm) {
     font-size: 0.8rem;
   }
-  @include breakpoint(lg) {
+  @include respond-to(lg) {
     font-size: 0.9rem;
   }
 }

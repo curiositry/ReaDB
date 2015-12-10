@@ -1,6 +1,26 @@
+/**
+* VARIABLES
+* ---------
+* Here we find variables for the theme colours, font stacks, and more
+*/
+
+/* ◊COLOURS */
+
+// // For links and so on
+// $interactive-color: mix(#ff5335, black, 90);
+// $active-color: #ff5335;  
+// 
+// // The three main colours
+// $primary-color: #444;
+// $secondary-color: #555;
+// $tertiary-color:  #dfe0d4;
+// 
+// $c1: $primary-color;
+// $c2: $secondary-color;
+// $c3: $tertiary-color;
+
 
 $interactive-color: #d34f1e;
-
 $active-color: darken(#d34f1e, 10);
 
 $primary-color: #5f1b00;
@@ -15,8 +35,73 @@ $interface-font-stack:   'Open Sans', 'San Francisco', 'Helvetica', sans-serif;
 $header-font-stack:  'Playfair Display', $interface-font-stack;
 $mono-font-stack: 'Source Code Pro', monospace;
 
+// Short vars for font-stack
+$tfs: $text-font-stack;
+$ifs: $interface-font-stack;
+$hfs: $header-font-stack;
+$mfs: $mono-font-stack;
+
+// This sets the line-length…
+$container-width: 800px;
+
+/* ◊TYPOGRAPHY VARIABLES */
+$line-height: 1.5 !default;
+$font-size: 112.5 !default;
+$font-base: 16 * ($font-size/100) !default;
+$measure: $font-base * $line-height !default;
+$base-font-weight: 400 !default;
+
 $font-adjust-sm: 0.5;
 $font-adjust-md: 0.8;
 $font-adjust-lg: 1;
 
 $x-height-offset: 0.25rem;
+
+
+/**
+* ◊TYPESCALE
+* ----------
+* Greek heading names and scale using base font-size
+* Created using https://gist.github.com/curiositry/6640ac2b6e99102d8a61
+*
+* Scale is Major Third: 18 * 1.25
+*
+* Pixel Values: 7.373, 9.216, 11.52, 14.4, 18, 22.5, 28.125, 35.156, 43.945,                  *               54.931, 68.664, 85.83, 107.288, 134.11, 167.638
+
+* REM values: 0.41, 0.512, 0.64, 0.8, 1, 1.25, 1.563, 1.954, 
+*             2.443, 3.054, 3.818, 4.773, 5.966, 7.458, 9.323
+*/
+
+ 
+// $type-scale: (
+//   sassisfy-tera: 4.773,
+//   sassisfy-giga: 3.818,
+//   sassisfy-mega: 3.054,
+//   sassisfy-alpha: 2.443,
+//   sassisfy-beta: 1.945,
+//   sassisfy-gamma: 1.563,
+//   sassisfy-delta: 1.25,
+//   sassisfy-epsilon: 1,
+//   sassisfy-zeta: 0.8,
+// ) !default;
+
+$type-scale: (
+  sassisfy-tera: 85.83,
+  sassisfy-giga: 68.664,
+  sassisfy-mega: 54.931,
+  sassisfy-alpha: 43.945,
+  sassisfy-beta: 35.156,
+  sassisfy-gamma: 28.125,
+  sassisfy-delta: 22.5,
+  sassisfy-epsilon: 18,
+  sassisfy-zeta: 14.4,
+) !default;
+
+$type-headings: (
+  h1: sassisfy-alpha,
+  h2: sassisfy-beta,
+  h3: sassisfy-gamma,
+  h4: sassisfy-delta,
+  h5: sassisfy-epsilon,
+  h6: sassisfy-zeta
+) !default;

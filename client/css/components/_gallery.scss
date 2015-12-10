@@ -1,6 +1,16 @@
+/**
+* ◊IMAGE GALLERY 
+* --------------
+* This provides a component for a responsive image gallery, that uses Flexbox.
+* Each gallery instance will take up the full available width,
+* and scale the image thumbnails accordingly.
+* Can be used with figures and figcaptions, or with images enclosed in DIVs.
+*/
+
+
 .gallery {
-  @include flexbox();
-  @include flex-wrap(wrap);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .gallery div:first-child {

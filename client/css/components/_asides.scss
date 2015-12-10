@@ -1,13 +1,21 @@
-aside{
+/**
+* ◊ASIDES
+* --------------
+* This component lets you use the <aside> tag in an article for snide comments 
+* or to provide more details or context. Add "note" class to add a stylized 
+* astrisk to the corner of the box.
+*/
+
+aside {
   font-family: $interface-font-stack;
   font-size: 1rem;
   background-color: #fff;
   padding: 1rem;
   border: 1px solid $butler-color;
   
-  @include breakpoint(md){
+  @include respond-to(md) {
     width: 40%;
-    float:right;
+    float: right;
     margin-right: 0;
     margin:1rem;
     position: relative;
@@ -34,7 +42,7 @@ aside p:last-of-type {
 
 aside.full,
 aside.full-width {
-  @include breakpoint(md){
+  @include respond-to(md){
     margin: 1rem 0 2rem 0;
   }
 }
@@ -42,7 +50,7 @@ aside.full-width {
 aside.note:before{
   position: relative;
   font-family: $interface-font-stack;
-  font-weight: 700;
+  font-weight: 900;
   color: $tertiary-color;
   bottom: 0.5rem;
   right: 1.5rem;

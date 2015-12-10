@@ -1,35 +1,44 @@
+@charset 'utf-8';
+/**
+* SASSISFY
+* --------
+* A solid + satisfying sass starting point for stable and sane stylesheet
+* architecture.
+* By @curiositry
+* https://github.com/curiositry/sassisfy
+*/
+
+@import 'utils/functions';
+@import 'utils/mixins';
+
 @import 'vendor/sanitize';
 @import 'vendor/normalize-opentype';
-@import 'vendor/typegreat';
 
 @import 'base/variables';
-
-@import 'utils/mixins';
-@import 'utils/helpers';
-
 @import 'base/base';
+@import 'base/layout'; // readb special
 @import 'base/typography';
 @import 'base/print';
-@import 'base/colors';
-@import 'base/layout';
 
-@import 'components/icons';
-@import 'components/figures';
-@import 'components/buttons';
-@import 'components/quotes';
-@import 'components/embeds';
-@import 'components/asides';
-@import 'components/gallery';
 @import 'components/inputs';
-@import 'components/output';
-@import 'components/notifications';
-@import 'components/accounts';
-@import 'components/book-list';
+@import 'components/buttons';
+@import 'components/figures';
+@import 'components/quotes';
+@import 'components/icons';
+@import 'components/gallery';
+@import 'components/asides';
+@import 'components/share';
 @import 'components/pagination';
-
+@import 'components/notifications';
+@import 'components/book-list';
 
 @import 'layout/header';
 @import 'layout/footer';
 
-@import 'vendor/_prism.css';
-@import 'components/icons';
+@import 'utils/helpers';
+
+
+
+
+
+

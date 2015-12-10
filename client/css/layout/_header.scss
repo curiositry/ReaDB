@@ -1,12 +1,12 @@
 header h1 {
   margin-top: 0rem;
   margin-bottom: 0.5rem;
-  @extend .typgr8-beta;
+  @extend h2;
   color: $primary-color;
 }
 
 header img {
-  @include breakpoint(lg){
+  @include respond-to(lg){
     position: relative;
     top: 0.25rem;
     margin-right: 1rem;

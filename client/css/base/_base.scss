@@ -1,261 +1,166 @@
- *, *:before, *:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
+// Lobotomized Owl
+// See: http://alistapart.com/article/axiomatic-css-and-lobotomized-owls
 * + * {
   margin-top: 1rem;
 }
 
-html {
-  margin: 0 !important;
-  background-color: $bg-color;
-}
-
 body {
-  margin: 0 !important;
-}
-
-article {
-  max-width: 750px;
-  margin: 0 auto;
-  padding-top: 4rem;
-}
-
-.page-template {
-  padding-top: 0;
-}
-
-.math * + *{
+  background-color: $bg-color;
   margin-top: 0;
 }
 
-.math{
-  text-align: center;
-  font-size:1.65rem;
-  padding:.55rem;
-  max-width: 100%;
-  overflow: auto;
+::-moz-selection, ::selection {
+  background: $secondary-color;
+  color: white;
 }
-
+ 
+// Basic container for good aesthetics and optimal line-length
 .container {
   margin: 0 auto;
-  padding: 1rem;
-  padding-top: 0;
-  max-width: 850px;
-  @include breakpoint(sm) {
-    padding: 1.5rem;
-    padding-top: 0;
+  padding: 2rem;
+  max-width: $container-width;
+}
+
+a {
+  color: $interactive-color;
+  border-bottom: 1px solid $tertiary-color;
+  -webkit-transition: color, .2s;
+  -o-transition: color, .2s;
+  transition: color, .2s;
+  
+  &:hover {
+    color: $active-color;
+    border-bottom: 2px solid $tertiary-color;
   }
 }
 
-nav li {
-  display: inline;
+// So nobody gets their hopes up
+[disabled] {
+  color: $butler-color;
 }
 
+[readonly] {
+  background-color: mix($butler-color, white, 50);
+}
+
+// No funky business…
 img {
   max-width: 100%;
 }
 
-.jslghtbx-contentwrapper{
-  max-height: 110vh !important;  
+// Make nested <li>s have same margin-top as lob-owl applies
+li {
+  margin-top: 1rem;
 }
 
-a {
-  text-decoration: none;
+// Indent nested <li>s
+li + li {
+  margin-left: 1.25rem;
 }
 
-em, i {
-  font-style: italic;
+dt {
+  font-weight: bold;
 }
 
-.post-teaser__title a{
-  border-bottom: none;
+dd {
+  text-indent: 1.5rem;
 }
 
-pre[class*="language-"], .token.operator{
-  background: $tertiary-color !important;
-}
-
-pre[class*="language-"]{
-  margin: 0 0 1.7rem 0 !important;
-  padding: 0.5rem 0.8rem !important;
-}
-
-code[class*="language-"]{
-  text-shadow: none !important;
-  color: #444 !important;
-  font-family: $mono-font-stack !important;
-  // padding: 0.25rem 0.25rem !important;
-}
-
-pre {
-  padding: 0.5rem 0.8rem;
-  margin-bottom: 2rem;
-}
-
-code {
-  padding: 0.15rem 0.25rem;
-  position: relative;
-  top: 0.25rem;
-}
-
-pre code {
-  top:0;
-}
-
-
-
+// Basic wrapping, smaller font-size, bg, etc. for code.
 pre, code{
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid tint($active-color, 20);
   background-color: $tertiary-color;
   white-space: pre-wrap;
-  font-size:0.8rem;
+  font-size: 0.8rem;
   font-family: $mono-font-stack;
-}
-
-pre code {
-  padding: 0;
   border: none;
 }
+ 
+pre {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid tint($active-color, 20);
+}
 
-ol, ul {
-  padding-left: 0;  
+// Give it some space
+code {
+  padding: 0.25rem 0.5rem;
+}
+
+// Bye bye hideous yellow…
+mark {
+  background-color: $tertiary-color;
+  padding: 0.2rem 0.5rem;
+  box-shadow: 0 0 0.25rem 0 $tertiary-color;
 }
 
 kbd {
-  font-family: $interface-font-stack;
-  font-size:0.8rem;
-  font-weight: 700;
-  padding: 0.25rem 0.5rem 0.125rem 0.5rem;
-  margin: 0.25rem;
+  background-color: $tertiary-color;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
   border: 1px solid $butler-color;
-  background-color: $tertiary-color;
-  line-height: 2.25;
-  border-radius: 0.15rem;
 }
 
-ol ol, ul ul,
-ul ol, ol ul {
-  margin-top: .835rem;  
-  margin-left: 1.65rem;
+abbr,
+acronym {
+  letter-spacing: 0.05rem;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  -moz-font-feature-settings: "smcp=1";
+  -moz-font-feature-settings: "smcp";
+  -ms-font-feature-settings: "smcp";
+  -webkit-font-feature-settings: "smcp";
+  -o-font-feature-settings: "smcp";
+  font-feature-settings: "smcp";
 }
 
-mark {
-  background-color: $tertiary-color;
-}
-
-li + li {
-  margin-top: .825rem;
-}
-
-li {
-  font-family: $text-font-stack;
-}
-
-input {
-  height: (100%);
-}
-
-input, button, textarea {
-  padding: 0.5rem 1rem;
-  border: 1px solid $tertiary-color;
-  box-shadow: none;
-  font-weight: 700;
-  font-family: $interface-font-stack;
-}
-
-input:focus, input:active, button:focus, button:active {
-  outline: none;
-  border: 1px solid $interactive-color;
-}
-
+// Nice, subtle, clean <hr>s
 hr{
   display: block;
-  margin: 3rem auto;
+  margin: 2rem auto;
   padding: 0;
   height: 1px;
   border: 0;
-  border-top: $tertiary-color 1px double;
+  border-top: $tertiary-color 1px solid;
   text-align: center;
 }
 
+// With special sauce…
 hr:after {
-  font-family: $text-font-stack;
   position: relative;
-  bottom: 0.4rem;
+  bottom: 0.5rem;
+  color: $butler-color;
   display: inline;
   padding: 0 1rem;  
-  content: '* * *';
-  font-size: 1.954rem;
+  content: "* * *";
+  font-size: 1.563rem;
   line-height: 0;
+  background-color: $bg-color;
 }
 
+// … or not!
 hr.plain-hr:after {
   display: none;
 }
 
+// So tables don’t look like a lumber yard…
+tr:nth-child(odd){
+  background-color: $tertiary-color;
+}
+
+thead {
+  border-bottom: 1px solid $bg-color;
+}
+
+td, th {
+  padding: 0.25rem 0.5rem;
+}
+
+// Give inline items breating room;
 .meta-spacer:after {
   color: $tertiary-color;
   content: ' • ';
-  padding:0 0.5rem;
-  font-weight: 700;  
   font-family: $interface-font-stack;
 }
 
-article > p:not(.no-dropcap):first-of-type {
-  @include typgr8-dropcap(
-  $typgr8-dropcap-float-position,  
-  $typgr8-dropcap-font-size,
-  $typgr8-dropcap-font-family,
-  $typgr8-dropcap-txt-indent,
-  $typgr8-dropcap-margin,
-  $typgr8-dropcap-padding,
-  $typgr8-dropcap-color,
-  $typgr8-dropcap-line-height,
-  $typgr8-dropcap-bg);
-  
-  &::first-letter {
-    font-weight:900;
-    color: shade($butler-color, 75);
-  }
-  &::first-line {
-    text-transform: uppercase;
-    @extend .sc;
-  }
+.meta {
+  font-size: 1rem;
 }
-
-_:-moz-tree-row(hover), article > p:not(.no-dropcap):first-of-type::first-letter {
-  margin-top: 0.35rem;
-}
-
-// hr + p {
-//   @include typgr8-dropcap(
-//   $typgr8-dropcap-float-position,  
-//   $typgr8-dropcap-small-font-size,
-//   $typgr8-dropcap-font-family,
-//   $typgr8-dropcap-txt-indent,
-//   $typgr8-dropcap-small-margin,
-//   $typgr8-dropcap-small-padding,
-//   $typgr8-dropcap-color,
-//   $typgr8-dropcap-line-height,
-//   $typgr8-dropcap-bg);
-//   
-//   &::first-letter {
-//     font-weight:900;
-//     color: shade($butler-color, 75);
-//   }
-//   &::first-line {
-//     text-transform: uppercase;
-//     @extend .sc;
-//   }
-// }
-
-// 
-// br {
-//   margin-top: 0;
-// }
