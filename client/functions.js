@@ -312,3 +312,26 @@ tagsToArray = function(tags){
   }
   return tagArray;
 }
+
+appendScript = function(pathToScript) {
+  var body = document.getElementsByTagName("body")[0];
+  var js = document.createElement("script");
+  js.type = "text/javascript";
+  js.src = pathToScript;
+  console.log("Appending script:");
+  console.log(pathToScript);
+  body.appendChild(js);
+}
+
+removeScript = function(pathToScript) {
+  var body = document.getElementsByTagName("body")[0];
+  var scripts = body.getElementsByTagName("script");
+  for (var i = 0; i < scripts.length; i++) {
+    var js = scripts[i];
+    if (js.src == pathToScript) {
+      body.removeChild(js);
+      break;
+      
+    }
+  }
+}
