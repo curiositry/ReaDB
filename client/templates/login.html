@@ -1,4 +1,25 @@
 <template name="login">
-  <h2>Please Login:</h2>
-  {{> loginButtons}}
+{{#if currentUser}}
+    {{#if loggingIn}}
+      {{! We aren't actually logged in yet; we're just setting Meteor.userId
+          optimistically during an at-startup login-with-token. We expose this
+          state so other UIs can treat it specially, but we'll just treat it
+          as logged out. }}
+      {{#if dropdown}}
+      <h2>Logging in</h2>
+        {{> _loginButtonsLoggingIn }}
+      {{else}}
+        <h2>Logging in</h2>
+        <div class="login-buttons-with-only-one-button">
+          {{> _loginButtonsLoggingInSingleLoginButton }}
+        </div>
+      {{/if}}
+    {{else}}
+    <h2>You’re already logged in!</h2>
+    <a href="#!" class="btn m0a center-text" id="login-buttons-logout">Sign Out</a>
+    {{/if}}
+  {{else}}
+    <h2>Please Login:</h2>
+    {{> _loginButtonsLoggedOut}}
+  {{/if}}
 </template>
