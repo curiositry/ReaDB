@@ -10,7 +10,6 @@
 
 accounts-base
 accounts-password
-accounts-ui
 http
 standard-minifiers
 meteor-base
@@ -36,3 +35,4 @@ easy:search
 themeteorchef:bert
 ecmascript
 markdown
+accounts-ui-unstyled
