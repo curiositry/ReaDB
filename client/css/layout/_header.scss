@@ -66,6 +66,10 @@ header h4 {
   margin-top: 0;
 }
 
+.sidebar li + li {
+  margin-left: 0;
+}
+
 .sidebar nav .meta-spacer {
   display: none;
 }
