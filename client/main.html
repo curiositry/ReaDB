@@ -30,10 +30,14 @@
   </div>
   <main class="main">
     <div class="container">
-      {{#if currentUser}}
-          {{> yield}}
+      {{#if isPublic}}
+        {{> yield}}
         {{else}}
-          {{>pleaseLogin}}
+        {{#if currentUser}}
+            {{> yield}}
+          {{else}}
+            {{>pleaseLogin}}
+        {{/if}}
       {{/if}}
       {{> footer}}
     </div>
