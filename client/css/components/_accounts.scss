@@ -1,0 +1,32 @@
+.login-button {
+  @extend .btn;
+  width: auto;
+  display: inline-block;
+  margin-top: 2rem;
+}
+
+#login-sign-in-link,
+.login-close-text {
+  display: none;
+}
+
+.login-form label,
+.login-form input {
+  display: block;
+  clear: both;
+}
+
+.login-form .additional-link {
+  cursor: pointer;
+}
+
+.additional-link, 
+.additional-link-container {
+  display: inline;
+  margin-left: 1rem ;
+  font-size: 1rem;
+}
+
+.login-form label {
+  margin-bottom: 1rem;
+}
