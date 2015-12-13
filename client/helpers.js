@@ -24,6 +24,23 @@ Handlebars.registerHelper('ifItemExists', function(item) {
   }
 });
 
+Handlebars.registerHelper('isPublic', function(item) {
+  var publicPages = ['login','about'];
+  var as = Meteor.absoluteUrl();
+  console.log(as);
+  console.log(as+'/login');
+  console.log(Router.current().url
+);
+  if(Router.current().url == '/login'  || 
+     Router.current().url == '/about' ||
+     Router.current().url == as+'login' ||
+     Router.current().url == as+'about'){
+    return true
+  } else {
+    return false;
+  }
+});
+
 Handlebars.registerHelper('replaceLinebreaks', function(passedString, replacement) {
   var theString = passedString.replace(/\n/g,"<br>");
    return new Handlebars.SafeString(theString)
