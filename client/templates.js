@@ -143,6 +143,34 @@ Template.layout.events({
       icon.classList.add("fa-bars");    
       text.classList.remove("hidden");
     }
+  },
+  "click #login-buttons-logout": function() {
+    Meteor.logout(function () {
+      loginButtonsSession.closeDropdown();
+    });
+  }
+});
+
+Template.login.rendered = function() {
+  Accounts._loginButtonsSession.set('dropdownVisible', true);
+  // Meteor.setTimeout(function(){
+    // document.getElementById('login-sign-in-link').style.display = 'none';   document.getElementsByClassName('login-close-text')[0].style.display = 'none';
+  // },5000)
+  
+};
+
+Template._loginButtonsLoggedOut.helpers({
+  dropdown: dropdown,
+  services: getLoginServices,
+  singleService: function () {
+    var services = getLoginServices();
+    if (services.length !== 1)
+      throw new Error(
+        "Shouldn't be rendering this template with more than one configured service");
+    return services[0];
+  },
+  configurationLoaded: function () {
+    return Accounts.loginServicesConfigured();
   }
 });
 
@@ -156,20 +184,10 @@ Template.filterBar.events({
   }
 });
 
-// 
-// Template.header.helpers({
-//   notification: function(){
-//     var notification = Session.get("notification");
-//     Session.set("notification", "");
-//     return notification;
-//   }
-// });
 
 Template.navigation.helpers({
-  user: function() {
-    if (Meteor.userId()){
-      return fetchUsername(Meteor.userId());
-    }
+  user: function(){  
+    return "THISSSS";
   }
 });
 
