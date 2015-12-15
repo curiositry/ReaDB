@@ -19,7 +19,6 @@ Router.map(function() {
   this.route('addBook', {path: '/add'});
   this.route('about', {path: '/about'});
   this.route('search', {path: '/search'});
-  this.route('login', {path: '/login'});
   
   this.route('IO', {path: '/IO'});
   this.route('exportJSON', {path: '/export/json'});
@@ -28,39 +27,41 @@ Router.map(function() {
   this.route('importCSV', {path: '/import/csv'});
 });
 
+Router.route("/login", function(){
+  if (Meteor.userId()){
+    Router.go("/");
+  } else {
+    this.render('login');  
+  }
+});
+
 Router.route("viewUserProfile", {
-  path: "/user/:_id",
-  template: "viewUserProfile",
+  path: "/user/:usr",
   waitOn: function() {  
     var params = this.params; 
-    var usr = params._id; 
+    var usr = params.usr; 
     Session.set("usr", usr);
-    var usr = Session.get("usr");
-    var usernameRegex = new RegExp(["^", usr, "$"].join(""), "i");
-    if (Meteor.users.find({"_id":usr}).fetch()[0]){
-      console.log("id match");
-      Session.set("userId", usr);
-      var username = Meteor.users.find({"_id":usr}).fetch()[0].username;
-      Session.set("profileUsername", username);
-      this.next();
-    } else if (Meteor.users.findOne({"username":usernameRegex}).hasOwnProperty("_id")){
-      console.log("userame match");  
-      var userId = Meteor.users.find({"username":usernameRegex}).fetch()[0]._id;
-      var username = usr;
-      Session.set("profileUserId", userId);
-      Session.set("profileUsername", username);
-      this.next();
-    } else if (Session.get("newUsername")) {
+    Meteor.call("fetchDisplayName", usr, function(err,res){
+      if(err){
+        throw err;
+      } else if (res){
+        console.log(res);
+        Session.set("displayName", res);
+      } else {
+        console.log("meteor call didn’t return");
+        return false;
+      }
+    });
+     if (Session.get("newUsername")) {
       console.log("username change match");
       console.log("username changed!");
       var newUsername = Session.get("newUsername");
       Router.go("/user/"+newUsername);
-    } else {
-      console.log("epic fail");
-      Router.go("/404");
-      this.next();
+      Session.set("displayName", Session.get("newUsername")); 
     }
-    Session.set("profileUsername", username);
+  },
+  action: function () {
+    this.render('viewUserProfile');
   }
 });
 
