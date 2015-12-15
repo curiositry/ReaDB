@@ -84,6 +84,32 @@ Meteor.methods({
         return userId;
       }
     },
+    fetchDisplayName: function(str){
+      console.log(str);
+      var usr = str;
+      var usernameRegex = new RegExp(["^", usr, "$"].join(""), "i");
+      if (Meteor.users.findOne({"_id": usr})){
+        var usrObj = Meteor.users.findOne({"_id":usr});
+        var userId = usrObj._id;
+        console.log("id match");
+        if (usrObj.hasOwnProperty("username")){
+          return usrObj.username;
+        } else if (usrObj.hasOwnProperty("emails") && userObj.emails && usrObj.emails[0] && usrObj.emails[0].address){
+          return usrObj.emails[0].address;
+        } else {
+          return usrObj._id;
+        }  
+      } else if (Meteor.users.findOne({"username": usernameRegex})){
+        var usrObj = Meteor.users.findOne({"username": usernameRegex});
+        if (usrObj.hasOwnProperty("_id")){  
+          console.log("username match");  
+          var userId = usrObj._id;
+          return usrObj.username;
+        }
+      } else {
+        return "User Not Found";
+      }
+    },
     processCSV: function(){
       console.log("process method called");
       return processCSV();
