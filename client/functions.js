@@ -29,6 +29,23 @@ fetchUsername = function(userId){
   return Session.get("fetchedUsername");
 }
 
+fetchDisplayName = function(str){
+  Meteor.call("fetchDisplayName", str, function(err, res){
+    if (err) {
+      console.log(err);  
+      Session.set("displayName", err);
+      throw err;
+    } else if (res) {
+      Session.set("displayName", res);
+      return res;
+    } else {
+      Session.set("displayName", "user not found");
+      return false;    
+    }
+  });
+  return Session.get("displayName");
+}
+
 getUserStatistics = function(userId, query){
   Meteor.call("getUserStatistics", userId, query, function(err,res){
     if (err) {
@@ -335,3 +352,27 @@ removeScript = function(pathToScript) {
     }
   }
 }
+// 
+// getLoginServices = function () {
+//   var self = this;
+// 
+//   // First look for OAuth services.
+//   var services = Package['accounts-oauth'] ? Accounts.oauth.serviceNames() : [];
+// 
+//   // Be equally kind to all login services. This also preserves
+//   // backwards-compatibility. (But maybe order should be
+//   // configurable?)
+//   services.sort();
+// 
+//   // Add password, if it's there; it must come last.
+//   if (hasPasswordService())
+//     services.push('password');
+// 
+//   return _.map(services, function(name) {
+//     return {name: name};
+//   });
+// };
+// 
+// dropdown = function () {
+//   return hasPasswordService() || getLoginServices().length > 1;
+// };
