@@ -174,6 +174,50 @@ Template._loginButtonsLoggedOut.helpers({
   }
 });
 
+Template.pleaseLogin.events({
+  'click #signup-link': function () {
+    Router.go("/login");
+    loginButtonsSession.resetMessages();
+    // store values of fields before swtiching to the signup form
+    var username = trimmedElementValueById('login-username');
+    var email = trimmedElementValueById('login-email');
+    var usernameOrEmail = trimmedElementValueById('login-username-or-email');
+    // notably not trimmed. a password could (?) start or end with a space
+    var password = elementValueById('login-password');
+
+    loginButtonsSession.set('inSignupFlow', true);
+    loginButtonsSession.set('inForgotPasswordFlow', false);
+    // force the ui to update so that we have the approprate fields to fill in
+    Tracker.flush();
+
+    // update new fields with appropriate defaults
+    if (username !== null)
+      document.getElementById('login-username').value = username;
+    else if (email !== null)
+      document.getElementById('login-email').value = email;
+    else if (usernameOrEmail !== null)
+      if (usernameOrEmail.indexOf('@') === -1)
+        document.getElementById('login-username').value = usernameOrEmail;
+    else
+      document.getElementById('login-email').value = usernameOrEmail;
+
+    if (password !== null)
+      document.getElementById('login-password').value = password;
+
+    // Force redrawing the `login-dropdown-list` element because of
+    // a bizarre Chrome bug in which part of the DIV is not redrawn
+    // in case you had tried to unsuccessfully log in before
+    // switching to the signup form.
+    //
+    // Found tip on how to force a redraw on
+    // http://stackoverflow.com/questions/3485365/how-can-i-force-webkit-to-redraw-repaint-to-propagate-style-changes/3485654#3485654
+    var redraw = document.getElementById('login-dropdown-list');
+    redraw.style.display = 'none';
+    redraw.offsetHeight; // it seems that this line does nothing but is necessary for the redraw to work
+    redraw.style.display = 'block';
+  }
+});
+
 Template.filterBar.events({
   "click .filter-bar": function(event, template){
     event.preventDefault();
@@ -186,30 +230,12 @@ Template.filterBar.events({
 
 
 Template.navigation.helpers({
-  user: function(){  
-    return "THISSSS";
+  displayName: function(){  
+    fetchDisplayName(Meteor.userId())
+    return Session.get("displayName");
   }
 });
 
-// Template.login.events({
-  // 'click .login-btn': function(event, template){
-  //   event.stopPropagation();
-  //   Accounts._loginButtonsSession.set('dropdownVisible', true);
-  // },
-  // 'click .signup-btn': function(e){
-  //   console.log("click");
-  //   e.stopPropagation();
-  //   Accounts._loginButtonsSession.set('dropdownVisible', true);
-  //   Accounts._loginButtonsSession.resetMessages();
-  //   Accounts._loginButtonsSession.set('inSignupFlow', true);
-  //   Accounts._loginButtonsSession.set('inForgotPasswordFlow', false);
-  //   Tracker.flush()
-  //   var redraw = document.getElementById('login-dropdown-list');
-  //   redraw.style.display = 'none';
-  //   redraw.offsetHeight; // it seems that this line does nothing but is necessary for the redraw to work
-  //   redraw.style.display = 'block';
-  // }
-// });
 
 Template.viewBook.helpers({
   book: function(){
@@ -349,9 +375,9 @@ Template.viewUserProfile.helpers({
     getUserStatistics(Session.get("profileUserId"), null);
     return Session.get("userStats");
   },
-  username: function(){
-    console.log(Session.get("profileUserId"));
-    return fetchUsername(Meteor.userId());
+  displayName: function(){
+    console.log(Session.get("displayName"));
+    return Session.get("displayName");
   }
 });
 
