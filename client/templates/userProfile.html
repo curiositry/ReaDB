@@ -1,6 +1,6 @@
 <template name="viewUserProfile">
   <div class="center-text">
-    <h1 style="font-weight:400;">Hello, <strong>{{username}}</strong>!</h1>
+    <h1 style="font-weight:400;">Hello, <strong>{{displayName}}</strong>!</h1>
     {{#if stats.bookCount}}
     <span class="user-statistics">
     You have <strong> {{stats.bookCount}} </strong> books in your library, with an average of <strong> {{stats.avgPageCount}} </strong> pages per book, or <strong>{{stats.avgWordCount}}</strong> words per book. You’ve read a total of <strong>{{stats.pagesRead}}</strong> pages, which is around <strong>{{stats.wordsRead}}</strong> words. Congratulations!
