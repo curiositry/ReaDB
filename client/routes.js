@@ -7,15 +7,19 @@ Router.configure({
 if(Meteor.userId()){
   Router.route('/', function(){
     this.render('bookList');
+    this.redirect('/books');
     Session.set("findBy", "");
   });
 } else {
   Router.route('/', function(){
-    this.render("about")
+    this.redirect('/about');
+    this.render("about");
   });
 }  
 
 Router.map(function() {
+  this.route('bookList', {path: '/books'});
+;
   this.route('addBook', {path: '/add'});
   this.route('about', {path: '/about'});
   this.route('search', {path: '/search'});
@@ -85,6 +89,19 @@ Router.route('/b/:_id/edit', function () {
   var params = this.params;
   var id = params._id;
   Session.set("bookId", id)
+});
+
+Router.route('/b/:_id/delete', function () {
+  var params = this.params;
+  var id = params._id;
+  deleteBook(id);
+  Router.go("/");
+  var n = {
+      "title": "Book deleted!",
+      "message": "Sucessfully deleted book: " + bookId,
+      "type": "success",
+    };  
+  Session.set("bert-next-notification", n);
 });
 
 Router.route('/b/:_id/editJSON', function () {
