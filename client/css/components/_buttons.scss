@@ -51,3 +51,32 @@ input[type=submit] {
     box-shadow: 0 0 0.5rem -0.15rem $primary-color inset;
   }
 }
+
+.toolbar {
+  width: 100%;
+  display: block;
+  background-color: $tertiary-color;
+  color: white;
+  padding: 0.25rem 0;
+}
+
+.toolbar * {
+  margin-top: 0;
+}
+
+.toolbar a {
+  border-bottom: 0;
+  padding: 0.25rem 0.8rem;
+  margin-left: 0;
+  border-right: 1px solid $butler-color;
+  height: 1rem;
+  &:first-of-type{
+    border-left: 1px solid $butler-color;  
+  }
+  &:hover {
+    background-color: $interactive-color;
+  }
+  &:hover i {
+    color: white!important;
+  }
+}
