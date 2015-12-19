@@ -9,7 +9,18 @@
   
   <hr>
   
-  <span class="meta">
+  <style>
+    .meta.toolbar {
+      padding: 0.5rem;
+      color: #5f1b00;
+    }
+    
+    .meta.toolbar .meta-spacer::after{
+      color: white;
+    }
+  </style>
+  
+  <span class="meta toolbar" >
     <i class="fa fa-star"></i> {{book.rating}} 
     <span class="meta-spacer"></span> 
     {{#if book.isbn}}

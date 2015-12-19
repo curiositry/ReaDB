@@ -64,7 +64,7 @@ input[type=submit] {
   margin-top: 0;
 }
 
-.toolbar a {
+.toolbar:not(.meta) a {
   border-bottom: 0;
   padding: 0.25rem 0.8rem;
   margin-left: 0;
