@@ -28,10 +28,24 @@
     <i class="fa fa-file-text"></i> {{book.publisherMetadata.pageCount}}
   </span>
   
-  <hr>
+  
+  <div class="toolbar">
+    <a href="/b/{{book._id}}/delete">
+      <i class="fa fa-trash-o" style="color:#990000;cursor:pointer;" ></i>
+    </a>
+    <a>
+      <i class="fa fa-arrow-down" style="color:grey;cursor:pointer;" id="decreaseMetadataIndex"></i>
+      <i class="fa fa-info-circle" style="color:grey;cursor:pointer;" id="updateBookMetadata"></i>
+      <i class="fa fa-arrow-up" style="color:grey;cursor:pointer;" id="increaseMetadataIndex"></i>
+    </a>
+    <a href="/b/{{book._id}}/edit">
+      <i class="fa fa-edit" style="color:#000033;"></i>
+    </a>
+  </div>  
+  <br>
   
   {{#if book.publisherMetadata.imgUrl}}
-    <img src="{{book.publisherMetadata.imgUrl}}" alt="{{book.title}} cover image" class="fl" style="padding-right:2rem;"/>
+    <img src="{{book.publisherMetadata.imgUrl}}" alt="{{book.title}} cover image" class="fl mt0" style="padding-right:2rem;"/>
   {{/if}}
   <span class="serif">{{book.publisherMetadata.publisherDescription}}</span>
   
@@ -55,14 +69,4 @@
   </tbody>
   </table>
   {{/if}}
-  <hr>
-  <span class="book-actions-toolbar">
-    <i class="fa fa-trash-o" style="color:#990000;cursor:pointer;" id="deleteBook"></i>
-    <span class="meta-spacer"></span>
-    <i class="fa fa-arrow-down" style="color:tan;cursor:pointer;" id="decreaseMetadataIndex"></i>
-    <i class="fa fa-info-circle" style="color:tan;cursor:pointer;" id="updateBookMetadata"></i>
-    <i class="fa fa-arrow-up" style="color:tan;cursor:pointer;" id="increaseMetadataIndex"></i>
-    <span class="meta-spacer"></span>
-    <a href="/b/{{book._id}}/edit"><i class="fa fa-edit" style="color:#000033;"></i></a>
-  </span>  
 </template>
