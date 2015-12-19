@@ -125,6 +125,16 @@ Template.layout.onRendered(function (){
   var mq = window.matchMedia("(min-width: 960px)");
   mq.addListener(WidthChange);
   WidthChange(mq);
+  
+  if(Session.get("bert-next-notification")){
+    var n = Session.get("bert-next-notification");
+    Bert.alert({
+      title: n.title,
+      message: n.message,
+      type: n.type
+    });
+    Session.get("bert-next-notification", null);
+  }
 })
 
 
@@ -382,16 +392,7 @@ Template.viewUserProfile.helpers({
 });
 
 Template.viewBook.events({
-  "click #deleteBook": function(){
-    var bookId = Session.get("bookId");
-    deleteBook(bookId);
-    Bert.alert({
-        title: 'Book deleted!',
-        message: 'Sucessfully deleted book: ' + bookId,
-        type: 'success',
-      });
-    Router.go("/");
-  },
+  
   "click #updateBookMetadata": function(){
     console.log("click!");
     var bookId = Session.get("bookId");
