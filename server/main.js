@@ -85,11 +85,13 @@ getUserStatistics = function(scope, userId, query) {
   console.log(query);
   pageCounts = [];
   var bookCount = 0;
+  var booksWithMetadataCount = 0;
   books.forEach(function (book) {
     bookCount = bookCount + 1;
     if(book.hasOwnProperty("publisherMetadata")){
       if(book.publisherMetadata.hasOwnProperty("pageCount")){
         pageCounts.push(book.publisherMetadata.pageCount);
+        booksWithMetadataCount = booksWithMetadataCount + 1;      
       }
     }
   });
@@ -98,8 +100,8 @@ getUserStatistics = function(scope, userId, query) {
     pagesRead = Number(pagesRead) + Number(pageCounts[i]);
   }
   var wordsRead = pagesRead * 250;
-  var avgWordCount = wordsRead / bookCount;
-  var avgPageCount = pagesRead / bookCount;
+  var avgWordCount = wordsRead / booksWithMetadataCount;
+  var avgPageCount = pagesRead / booksWithMetadataCount;
   var libraryEmpty = false;
   if (bookCount == 0) {
     var libraryEmpty = true;
@@ -108,6 +110,7 @@ getUserStatistics = function(scope, userId, query) {
    
   var stats = {
     "bookCount": bookCount,
+    "booksWithMetadataCount": booksWithMetadataCount,
     "pagesRead": numberWithCommas(pagesRead),
     "wordsRead": numberWithCommas(wordsRead),
     "avgPageCount": numberWithCommas(Math.round(avgPageCount)),

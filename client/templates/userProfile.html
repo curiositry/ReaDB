@@ -3,7 +3,7 @@
     <h1 style="font-weight:400;">Hello, <strong>{{displayName}}</strong>!</h1>
     {{#if stats.bookCount}}
     <p class="user-statistics">
-    You have <strong> {{stats.bookCount}} </strong> books in your library, with an average of <strong> {{stats.avgPageCount}} </strong> pages per book, or <strong>{{stats.avgWordCount}}</strong> words per book. You’ve read a total of <strong>{{stats.pagesRead}}</strong> pages, which is around <strong>{{stats.wordsRead}}</strong> words. Congratulations!
+    You have <strong> {{stats.bookCount}} </strong> books in your library. The <strong>{{stats.booksWithMetadataCount}}</strong> books that have metadata from the Google Books database are an average of <strong> {{stats.avgPageCount}} </strong> pages long. That’s about <strong>{{stats.avgWordCount}}</strong> words per book. You’ve read a total of <strong>{{stats.pagesRead}}</strong> pages, which is around <strong>{{stats.wordsRead}}</strong> words. Congratulations!
   </p>
   {{else}}
   <h1 class="butler-color">Hmm, looks like you haven’t filled your shelves yet. Would you like to <a href="/add">add a book</a> or <a href="/IO">import</a> a collection?</h1>
