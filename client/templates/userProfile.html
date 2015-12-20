@@ -2,9 +2,9 @@
   <div class="center-text">
     <h1 style="font-weight:400;">Hello, <strong>{{displayName}}</strong>!</h1>
     {{#if stats.bookCount}}
-    <span class="user-statistics">
+    <p class="user-statistics">
     You have <strong> {{stats.bookCount}} </strong> books in your library, with an average of <strong> {{stats.avgPageCount}} </strong> pages per book, or <strong>{{stats.avgWordCount}}</strong> words per book. You’ve read a total of <strong>{{stats.pagesRead}}</strong> pages, which is around <strong>{{stats.wordsRead}}</strong> words. Congratulations!
-  </span>
+  </p>
   {{else}}
   <h1 class="butler-color">Hmm, looks like you haven’t filled your shelves yet. Would you like to <a href="/add">add a book</a> or <a href="/IO">import</a> a collection?</h1>
   {{/if}}
