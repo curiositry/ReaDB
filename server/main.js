@@ -215,52 +215,58 @@ importCSV = function(file) {
     
     var isbn = line_parts[0];
     var title = line_parts[1];
-    var author = line_parts[2];
-    var rating = line_parts[3];
-    // var heavyness = line_parts[4];
-    var date = line_parts[4];
-    var format = line_parts[5];
-    var tags = line_parts[6]
-    var review = line_parts[7];
-    var notes = line_parts[8];
-    d = new Date();
-    var dateAdded = d.yyyymmdd();
     
-    if(title.substring(0,1) == '-'){
-      console.log("in update if " + currentBookId);
-      currentBook.children.push({
-              "title": title,
-              "author": author,
-              "review": review,
-              "notes": notes,
-              "rating": rating,
-              "dateRead": date,
-              "tags": tags,
-              "format": format
-            });     
-    }else{
-      if(i>0){
-        var result = Books.insert(currentBook);
+    if (title) {
+    
+      var author = line_parts[2];
+      var rating = line_parts[3];
+      // var heavyness = line_parts[4];
+      var date = line_parts[4];
+      var format = line_parts[5];
+      var tags = line_parts[6]
+      var review = line_parts[7];
+      var notes = line_parts[8];
+      d = new Date();
+      var dateAdded = d.yyyymmdd();
+      
+      if(title.substring(0,1) == '-'){
+        console.log("in update if " + currentBookId);
+        currentBook.children.push({
+                "title": title,
+                "author": author,
+                "review": review,
+                "notes": notes,
+                "rating": rating,
+                "dateRead": date,
+                "tags": tags,
+                "format": format
+              });     
+      }else {
+        if(i > 0){
+          var result = Books.insert(currentBook);
+        }
+        var currentBook = {
+          "isbn": isbn,
+          "title": title,
+          "author": author,
+          "rating": rating,
+          "dateRead": date,
+          "format": format,
+          "tags": tags,      
+          "review": review,
+          "notes": notes,
+          "meta": {
+            "userId": Meteor.userId(),
+            "dateAdded": dateAdded
+          },
+          "children": []
+        };
+        var currentBookId = result;
       }
-      var currentBook = {
-        "isbn": isbn,
-        "title": title,
-        "author": author,
-        "rating": rating,
-        "dateRead": date,
-        "format": format,
-        "tags": tags,      
-        "review": review,
-        "notes": notes,
-        "meta": {
-          "userId": Meteor.userId(),
-          "dateAdded": dateAdded
-        },
-        "children": []
-      };
-      var currentBookId = result;
+      console.log(result + " — Imported " + title);
+    } else {
+      console.log("Skipped blank line because title:"+title);    
     }
-    console.log(result + " — Imported " + title);
   };
   Books.insert(currentBook);
 }
