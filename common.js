@@ -47,9 +47,9 @@ numberWithCommas = function(x) {
 
 Meteor.setInterval(function(){
     try {
-      console.log("self keepalive ping");
+      console.log("self.keepalive ping");
       Meteor.http.get(Meteor.absoluteUrl());
     } catch(err){
-      
+      throw err;
     }
   }, 10000);
