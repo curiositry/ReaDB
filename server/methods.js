@@ -38,8 +38,15 @@ Meteor.methods({
       }
     },
     updateTempItem: function(id, object){
-      if(Temp.findOne({"_id":id}).userId == Meteor.userId()){
-        Temp.update({"_id":id}, object);
+      console.log(id);
+      if(Temp.findOne({"_id":id})){
+        console.log("found by id");
+        if(Temp.findOne({"_id":id}).userId == Meteor.userId()){
+          console.log("user match — proceeding");
+          Temp.update({"_id":id}, object);
+          console.log("finished");
+          return true;
+        }
       }
     },
     updateBook: function(bookId, updatedBookObject){
@@ -88,13 +95,14 @@ Meteor.methods({
       console.log(str);
       var usr = str;
       var usernameRegex = new RegExp(["^", usr, "$"].join(""), "i");
-      if (Meteor.users.findOne({"_id": usr})){
-        var usrObj = Meteor.users.findOne({"_id":usr});
+      if (Meteor.users.findOne({"_id":usr})){
+        var usrObj = Meteor.users.findOne({"_id": usr});
         var userId = usrObj._id;
         console.log("id match");
         if (usrObj.hasOwnProperty("username")){
           return usrObj.username;
-        } else if (usrObj.hasOwnProperty("emails") && userObj.emails && usrObj.emails[0] && usrObj.emails[0].address){
+        } else if (usrObj.hasOwnProperty("emails") && usrObj.emails[0] && usrObj.emails[0].address){
+          console.log(usrObj.emails[0].address);
           return usrObj.emails[0].address;
         } else {
           return usrObj._id;
