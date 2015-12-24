@@ -127,28 +127,59 @@ applyBookMetadata = function(){
 
 processBookMetadata = function(bookId) {
     var tempData = Temp.findOne({"bookId":bookId});
-    // console.log(tempData.metadataResponse);
     var metadataResponse = tempData.metadataResponse;
     var book = tempData.book;
+    
+    var isbn = book.isbn;   
+    console.log(book.title);
+    d = new Date();
+    var dateModified = d.yyyymmdd();
+    var dateReadSortable = new Date(book.dateRead).getTime() / 1000;     
+    
     if(Session.get("metadataResponseIndex")){
       var metadataIndex = Session.get("metadataResponseIndex");
     } else {
       var metadataIndex = 0;
     }
-    var metadata = JSON.parse(metadataResponse).items[metadataIndex];
-    console.log(metadata);  
-    var isbn = book.isbn;   
-    console.log(book.title);
-    d = new Date();
-    var dateModified = d.yyyymmdd();
-    var dateReadSortable = new Date(book.dateRead).getTime() / 1000;      
-    if(!book.isbn){
-      if (metadata.volumeInfo.industryIdentifiers[1]){
-        isbn = metadata.volumeInfo.industryIdentifiers[1].identifier;
-      }else {
-        isbn = metadata.volumeInfo.industryIdentifiers[0].identifier;
+  
+    console.log("entering for loop");
+    for (var n = metadataIndex; n < JSON.parse(metadataResponse).items.length; n++) {
+      console.log("in for loop: " + n);
+      
+      // console.log(metadataResponse);
+      var metadata = JSON.parse(metadataResponse).items[n];
+      console.log(metadata);
+  
+      if (metadata.hasOwnProperty("volumeInfo") && metadata.volumeInfo.hasOwnProperty("industryIdentifiers")){
+        if(!book.isbn) {
+          var pIdObj = metadata.volumeInfo.industryIdentifiers;
+          for (var i = 0; i < pIdObj.length; i++) {
+            if (pIdObj[i].type == "ISBN_13") {
+              isbn = pIdObj[i].identifier;
+              break;
+            }
+          } 
+          if (!isbn) {
+            for (var i = 0; i < pIdObj.length; i++) {
+              if (pIdObj[i].type == "ISBN_10") {
+                isbn = pIdObj[i].identifier;
+                break;
+              }
+            }
+          }        
+          if (!isbn) {
+            for (var i = 0; i < pIdObj.length; i++) {
+              isbn = pIdObj[0].identifier;  
+              break;
+            }
+          }
+        } else {
+          break;
+        }
       }
     }
+  
+    
     var updatedFields =  {             
       "isbn": isbn, 
       "title": book.title,
@@ -167,9 +198,11 @@ processBookMetadata = function(bookId) {
         "publisherAuthors": metadata.volumeInfo.author,
       }
     };
+    
     if (metadata.volumeInfo.hasOwnProperty("imageLinks")){
       updatedFields.publisherMetadata["imgUrl"] = metadata.volumeInfo.imageLinks.thumbnail;
     }
+    
     console.log(updatedFields);
     Meteor.call("deleteTempItem", tempData._id);
     Meteor.call("updateBookMetadata", bookId, updatedFields, function(err, res){
@@ -209,6 +242,7 @@ updateBookMetadata = function(bookId) {
             if (existingBookTempItem){
               Meteor.call("updateTempItem", existingBookTempItem._id, tempObject, function(err,res){
                 if(res) {
+                  console.log(bookId);
                   processBookMetadata(bookId);
                 } else {
                   throw(err);
