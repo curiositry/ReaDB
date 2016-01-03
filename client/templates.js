@@ -5,8 +5,8 @@ Template.importCSV.events({
   var f = document.getElementById('fileInput').files[0];
   console.log("read file");
   readFile(f, function(content) {
-    Meteor.call('uploadCSV',content);
-    Router.go("/")
+    Meteor.call('uploadCSV', content);
+    Router.go("/books");
     Bert.alert({
         title: 'Import successful!',
         message: 'Sucessfully imported '+f.name+' as CSV',
