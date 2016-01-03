@@ -72,7 +72,6 @@ Meteor.methods({
     uploadCSV : function(fileContent) {
       console.log("start CSV insert");
       importCSV(fileContent);
-      console.log("completed");
     },
     uploadJSON : function(fileContent) {
       console.log("start JSON insert");
