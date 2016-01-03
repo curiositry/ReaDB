@@ -208,14 +208,12 @@ importJSON = function(file) {
   return;
 }
 
-importCSV = function(file) {
-  console.log("enter function import_file_orders")
-  var lines = file.split(/\r\n|\n/);
-  var l = lines.length - 1;
-  for (var i=0; i < l; i++) {
-    var line = lines[i];
-    var line_parts = line.split(';');
-    
+insertBooksFromCSV = function(data){
+  console.log("insertFromCSV");
+  console.log(data);
+  for (var i=0; i < data.length; i++) {
+    console.log("in for");
+    var line_parts = data[i];
     var isbn = line_parts[0];
     var title = line_parts[1];
     
@@ -223,7 +221,6 @@ importCSV = function(file) {
     
       var author = line_parts[2];
       var rating = line_parts[3];
-      // var heavyness = line_parts[4];
       var date = line_parts[4];
       var format = line_parts[5];
       var tags = line_parts[6]
@@ -272,4 +269,17 @@ importCSV = function(file) {
     }
   };
   Books.insert(currentBook);
+}  
+
+importCSV = function(file) {  
+  Papa.parse(file, {
+    skipEmptyLines: true,
+    complete: function(results) {
+      if (!global.csvAlreadyImported){
+        console.log("PAPA PARSE COMPLETE");
+        insertBooksFromCSV(results.data);
+      }
+      global.csvAlreadyImported = true;
+    }
+  });
 }
