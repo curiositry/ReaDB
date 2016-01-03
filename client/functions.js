@@ -83,10 +83,6 @@ PMR = function(err, res){
   return processMethodResponse(err, res);
 }
 
-importCSV = function(file){
-  var lines = file.split(/\r\n|\n/);
-}
-
 toJSONString = function(data){
   var str = JSON.stringify(data);
   return str.substring(0, str.length - 0);
@@ -106,7 +102,7 @@ convertToCSV = function(objArray) {
     return str;
 }
 
-readFile = function(f,onLoadCallback) {
+readFile = function(f, onLoadCallback) {
   //When the file is loaded the callback is called with the contents as a string
   var reader = new FileReader();
   reader.onload = function (e){
@@ -116,10 +112,6 @@ readFile = function(f,onLoadCallback) {
   reader.readAsText(f);
 };
 
-// function downloadFile(data, format, charset){
-//   if (typeof(charset)==='undefined') charset = "utf-8";
-//   window.open("data:text/"+format+";charset="+charset+"," + escape(data));
-// }
 
 applyBookMetadata = function(){
   
