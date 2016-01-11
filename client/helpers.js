@@ -1,3 +1,7 @@
+Handlebars.registerHelper('appUrl', function() {
+   return new Handlebars.SafeString(Meteor.absoluteUrl()));
+});
+
 Handlebars.registerHelper('truncate', function(str, end, char) {
    return new Handlebars.SafeString(truncate(str, end, char));
 });
