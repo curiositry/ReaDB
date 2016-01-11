@@ -7,10 +7,41 @@
 * Find it here: http://github.com/typeplate/starter-kit
 */
 
+/// Solid little media query mixin with four options
+@mixin respond-to($point) {
+  @if $point == lg {
+    @media all and (min-width: 960px) { // Desktop+
+      @content;
+    }
+  } @else if $point == md {
+    @media all and (min-width: 800px) { // Tablet+
+      @content;     
+    }
+  } @else if $point == sm {
+    @media all and (min-width: 640px) { // Phone+
+      @content;             
+    }
+  } @else if $point == mbl {
+    @media all and (max-width: 640px) { // Phone-
+      @content;             
+    }
+  }
+}
+
 @mixin type-typescale($scale, $base, $value, $measure:"") {
   @if $value == rem {
+
     font-size: $scale * 1px;
-    font-size: ($scale/$base) + $value;
+    font-size: (($scale/$base) * 0.8) + $value;
+
+    @include respond-to(md) {
+      font-size: $scale * 1px;
+      font-size: (($scale/$base) * 0.8) + $value;
+    }
+    @include respond-to(lg) {
+      font-size: $scale * 1px;
+      font-size: (($scale/$base) * 1) + $value;
+    }
   } @else if $value == em {
     font-size: ($scale/$base) + $value;
   } @else {
@@ -90,28 +121,4 @@
  
   /* Opera 11.10+ */
   background-image: -o-linear-gradient($from, $to);
-}
-
-
-
-
-/// Solid little media query mixin with four options
-@mixin respond-to($point) {
-  @if $point == lg {
-    @media all and (min-width: 960px) { // Desktop+
-      @content;
-    }
-  } @else if $point == md {
-    @media all and (min-width: 800px) { // Tablet+
-      @content;     
-    }
-  } @else if $point == sm {
-    @media all and (min-width: 640px) { // Phone+
-      @content;             
-    }
-  } @else if $point == mbl {
-    @media all and (max-width: 640px) { // Phone-
-      @content;             
-    }
-  }
 }
