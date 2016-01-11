@@ -1,37 +1,35 @@
-header h1 {
-  margin-top: 0rem;
-  margin-bottom: 0.5rem;
-  @extend h2;
-  color: $primary-color;
+header a {
+  @extend .unstyled-anchor;
 }
 
-header img {
-  @include respond-to(lg){
-    position: relative;
-    top: 0.25rem;
-    margin-right: 1rem;
-    display: inline;
-    float: left;
-  }
-  height: 3rem;
+header h1 {
+  text-transform: uppercase;
+  display: inline;
+  @extend h3;
+  // color: $primary-color;
+  font-family:$interface-font-stack;
+}
+
+img.logo {
+  margin-top: 0;
+  margin-left: 2rem;
+  height: 6rem;
 }
 
 header h4 {
-  margin-bottom: 0;
-  font-weight: 400;
-  color: darken($primary-color, 20);
-  font-size:0.9rem;
-  margin-top:0.5rem;
+  text-transform: uppercase;
+  display: inline;
   font-family:$interface-font-stack;
-  // text-transform: uppercase;
+  color: $tertiary-color;
+  @extend h3;
 }
 
 
 #toggle-sidebar {
-  font-size:1rem;
+  font-size: 1rem;
   position: fixed;
   top: 0rem;
-  left:0rem;
+  left: 0rem;
   z-index: 100;
   border-bottom: none;
   background-color: $tertiary-color;
@@ -43,20 +41,21 @@ header h4 {
 .nav-open #toggle-sidebar {
   font-size: 1.25rem;
   border:none;
-  left:17.8rem;
-  top:0.5rem;
+  left: 17.8rem;
+  top: 0.5rem;
   background-color: inherit;
   padding: 0;
 }
 
 .main-header {
-  margin-left: 2rem;
-  margin-top: 2.5rem;
+  position: relative;
+  bottom: 2rem;
+  margin-top: 0;
 }
 
 .sidebar {
   background-color: $tertiary-color;
-  overflow:auto;
+  overflow: auto;
 }
 
 .sidebar li {
