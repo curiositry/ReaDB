@@ -25,11 +25,14 @@
     </strong>
   </a>
   <div class="sidebar">
-    {{> header}}
+    <a href="{{appUrl}}">
+      <img class="logo" src="/logo-small.png" alt="ReaDB Logo">
+    </a>
     {{> navigation}}
   </div>
-  <main class="main">
-    <div class="container">
+  <main class="main">  
+    <div class="container pt0">
+      {{> header}}
       {{#if isPublic}}
         {{> yield}}
         {{else}}
