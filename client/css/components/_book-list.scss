@@ -15,7 +15,8 @@ h4 {
   margin-bottom: 0.5rem;
   display: inline-block;
   @include respond-to(mbl) {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    
   }
   @include respond-to(sm) {
     font-size: 0.8rem;
@@ -32,4 +33,33 @@ h4 {
   margin-right: 1.5rem;
   padding-top: 0rem;
   margin-top: 0.5rem;
+}
+
+.tags {
+  margin-top: 0;
+}
+
+.meta.toolbar {
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+  @include respond-to(sm) {
+    font-size: 1rem;
+  }
+}
+
+select {
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+}
+
+select::after {
+  content: "^";
+}
+
+select option {
+  margin-top: 0;
+  padding: 0 0.5rem;
 }
