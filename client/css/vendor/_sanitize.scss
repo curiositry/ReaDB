@@ -242,8 +242,8 @@ nav ul {
 // specify the standard appearance of selects
 
 select {
-	-moz-appearance: none;    // Firefox 40+
-	-webkit-appearance: none; // Chrome 45+
+	// -moz-appearance: none;    // Firefox 40+
+	// -webkit-appearance: none; // Chrome 45+
 
 	&::-ms-expand {
 		display: none;        // Edge 12+, Internet Explorer 11-
