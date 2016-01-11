@@ -1,0 +1,58 @@
+<template name="navigation">
+  <nav role="navigation" >
+    
+    <ul>
+        {{#if user}}
+          <li class="sans-serif">
+            <a href="/user/{{user}}"><i class="fa fa-user"></i> Your Profile</a>
+          </li>
+          {{else}}
+        {{/if}}  
+        {{#if currentUser}}
+            {{#if loggingIn}}
+              {{#if dropdown}}
+              Logging in…
+              {{else}}
+              Logging in…
+              {{/if}}
+            {{else}}
+            {{#if displayName}}
+            <li class="sans-serif">
+              <a href="/user/{{displayName}}"><i class="fa fa-user"></i> {{displayName}}</a>
+            </li>
+            {{/if}}
+   
+            <li class="sans-serif">
+              <a href="#!" id="login-buttons-logout">
+                <i class="fa fa-sign-out"></i> Sign Out
+              </a>
+            </li>
+            
+                  
+            <li class="sans-serif">
+              <a href="/"><i class="fa fa-book"></i> Your Library</a>
+            </li>
+            
+            
+            {{/if}}
+          {{else}}
+            <li class="sans-serif">
+              <a href="/login"><i class="fa fa-sign-in"></i> Login</a>
+            </li>  
+          {{/if}}
+      
+      <li class="sans-serif">
+        <a href="/about"><i class="fa fa-question-circle"></i> About</a>
+      </li>
+      <li class="sans-serif">
+        <a href="/search"><i class="fa fa-search"> </i> Search</a>
+      </li>
+      <li class="sans-serif">
+        <a href="/add"><i class="fa fa-plus"></i> Add Book</a>
+      </li>
+      <li class="sans-serif">
+        <a href="/IO"><i class="fa fa-download"></i> Import / Export books</a> 
+      </li> 
+    </ul>
+  </nav>
+</template>
