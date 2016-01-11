@@ -26,12 +26,17 @@
   left:0
 }
 
+body:not(.nav-open) {
+  padding-top: 2rem !important;
+}
+
 body:not(.nav-open) .toggle-sidebar {
-  position:absolute;
-  top:0;
-  width:100%;
-  text-align:center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  text-align: left;
   border-right: 0;
+  background-color: rgba(253, 224, 168, 0.25) !important;
 }
 
 .main {
