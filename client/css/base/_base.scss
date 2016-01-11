@@ -17,8 +17,15 @@ body {
 // Basic container for good aesthetics and optimal line-length
 .container {
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0.8rem;
   max-width: $container-width;
+  @include respond-to(sm) {
+    padding: 1rem;
+  }
+  @include respond-to(md) {
+    padding: 2rem;
+    
+  }
 }
 
 a {
