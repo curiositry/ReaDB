@@ -19,7 +19,8 @@ You add your books, and ReaDB automatically gets more data about your books than
 That’s it. ReaDB is open source. You can use the hosted version if you want, or you can host your own instance. It’s built with Meteor and bunch of other stuff:
 
 - Install meteor and login
-- Clone the repo
+- Clone the repo: `git clone https://github.com/Curiositry/ReaDB`
 - Enter directory with `cd readb`
+- Rename `settings.exmaple.json` to `settings.json` and enter your Mandrill API credentials to allow it to send email verifications.
 - Start meteor: `meteor --settings settings.json`. You should have a fully functional ReaDB instance at [http://localhost:3000](http://localhost:3000)
 - (Optional) deploy with `meteor deploy your-readb-instance.meteor.com`
