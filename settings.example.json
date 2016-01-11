@@ -1,0 +1,10 @@
+{
+  "private": {
+    "MANDRILL_API_USER": "",
+    "MANDRILL_API_KEY": ""
+  },
+  "public": {
+    "appName": "ReaDB",
+    "appUrl": "http://my-readb-instance.meteor.com"
+  }
+}
