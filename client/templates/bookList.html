@@ -31,6 +31,7 @@
   <li>
     {{#if publisherMetadata.imgUrl}}
       <img src="{{publisherMetadata.imgUrl}}" alt="" >
+      <br class="hidden-md-plus">
       {{else}}
       <img src="/apple-touch-icon.png" alt="" style="width:3rem;" >
     {{/if}}
@@ -47,16 +48,18 @@
     {{/if}}
     <i class="fa fa-calendar"></i> {{dateRead}}
     
-    <span class="meta-spacer"></span> 
     
     {{#if publisherMetadata.pageCount}}
-      <i class="fa fa-file-text"></i> {{publisherMetadata.pageCount}} 
+      <span class="hidden-mbl">
+        <span class="meta-spacer"></span> 
+        <i class="fa fa-file-text"></i> {{publisherMetadata.pageCount}} 
+      </span>
     {{/if}}
     
     {{#if tags}}
       <br class="hidden-md-plus">
-      <span class="meta-spacer visible-md-plus"></span>
       <span class="tags" style="display:inline-block;">
+        <span class="meta-spacer visible-md-plus"></span>
         <i class="fa fa-tags butler-color"></i>
         {{#each tags}}
          <strong><a href="/tags/{{this}}">{{this}}</a></strong>, 

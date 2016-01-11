@@ -19,13 +19,13 @@
   </style>
   
   <span class="meta toolbar" >
-    <i class="fa fa-star"></i> {{book.rating}} 
+    <i class="fa fa-star"></i>&nbsp;{{book.rating}} 
     <span class="meta-spacer"></span> 
     {{#if book.isbn}}
-      <i class="fa fa-barcode"></i> {{book.isbn}} 
+      <i class="fa fa-barcode"></i>&nbsp;{{book.isbn}} 
       <span class="meta-spacer"></span> 
     {{/if}}
-    <i class="fa fa-calendar"></i> {{book.dateRead}}
+    <i class="fa fa-calendar"></i>&nbsp;{{book.dateRead}}
     {{#if book.tags}}
       <span class="meta-spacer"></span>
       <i class="fa fa-tags butler-color"></i>
@@ -34,7 +34,7 @@
       {{/each}}
     {{/if}}
     <span class="meta-spacer"></span> 
-    <i class="fa fa-file-text"></i> {{book.publisherMetadata.pageCount}}
+    <i class="fa fa-file-text"></i>&nbsp;{{book.publisherMetadata.pageCount}}
   </span>
   
   
