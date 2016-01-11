@@ -1,5 +1,5 @@
 Handlebars.registerHelper('appUrl', function() {
-   return new Handlebars.SafeString(Meteor.absoluteUrl()));
+   return new Handlebars.SafeString(Meteor.absoluteUrl());
 });
 
 Handlebars.registerHelper('truncate', function(str, end, char) {
