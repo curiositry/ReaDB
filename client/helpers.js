@@ -49,3 +49,9 @@ Handlebars.registerHelper('replaceLinebreaks', function(passedString, replacemen
   var theString = passedString.replace(/\n/g,"<br>");
    return new Handlebars.SafeString(theString)
 });
+
+Handlebars.registerHelper('currentYear', function() {
+  var currentYear = new Date().getFullYear();
+  return new Handlebars.SafeString(currentYear)
+});
+
