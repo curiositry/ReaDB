@@ -35,7 +35,7 @@
       {{else}}
       <img src="/apple-touch-icon.png" alt="" style="width:3rem;" >
     {{/if}}
-    <a class="mb0" href="{{appUrl}}/b/{{slugify author}}/{{slugify title}}/{{_id}}">
+    <a class="mb0" href="{{appUrl}}b/{{slugify author}}/{{slugify title}}/{{_id}}">
       <h4 class="mt0 mb0" style="font-weight:normal">
         <strong class="mt0">{{title}}</strong> <br class="hidden-md-plus"> by <em class="mt0">{{author}}</em></h4>
     </a>
@@ -62,7 +62,7 @@
         <span class="meta-spacer visible-md-plus"></span>
         <i class="fa fa-tags butler-color"></i>
         {{#each tags}}
-         <strong><a href="/tags/{{this}}">{{this}}</a></strong>, 
+         <a class="tag" href="/tags/{{this}}">{{this}}</a> 
         {{/each}}  
       </span>
     {{/if}}
