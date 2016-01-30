@@ -251,6 +251,8 @@ insertBooksFromCSV = function(data){
         if(i > 0){
           var result = Books.insert(currentBook);
         }
+        var dateReadSortable = new Date(date).getTime() / 1000;     
+        
         var currentBook = {
           "isbn": isbn,
           "title": title,
@@ -263,7 +265,8 @@ insertBooksFromCSV = function(data){
           "notes": notes,
           "meta": {
             "userId": Meteor.userId(),
-            "dateAdded": dateAdded
+            "dateAdded": dateAdded,
+            "dateReadSort": dateReadSortable            
           },
           "children": []
         };
@@ -278,6 +281,7 @@ insertBooksFromCSV = function(data){
 }  
 
 importCSV = function(file) {  
+  // console.log("importCSV()");
   Papa.parse(file, {
     skipEmptyLines: true,
     complete: function(results) {
