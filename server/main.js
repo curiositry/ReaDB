@@ -104,8 +104,13 @@ getUserStatistics = function(scope, userId, query) {
   var avgPageCount = pagesRead / booksWithMetadataCount;
   var libraryEmpty = false;
   if (bookCount == 0) {
-    var libraryEmpty = true;
-    
+    var libraryEmpty = true;  
+  }
+  
+  if (booksWithMetadataCount > 1){
+    var relevantMetadataAvailable = true;
+  } else {
+    var relevantMetadataAvailable = false;
   }
    
   var stats = {
@@ -115,7 +120,8 @@ getUserStatistics = function(scope, userId, query) {
     "wordsRead": numberWithCommas(wordsRead),
     "avgPageCount": numberWithCommas(Math.round(avgPageCount)),
     "avgWordCount": numberWithCommas(Math.round(avgWordCount)),
-    "libraryEmpty": libraryEmpty
+    "libraryEmpty": libraryEmpty,
+    "relevantMetadataAvailable": relevantMetadataAvailable
   };
   
   console.log(stats);
