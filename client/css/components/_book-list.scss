@@ -39,9 +39,22 @@ h4 {
   margin-top: 0;
 }
 
+.tag {
+  font-weight: bold;
+}
+
+.tags .tag:after {
+  content: ",";
+  color: $secondary-color;
+}
+
+.tags .tag:last-of-type::after{
+  content: "";
+}
+
 .meta.toolbar {
   font-size: 0.8rem;
-  line-height: 1.2rem;
+  line-height: 1.5rem;
   @include respond-to(sm) {
     font-size: 1rem;
   }
