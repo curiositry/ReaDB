@@ -353,11 +353,12 @@ Template.viewUserProfile.events({
         type: 'info',
       });
     Meteor.call("deleteCurrentUsersBooks");
+    window.location.reload();
   },
   "click #updateLibraryMetadata": function(){
     updateLibraryMetadata()
     var el = document.getElementById("updateLibraryMetadata");
-    Session.set("updateStatus","<i class='fa fa-spinner'></i> Working…");
+    Session.set("updateStatus","<i class='fa fa-spinner fa-spin'></i> Working…");
     el.innerHTML = Session.get("updateStatus");
   },
   "click #updateUsername": function(){
