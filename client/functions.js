@@ -112,11 +112,6 @@ readFile = function(f, onLoadCallback) {
   reader.readAsText(f);
 };
 
-
-applyBookMetadata = function(){
-  
-}
-
 processBookMetadata = function(bookId) {
     var tempData = Temp.findOne({"bookId":bookId});
     var metadataResponse = tempData.metadataResponse;
