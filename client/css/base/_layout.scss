@@ -35,8 +35,8 @@ body:not(.nav-open) .toggle-sidebar {
   top: 0;
   width: 100%;
   text-align: left;
-  border-right: 0;
-  background-color: rgba(253, 224, 168, 0.25) !important;
+  border-right: none;
+  background-color: rgba(253, 224, 168, 0.75) !important;
 }
 
 .main {
