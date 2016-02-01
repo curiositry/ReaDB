@@ -1,3 +1,12 @@
+Meteor.setInterval(function(){
+    try {
+      console.log("self.keepalive ping");
+      Meteor.http.get(Meteor.absoluteUrl());
+    } catch(err){
+      throw err;
+    }
+  }, 10000);
+
 Meteor.startup(function() {
     var loginAttemptVerifier = function(parameters) {
       if (parameters.user && parameters.user.emails && (parameters.user.emails.length > 0)) {
@@ -156,10 +165,13 @@ fetchBookMetadata = function(isbn, title, author){
   console.log("fetchBookMetadata function called");
   var url;
   if(isbn){
+    console.log("Found ISBN");
     url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn;
-  }if (title && author) {
+  } else if (title && author) {
+    console.log("Found title + auth");
     url = "https://www.googleapis.com/books/v1/volumes?q=title:"+title+"+inauthor:"+author;
-  }else {
+  } else {
+    console.log("Found title");  
     url = "https://www.googleapis.com/books/v1/volumes?q=title:"+title;
   }
   var result = fetchFromAPI(encodeURI(url));
