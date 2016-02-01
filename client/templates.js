@@ -459,29 +459,6 @@ Template.exportCSV.events({
   }
 });
 
-Template.addBook.onRendered(function () { 
-   appendScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.9.0/codemirror.js'); 
-     appendScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.9.0/mode/markdown/markdown.js');
-     
-  var cb = function() {
-   var l = document.createElement('link'); l.rel = 'stylesheet';
-   l.href = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.9.0/codemirror.css';
-   var h = document.getElementsByTagName('head')[0];
-   h.parentNode.insertBefore(l, h);
-  };
-  var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-     webkitRequestAnimationFrame || msRequestAnimationFrame;
-  if (raf) raf(cb);
-  else window.addEventListener('load', cb);
-  
-  Meteor.setTimeout(function(){
-    console.log("Tup");
-    var reviewInput = document.getElementById("reviewInput");
-    var reviewCodeMirror = CodeMirror(reviewInput);
-  },5000)
-     
-});
-
 
 Template.addBook.events({
   "click #fetchFromISBN": function(event, template){
