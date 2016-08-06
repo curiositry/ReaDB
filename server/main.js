@@ -8,11 +8,23 @@ Meteor.setInterval(function(){
   }, 10000);
 
 Meteor.startup(function() {
+    if(typeof Meteor.settings.private.MAIL_API_URL != "undefined") {
+      console.log("Setting mail_url from settings.json");
+      process.env.MAIL_URL = "smtp://"+Meteor.settings.private.MAIL_API_USER+":"+Meteor.settings.private.MAIL_API_KEY+"@"+Meteor.settings.private.MAIL_API_URL+":587";
+      console.log(process.env.MAIL_URL);
+    } else if (typeof process.env.MAIL_API_URL != "undefined") {
+      console.log("Setting mail_url from env vars");
+      process.env.MAIL_URL = "smtp://"+process.env.MAIL_API_USER+":"+process.env.MAIL_API_KEY+"@"+process.env.MAIL_API_URL+":587";
+      console.log(process.env.MAIL_URL);
+    } else {
+      console.log("Total fail.");
+    }
+
     var loginAttemptVerifier = function(parameters) {
       if (parameters.user && parameters.user.emails && (parameters.user.emails.length > 0)) {
         // return true if verified email, false otherwise.
         var found = _.find(
-                           parameters.user.emails, 
+                           parameters.user.emails,
                            function(thisEmail) { return thisEmail.verified }
                           );
 
@@ -27,31 +39,30 @@ Meteor.startup(function() {
       }
     }
     Accounts.validateLoginAttempt(loginAttemptVerifier);
-    
-    return Mandrill.config({
-        username: Meteor.settings.private.MANDRILL_API_USER,
-        key: Meteor.settings.private.MANDRILL_API_KEY
-    });
 });
 
 fetchBooks = function(search, sort, fields, user) {
   console.log("fetch books function called");
-  
+
   var query = {};
-  
+
   if(typeof search === undefined || search === null){
-    query[0] = {"meta.userId":user};   
+    query[0] = {"meta.userId":user};
   } else {
-    console.log("search found:"+search);
-    query[0] = search;  
+    console.log("search found:"+JSON.stringify(search));
+    var querySelector = search;
+    querySelector["meta.userId"] = user;
+    query[0] = querySelector
+    console.log("query[0] = " +  JSON.stringify(query[0]))
+
   }
 
   if (typeof sort === undefined || sort === null) {
     query[1] = {sort: { "meta.dateReadSort": -1} };
-  } else {  
+  } else {
     query[1] = sort;
   }
-  
+
   if (typeof(fields) === undefined || fields === null) {
     query[2] = {fields:{}};
   } else if (fields) {
@@ -59,9 +70,9 @@ fetchBooks = function(search, sort, fields, user) {
   } else {
     query[2] = {fields:{fields:0}};
   }
-  
+
   console.log("QUERY" + JSON.stringify(query[0]) + JSON.stringify(query[1]) + query[2]);
-  
+
   var books = Books.find(query[0] , query[1] , query[2]).fetch();
   if (books) {
     return books;
@@ -100,7 +111,7 @@ getUserStatistics = function(scope, userId, query) {
     if(book.hasOwnProperty("publisherMetadata")){
       if(book.publisherMetadata.hasOwnProperty("pageCount")){
         pageCounts.push(book.publisherMetadata.pageCount);
-        booksWithMetadataCount = booksWithMetadataCount + 1;      
+        booksWithMetadataCount = booksWithMetadataCount + 1;
       }
     }
   });
@@ -113,15 +124,15 @@ getUserStatistics = function(scope, userId, query) {
   var avgPageCount = pagesRead / booksWithMetadataCount;
   var libraryEmpty = false;
   if (bookCount == 0) {
-    var libraryEmpty = true;  
+    var libraryEmpty = true;
   }
-  
+
   if (booksWithMetadataCount > 1){
     var relevantMetadataAvailable = true;
   } else {
     var relevantMetadataAvailable = false;
   }
-   
+
   var stats = {
     "bookCount": bookCount,
     "booksWithMetadataCount": booksWithMetadataCount,
@@ -132,9 +143,9 @@ getUserStatistics = function(scope, userId, query) {
     "libraryEmpty": libraryEmpty,
     "relevantMetadataAvailable": relevantMetadataAvailable
   };
-  
+
   console.log(stats);
-  
+
   return stats;
 }
 
@@ -171,7 +182,7 @@ fetchBookMetadata = function(isbn, title, author){
     console.log("Found title + auth");
     url = "https://www.googleapis.com/books/v1/volumes?q=title:"+title+"+inauthor:"+author;
   } else {
-    console.log("Found title");  
+    console.log("Found title");
     url = "https://www.googleapis.com/books/v1/volumes?q=title:"+title;
   }
   var result = fetchFromAPI(encodeURI(url));
@@ -197,7 +208,7 @@ convertToCSV = function(objArray) {
     return str;
 }
 
- processCSV = function(){  
+ processCSV = function(){
   console.log("process function called");
   var data = Books.find(
       {"meta.userId": Meteor.userId()},
@@ -207,7 +218,7 @@ convertToCSV = function(objArray) {
   for (key in rawJSON){
     console.log(rawJSON[key]);
     if(rawJSON[key].hasOwnProperty("review") && rawJSON[key].review != null && rawJSON[key].review != ""){
-      rawJSON[key].review = rawJSON[key].review.replace(/\n/g,"");  
+      rawJSON[key].review = rawJSON[key].review.replace(/\n/g,"");
       console.log(rawJSON[key].review);
     }
   }
@@ -234,9 +245,9 @@ insertBooksFromCSV = function(data){
     var line_parts = data[i];
     var isbn = line_parts[0];
     var title = line_parts[1];
-    
+
     if (title) {
-    
+
       var author = line_parts[2];
       var rating = line_parts[3];
       var date = line_parts[4];
@@ -246,7 +257,7 @@ insertBooksFromCSV = function(data){
       var notes = line_parts[8];
       d = new Date();
       var dateAdded = d.yyyymmdd();
-      
+
       if(title.substring(0,1) == '-'){
         console.log("in update if " + currentBookId);
         currentBook.children.push({
@@ -258,13 +269,13 @@ insertBooksFromCSV = function(data){
                 "dateRead": date,
                 "tags": tags,
                 "format": format
-              });     
+              });
       }else {
         if(i > 0){
           var result = Books.insert(currentBook);
         }
-        var dateReadSortable = new Date(date).getTime() / 1000;     
-        
+        var dateReadSortable = new Date(date).getTime() / 1000;
+
         var currentBook = {
           "isbn": isbn,
           "title": title,
@@ -272,13 +283,13 @@ insertBooksFromCSV = function(data){
           "rating": rating,
           "dateRead": date,
           "format": format,
-          "tags": tags,      
+          "tags": tags,
           "review": review,
           "notes": notes,
           "meta": {
             "userId": Meteor.userId(),
             "dateAdded": dateAdded,
-            "dateReadSort": dateReadSortable            
+            "dateReadSort": dateReadSortable
           },
           "children": []
         };
@@ -286,13 +297,13 @@ insertBooksFromCSV = function(data){
       }
       console.log(result + " — Imported " + title);
     } else {
-      console.log("Skipped blank line because title:"+title);    
+      console.log("Skipped blank line because title:"+title);
     }
   };
   Books.insert(currentBook);
-}  
+}
 
-importCSV = function(file) {  
+importCSV = function(file) {
   // console.log("importCSV()");
   Papa.parse(file, {
     skipEmptyLines: true,
