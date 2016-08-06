@@ -2,7 +2,7 @@
 
 **ReaDB is a privacy-aware, self-hosted, open-source alternative to propriatary services like GoodReads and LibraryThing.**
 
-![ReaDB Demo Screenshot](https://s3.amazonaws.com/drp.io/files/w12/VJHSVoITg/Screenshot%20from%202016-01-30%2013:30:57.png)
+![ReaDB Demo Screenshot](http://cdn.autodidacts.io/img/dev-screenshots/readb.png)
 
 ## An FAQ of sorts
 
