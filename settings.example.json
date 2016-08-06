@@ -1,7 +1,8 @@
 {
   "private": {
-    "MANDRILL_API_USER": "",
-    "MANDRILL_API_KEY": ""
+    "MAIL_API_URL": "",
+    "MAIL_API_USER": "",
+    "MAIL_API_KEY": ""
   },
   "public": {
     "appName": "ReaDB",
