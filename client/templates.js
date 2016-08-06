@@ -19,7 +19,7 @@ Template.importCSV.events({
 Template.importJSON.events({
  "click #importJSON" : function(event, template) {
   event.stopPropagation();
-  event.preventDefault();;
+  event.preventDefault();
   var f = document.getElementById('fileInput').files[0];
   console.log("read file");
   readFile(f, function(content) {
@@ -37,7 +37,7 @@ Template.bookList.helpers({
     var tag = Session.get("findBy");
     var filters = Session.get("filters");
     var sortBy = Session.get("sortBy");
-    var sortOrder = Session.get("sortOrder");  
+    var sortOrder = Session.get("sortOrder");
 
     if (sortBy){
       if(sortOrder){
@@ -46,7 +46,7 @@ Template.bookList.helpers({
         var sortQuery = {};
         sortQuery["sort"] = sort;
       } else {
-        var sortQuery = "{sort: {"+sortBy+": -1}}";      
+        var sortQuery = "{sort: {"+sortBy+": -1}}";
       }
       Session.set("sortQuery", sortQuery);
     }
@@ -64,7 +64,7 @@ Template.bookList.helpers({
     }
     var books = Session.get("books");
     for (var book in books) {
-      // books[book].text = books[book].text.replace(/\n/g,"<br/>");  
+      // books[book].text = books[book].text.replace(/\n/g,"<br/>");
       books[book].tags = tagsToArray(books[book].tags);
       if (books[book].tags.length > 3) {
         var tags = books[book].tags;
@@ -96,11 +96,20 @@ Template.bookList.helpers({
   }
 });
 
+Template.bookList.events({
+  "click #clearTagFilter": function(event, template){
+    event.stopPropagation();
+    event.preventDefault();
+    Session.set("findBy", "");
+    Router.go("/books")
+  }
+})
+
 
 Template.search.helpers({
   booksIndex: () => BooksIndex,
   index: function () {
-    return BooksIndex;  
+    return BooksIndex;
   }
 });
 
@@ -117,7 +126,7 @@ Template.layout.onRendered(function (){
         text.classList.add("hidden");
       } else {
         icon.classList.remove("fa-times-circle");
-        icon.classList.add("fa-bars");    
+        icon.classList.add("fa-bars");
         text.classList.remove("hidden");
       }
     }
@@ -125,7 +134,7 @@ Template.layout.onRendered(function (){
   var mq = window.matchMedia("(min-width: 960px)");
   mq.addListener(WidthChange);
   WidthChange(mq);
-  
+
   if(Session.get("bert-next-notification")){
     var n = Session.get("bert-next-notification");
     Bert.alert({
@@ -150,7 +159,7 @@ Template.layout.events({
       text.classList.add("hidden");
     } else {
       icon.classList.remove("fa-times-circle");
-      icon.classList.add("fa-bars");    
+      icon.classList.add("fa-bars");
       text.classList.remove("hidden");
     }
   },
@@ -166,7 +175,7 @@ Template.login.rendered = function() {
   // Meteor.setTimeout(function(){
     // document.getElementById('login-sign-in-link').style.display = 'none';   document.getElementsByClassName('login-close-text')[0].style.display = 'none';
   // },5000)
-  
+
 };
 
 Template._loginButtonsLoggedOut.helpers({
@@ -240,7 +249,7 @@ Template.filterBar.events({
 
 
 Template.navigation.helpers({
-  displayName: function(){  
+  displayName: function(){
     fetchDisplayName(Meteor.userId())
     return Session.get("displayName");
   }
@@ -257,7 +266,7 @@ Template.viewBook.helpers({
         var book = res;
         var tagsArray = tagsToArray(book.tags);
         book.tags = tagsArray;
-        book.review = book.review.replace(/\n/g,"<br>"); 
+        book.review = book.review.replace(/\n/g,"<br>");
         Session.set("book",book);
         return book;
       }
@@ -297,9 +306,9 @@ Template.editBook.events({
     console.log(bookId);
     var book = Session.get("bookToEdit");
     console.log(book);
-    
+
     d = new Date();
-    var dateModified = d.yyyymmdd();    
+    var dateModified = d.yyyymmdd();
     book.isbn = event.target.isbn.value;
     book.title = event.target.title.value;
     console.log(book.title);
@@ -307,8 +316,8 @@ Template.editBook.events({
     book.rating = event.target.rating.value;
     book.dateRead = event.target.dateRead.value;
     book.tags = event.target.tags.value;
-    book.review = event.target.review.value; 
-    book.notes = event.target.notes.value; 
+    book.review = event.target.review.value;
+    book.notes = event.target.notes.value;
     book.meta.userId = Meteor.userId();
     book.meta.dateModified = dateModified;
     book.meta.dateModifiedSort = new Date(dateModified).getTime() / 1000;
@@ -372,7 +381,7 @@ Template.viewUserProfile.events({
         type: 'success',
       });
     Meteor.call("updateUsername", newUsername, function(err, res){
-      if(res){    
+      if(res){
         Router.go("/");
       } if (err) {
         throw err;
@@ -393,7 +402,7 @@ Template.viewUserProfile.helpers({
 });
 
 Template.viewBook.events({
-  
+
   "click #updateBookMetadata": function(){
     console.log("click!");
     var bookId = Session.get("bookId");
@@ -464,15 +473,15 @@ Template.addBook.events({
   "click #fetchFromISBN": function(event, template){
     event.preventDefault();
     event.stopPropagation();
-    
+
     var isbn = document.getElementById("isbnInput").value;
     var title = document.getElementById("titleInput").value;
     var author = document.getElementById("authorInput").value;
-    
+
     console.log(isbn);
     console.log(title);
     console.log(author);
-    
+
     Meteor.call("fetchBookMetadata", isbn, title, author, function(error, result){
       if(result){
         var metadata = JSON.parse(result.content).items[0];
@@ -485,23 +494,23 @@ Template.addBook.events({
         var ratingInput = document.getElementById('ratingInput');
         var imgUrlInput = document.getElementById('imgUrlInput');
         var pageCountInput = document.getElementById('pageCountInput')
-        
+
         if(!isbn){
           if (metadata.volumeInfo.industryIdentifiers[1]){
             isbnInput.value = metadata.volumeInfo.industryIdentifiers[1].identifier;
           }else {
             isbnInput.value = metadata.volumeInfo.industryIdentifiers[0].identifier;
           }
-        }      
+        }
         titleInput.value = metadata.volumeInfo.title;
         authorInput.value = metadata.volumeInfo.authors;
-        publicationDateInput.value = metadata.volumeInfo.publishedDate;      
+        publicationDateInput.value = metadata.volumeInfo.publishedDate;
         publisherDescriptionInput.value = metadata.volumeInfo.description;
         tagsInput.value = metadata.volumeInfo.categories;
         ratingInput.value =  metadata.volumeInfo.averageRating;
         imgUrlInput.value = metadata.volumeInfo.imageLinks.thumbnail;
         pageCountInput.value = metadata.volumeInfo.pageCount;
-        
+
       }
       if(error){
         Bert.alert({
@@ -511,7 +520,7 @@ Template.addBook.events({
           });
       }
     });
-    
+
   },
   "submit form": function(event, template){
     event.preventDefault();
@@ -519,15 +528,15 @@ Template.addBook.events({
     d = new Date();
     var dateAdded = d.yyyymmdd();
     var newBook = {
-      "isbn": event.target.isbn.value, 
+      "isbn": event.target.isbn.value,
       "title": event.target.title.value,
       "author": event.target.author.value,
       "rating": event.target.rating.value,
       "dateRead": event.target.dateRead.value,
       "format": event.target.format.value,
-      "tags": event.target.tags.value, 
-      "review": event.target.review.value, 
-      "notes": event.target.notes.value, 
+      "tags": event.target.tags.value,
+      "review": event.target.review.value,
+      "notes": event.target.notes.value,
       "meta": {
         "userId": Meteor.userId(),
         "dateAdded": dateAdded,
