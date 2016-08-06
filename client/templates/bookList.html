@@ -1,10 +1,10 @@
 <template name="bookList">
   {{#if stats.tagSearch}}
-  <h3 class="center-text mt0">{{stats.bookCount}} {{plural stats.bookCount "books" "book" "books" }} tagged <em>{{stats.tagSearch}}</em>:</h3>
+  <h3 class="center-text mt0">{{stats.bookCount}} {{plural stats.bookCount "books" "book" "books" }} tagged <em>{{stats.tagSearch}}</em><small style="font-weight:400;"><sup><a class="sans-serif unstyled-anchor butler-color" style="color:#ccc;cursor:pointer;" id="clearTagFilter">x</a></sup></small>:</h3>
   {{#if ifItemExists stats.bookCount}}
     {{> filterBar}}
   {{/if}}
-  
+
   {{else}}
     {{#if stats.bookCount}}
     <h3 class="">There are <strong>{{stats.bookCount}}</strong> books in your library:</h3>
@@ -12,13 +12,13 @@
     {{/if}}
     {{#if stats.libraryEmpty}}
       <h1 class="butler-color mt0" style="line-height:2;">
-        Your library is empty— 
+        Your library is empty—
         <br><a href="/add">Add</a> or <a href="/IO">import</a> books to get started!
       </h1>
     {{/if}}
   {{/if}}
-  
-  
+
+
   <br>
   <ol class="book-list" style="list-style-type:none;">
     {{#each books}}
@@ -41,34 +41,34 @@
     </a>
     <span class="meta">
     <span id="stars{{_id}}"><i class="fa fa-star"></i> {{rating}}</span>
-    <span class="meta-spacer"></span> 
+    <span class="meta-spacer"></span>
     {{#if isbn}}
-      <i class="fa fa-barcode"></i> {{isbn}} 
-      <span class="meta-spacer"></span> 
+      <i class="fa fa-barcode"></i> {{isbn}}
+      <span class="meta-spacer"></span>
     {{/if}}
     <i class="fa fa-calendar"></i> {{dateRead}}
-    
-    
+
+
     {{#if publisherMetadata.pageCount}}
       <span class="hidden-mbl">
-        <span class="meta-spacer"></span> 
-        <i class="fa fa-file-text"></i> {{publisherMetadata.pageCount}} 
+        <span class="meta-spacer"></span>
+        <i class="fa fa-file-text"></i> {{publisherMetadata.pageCount}}
       </span>
     {{/if}}
-    
+
     {{#if tags}}
       <br class="hidden-md-plus">
       <span class="tags" style="display:inline-block;">
         <span class="meta-spacer visible-md-plus"></span>
         <i class="fa fa-tags butler-color"></i>
         {{#each tags}}
-         <a class="tag" href="/tags/{{this}}">{{this}}</a> 
-        {{/each}}  
+         <a class="tag" href="/tags/{{this}}">{{this}}</a>
+        {{/each}}
       </span>
     {{/if}}
-    
+
   </span>
   <br clear="all">
-  
+
   </li>
 </template>
