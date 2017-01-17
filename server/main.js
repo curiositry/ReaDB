@@ -1,11 +1,11 @@
-Meteor.setInterval(function(){
-    try {
-      console.log("self.keepalive ping");
-      Meteor.http.get(Meteor.absoluteUrl());
-    } catch(err){
-      throw err;
-    }
-  }, 10000);
+// Meteor.setInterval(function(){
+//     try {
+//       console.log("self.keepalive ping");
+//       Meteor.http.get(Meteor.absoluteUrl());
+//     } catch(err){
+//       throw err;
+//     }
+//   }, 10000);
 
 Meteor.startup(function() {
     if(typeof Meteor.settings != "undefined") {
