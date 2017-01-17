@@ -8,10 +8,12 @@ Meteor.setInterval(function(){
   }, 10000);
 
 Meteor.startup(function() {
-    if(typeof Meteor.settings.private.MAIL_API_URL != "undefined") {
-      console.log("Setting mail_url from settings.json");
-      process.env.MAIL_URL = "smtp://"+Meteor.settings.private.MAIL_API_USER+":"+Meteor.settings.private.MAIL_API_KEY+"@"+Meteor.settings.private.MAIL_API_URL+":587";
-      console.log(process.env.MAIL_URL);
+    if(typeof Meteor.settings != "undefined") {
+      if(typeof Meteor.settings.private.MAIL_API_URL != "undefined") {
+        console.log("Setting mail_url from settings.json");
+        process.env.MAIL_URL = "smtp://"+Meteor.settings.private.MAIL_API_USER+":"+Meteor.settings.private.MAIL_API_KEY+"@"+Meteor.settings.private.MAIL_API_URL+":587";
+        console.log(process.env.MAIL_URL);
+      }
     } else if (typeof process.env.MAIL_API_URL != "undefined") {
       console.log("Setting mail_url from env vars");
       process.env.MAIL_URL = "smtp://"+process.env.MAIL_API_USER+":"+process.env.MAIL_API_KEY+"@"+process.env.MAIL_API_URL+":587";
