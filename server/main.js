@@ -177,9 +177,13 @@ fetchFromAPI = function(url) {
 fetchBookMetadata = function(isbn, title, author){
   console.log("fetchBookMetadata function called");
   var url;
+
+
   if(isbn){
-    console.log("Found ISBN");
-    url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn;
+    console.log("Found ISBN. Cleaning...");
+    var cleanerISBN = isbn.replace(/-/g, "");
+    var cleanISBN = cleanerISBN.replace(/\s+/g, '');
+    url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"+cleanISBN;
   } else if (title && author) {
     console.log("Found title + auth");
     url = "https://www.googleapis.com/books/v1/volumes?q=title:"+title+"+inauthor:"+author;
